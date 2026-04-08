@@ -55,10 +55,13 @@ button{
     justify-content: center;
     align-items: center;
     display: flex;
+    flex-direction: column;
 }
 
 
-.authentication{
+/*  Tela Authetincation -- LOGIN   */
+
+.TelaLogin{
     background-color: rgb(255, 255, 255,0);
     height: calc(20vw + 20vh);
     width: calc(30vw + 30vh);
@@ -66,8 +69,6 @@ button{
     border-radius: 20px;
     display: grid;
     box-shadow: 2px 2px 10px 0.1px;
-
-
     grid-template-columns: 4fr 5fr;
 
 }
@@ -89,7 +90,7 @@ button{
 }
 
 
-#cadastro{
+#fazerCadastro{
     background-color:  rgb(255, 255, 255);
     border-top-left-radius: 20px;
     border-end-start-radius: 20px;
@@ -100,7 +101,6 @@ button{
     padding: 30px;
     text-align: center;
     
-
 }
 
 .input{
@@ -117,6 +117,7 @@ button{
     height: calc(1.5vw + 1.5vh);
     border: 0px;
     border-radius: 5px;
+    padding: 2px;
     background-color: #76a072;
 }
 
@@ -132,14 +133,51 @@ button{
 }
 
 
+.oculto{
 
-
-
-
-
-
-.cadastroCard{
-
-
-    background-color: aliceblue;
+    display: none !important;
 }
+
+
+
+/*  Tela Authetincation -- CADASTRO   */
+
+.TelaCadastro{
+    background-color: rgb(255, 255, 255);
+    width: calc(30vw + 30vh);
+    margin-top: calc(5vw + 5vh);
+    border-radius: 20px;
+    display: grid;
+    box-shadow: 2px 2px 10px 0.1px;
+    grid-template-columns: 4fr 5fr;
+    box-shadow: 1px 1px 1px 1px bacl;
+}
+
+#fazerLogin{
+
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+    text-align: center;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+}
+
+#cadastro{
+
+    display: flex;
+    background-color: #d8d8d8;
+    justify-content: center;
+    align-items: center;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    flex-direction: column;
+    padding: 30px;
+    gap: 10px;
+}
+
+
+/*  Roda Pé   */

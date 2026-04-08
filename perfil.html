@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>pagamentos</title>
     <link rel="stylesheet" href="perfil.css">
-    <script src="perfil.js"></script>
+    
 </head>
 
 <body>
@@ -24,12 +24,12 @@
 
 
     <div class="container">
-        <div class="authentication" id="elementoAuthetication">
-            <div id="cadastro">
+        <div class="TelaLogin" id="idTelaLogin">
+            <div id="fazerCadastro">
                 <img src="img/logo.png" id="imgLogo2">
                 <p>AGREGA RURAL</p>
                 <p>realize seu cadastro e venha fazer parte</p>
-                <button class="btn" id="btnCadastro">Cadastre-se</button>
+                <button class="btn" id="btnToCadastro">Cadastre-se</button>
             </div>
 
             <div id="login">
@@ -37,18 +37,45 @@
                 <input type="email" class="input" placeholder="E-mail">
                 <input type="password" class="input" placeholder="Senha">
                 <input type="password" class="input" placeholder="Matricula">
-                <button class="btn">Fazer Login</button>
+                <button class="btn" ><a href="home.html">Fazer Login</a></button>
                 <p>Esqueceu a Senha?</p>
             </div>
         </div>
 
-    </div>
+
+        <div class="TelaCadastro" id="idTelaCadastro">
+            <div id="fazerLogin">
+                <img src="img/logo.png" id="imgLogo2">
+                <p>AGREGA RURAL</p>
+                <p>Já possui conta? Realize seu login!!</p>
+                <button class="btn" id="btnToLogin">Faça seu Login</button>
+            </div>
+            <div id="cadastro">
+                <p>Entrar com seu login</p>
+                <input type="name" class="input" placeholder="Nome Completo">
+                <input type="cpf" class="input" placeholder="CEP">
+                <input type="email" class="input" placeholder="Nome da cooperativa">
+                <input type="password" class="input" placeholder="Senha">
+                <input type="password" class="input" placeholder="Repita a senha">
+                <button class="btn"><a href="home.html">Cadastre-se</a></button>
+                <p>Esqueceu a Senha?</p>
+            </div>
+        </div>
+
+
     </div>
 
     <div class="rodape">
 
+        <p>RODAPE</p>
+
+        
+
     </div>
 
 </body>
+
+
+<script src="perfil.js"></script>
 
 </html>
