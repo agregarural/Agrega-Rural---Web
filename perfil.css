@@ -2,6 +2,9 @@ body{
     background-color: #659261;
     padding: 0;
     margin: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
 .header{
@@ -50,12 +53,11 @@ button{
 /*  Container   */
 
 .container{
-    width: 100%;
-    height: 100%;
     justify-content: center;
     align-items: center;
     display: flex;
     flex-direction: column;
+    flex: 1;
 }
 
 
@@ -68,6 +70,7 @@ button{
     margin-top: calc(5vw + 5vh);
     border-radius: 20px;
     display: grid;
+        margin: 10rem;
     box-shadow: 2px 2px 10px 0.1px;
     grid-template-columns: 4fr 5fr;
 
@@ -150,7 +153,7 @@ button{
     display: grid;
     box-shadow: 2px 2px 10px 0.1px;
     grid-template-columns: 4fr 5fr;
-    box-shadow: 1px 1px 1px 1px bacl;
+    box-shadow: 2px 2px 10px 0.1px;
 }
 
 #fazerLogin{
@@ -181,3 +184,10 @@ button{
 
 
 /*  Roda Pé   */
+
+
+
+.rodape{
+    background-color: black;
+
+}
