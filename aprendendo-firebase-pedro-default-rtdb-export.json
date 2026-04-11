@@ -1,0 +1,16 @@
+{
+  "Produto": {
+    "01": {
+      "categoria": "humanoide",
+      "estoque": 5,
+      "nome": "Lorran",
+      "preco": "R$1000,00"
+    },
+    "02": {
+      "categoria": "humano",
+      "estoque": 90,
+      "nome": "Eduardo",
+      "preco": "R$10,00"
+    }
+  }
+}
