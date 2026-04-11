@@ -15,12 +15,14 @@ const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
 
+//Importando Header
+
 fetch('../components/header.html')
 .then(res => res.text())
 .then(html => { document.getElementById('header-placeholder').innerHTML = html; });
 
 
-
+//Função adicionar Produto
 
 function addProduto(produto, categoria, preco, estoque) {
 
@@ -41,6 +43,7 @@ function addProduto(produto, categoria, preco, estoque) {
 }
 
 
+//Impridindo produtos database (READ)
 const produtoRef = ref(db, 'Produto')
 
 onValue(produtoRef, (snapshot) => {
