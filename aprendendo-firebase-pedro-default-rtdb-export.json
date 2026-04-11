@@ -1,16 +1,34 @@
 {
   "Produto": {
     "01": {
-      "categoria": "humanoide",
-      "estoque": 5,
-      "nome": "Lorran",
-      "preco": "R$1000,00"
+      "categoria": "ferramenta manual",
+      "estoque": 150,
+      "nome": "Podador Profissional Tramontina (Jardim)",
+      "preco": "R$49,90"
     },
     "02": {
-      "categoria": "humano",
-      "estoque": 90,
-      "nome": "Eduardo",
-      "preco": "R$10,00"
+      "categoria": "semente",
+      "estoque": 800,
+      "nome": "Semente de Alface Crespa (5g)",
+      "preco": "R$4,50"
+    },
+    "03": {
+      "categoria": "inseticida",
+      "estoque": 220,
+      "nome": "Óleo de Neem Puro (100ml)",
+      "preco": "R$18,90"
+    },
+    "04": {
+      "categoria": "irrigação",
+      "estoque": 95,
+      "nome": "Kit Gotejador Automático (10m + 10 bicos)",
+      "preco": "R$37,50"
+    },
+    "05": {
+      "categoria": "vestuário",
+      "estoque": 300,
+      "nome": "Luva de Borracha Antiderrapante (Par)",
+      "preco": "R$12,90"
     }
   }
 }

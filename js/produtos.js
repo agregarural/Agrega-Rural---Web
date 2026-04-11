@@ -21,6 +21,11 @@ fetch('../components/header.html')
 .then(res => res.text())
 .then(html => { document.getElementById('header-placeholder').innerHTML = html; });
 
+//Importando menuOptions
+fetch('../components/menuoptions.html')
+.then(res => res.text())
+.then(html => { document.getElementById("menu-options").innerHTML = html; });
+
 
 //Função adicionar Produto
 

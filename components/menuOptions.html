@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>menuOptions</title>
+</head>
+<body>
+    <style>
+
+    .menuOptions{
+
+    background-color: brown;
+    padding-top: clamp(1rem, 1rem + 3vw, 5rem);
+    padding-bottom: clamp(1rem, 1rem + 3vw, 5rem);
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+
+}
+
+.btnMenu{
+    padding: (2rem, 1rem + 2vw, 7rem);
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    height: 5rem;
+    gap: 1rem;
+    color: aliceblue;
+    padding: 10px;
+    font-size: 1rem;
+    transition: 0.1s;
+    background-color: transparent;
+    border: 0px;
+    border-radius: 20px;
+}
+
+.iconBtnMenu{
+    height: 2rem;
+    filter: brightness(0) invert(1);
+}
+
+
+    </style>
+
+    <div class="menuOptions">
+
+            <button class="btnMenu">
+                <img src="../assets/icons/painel.svg" class="iconBtnMenu">
+                <a href="../pages/home.html">Painel</a>
+            </button>
+
+            <button class="btnMenu">
+                <img src="../assets/icons/clipboard.svg" class="iconBtnMenu">
+                <a href="../pages/produtos.html">Meus Produtos</a>
+            </button>
+
+            <button class="btnMenu">
+                <img src="../assets/icons/minhaCoop.svg" class="iconBtnMenu">
+                <p>Minha Cooperativa</p>
+            </button>
+            <button class="btnMenu">
+                <img src="../assets/icons/config.svg" class="iconBtnMenu">
+                <p>Configurações</p>
+            </button>
+
+        
+        </div>
+    
+</body>
+</html>

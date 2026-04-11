@@ -1,14 +1,24 @@
 body{
     margin: 0px;
     padding: 0px;
-    background-color: brown;
+    background-color: rgb(255, 255, 255);
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 
     
 }
 
-table{
+.container{
 
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+table {
     text-align: center;
-    color: aliceblue;
+    color: rgb(0, 0, 0);
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 10px;
 }
