@@ -9,7 +9,6 @@
     <style>
 
     .menuOptions{
-
     background-color: brown;
     padding-top: clamp(1rem, 1rem + 3vw, 5rem);
     padding-bottom: clamp(1rem, 1rem + 3vw, 5rem);
@@ -22,7 +21,8 @@
 }
 
 .btnMenu{
-    padding: (2rem, 1rem + 2vw, 7rem);
+    width: clamp(12rem, 1rem + 2vw, 20rem);
+    padding: clamp(0.5rem, 0.3rem + 2vw, 1rem);
     display: flex;
     align-items: center;
     justify-content: space-around;
@@ -33,13 +33,19 @@
     font-size: 1rem;
     transition: 0.1s;
     background-color: transparent;
-    border: 0px;
+    border: 2px solid rgb(114, 16, 16);
     border-radius: 20px;
+    margin: 10px;
 }
 
 .iconBtnMenu{
     height: 2rem;
     filter: brightness(0) invert(1);
+}
+
+a{
+    color: aliceblue;
+    text-decoration: none;
 }
 
 

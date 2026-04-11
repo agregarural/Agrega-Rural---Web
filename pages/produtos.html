@@ -13,23 +13,46 @@
     <div id="header-placeholder"></div>
     <div id="menu-options"></div>
 
-    <h2>GESTÃO DE PRODUTOS</h2>
 
 
     <div class="container">
-        <table>
-            <thead>
-                <tr>
-                    <th>PRODUTO</th>
-                    <th>CATEGORIA</th>
-                    <th>PREÇO</th>
-                    <th>EM ESTOQUE</th>
-                </tr>
-            </thead>
-            <tbody id="corpo-tabela-produtos">
 
-            </tbody>
-        </table>
+        <h2>GESTÃO DE PRODUTOS</h2>
+        <h5>Painel de Controle para gerenciamento dos produtos Pedrocoop</h5>
+        <button id="btnNovoProduto">
+            <img src="../assets/icons/plus.svg" class="iconBtn">
+            <p>NOVO PRODUTO</p>
+        </button>
+
+        <div class="containerForm">
+            <form id="formulario">
+                <label>Nome</label>
+                <input type="text" class="inputProduto">
+                <label>Categoria</label>
+                <input type="text" class="inputProduto">
+                <label>Preço</label>
+                <input type="text" class="inputProduto">
+                <label>Quantidade em Estoque</label>
+                <input type="text" class="inputProduto">
+            </form>
+        </div>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>PRODUTO</th>
+                        <th>CATEGORIA</th>
+                        <th>PREÇO</th>
+                        <th>EM ESTOQUE</th>
+                    </tr>
+                </thead>
+                <tbody id="corpo-tabela-produtos">
+
+                </tbody>
+            </table>
+
+        </div>
         <div class="container"></div>
 
 </body>

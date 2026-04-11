@@ -1,86 +1,120 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
 
     <style>
+        .header {
+            
+            display: flex;
+            flex-direction: row;
+            align-self: center;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            padding: 1rem;
+            background-color: rgb(255, 255, 255);
+            padding-right: clamp(50px, 50px + 1vw, 2rem);
+            padding-left: clamp(50px, 50px + 1vw, 2rem);
+            margin-left: clamp(50px, 50px + 1vw, 10rem);
+            margin-right: clamp(50px, 50px + 1vw, 10rem);
 
-.header{
-    display: flex;
-    flex-direction: row;
-    align-self: center;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
-    flex-wrap: wrap;
-    padding: 1rem;
-    background-color: rgb(255, 255, 255);
-    padding-right: 2rem;
-    padding-left: 2rem;
+        }
 
-}
+        #logoHeader {
 
-#logoHeader{
+            width: clamp(2rem, 4rem + 1vw, 7rem);
+            height: auto;
+            order: 1;
 
-    width: clamp(3vw, 5rem + 4vw, 7.5vw);
-    height: auto;
-    
-    
-}
 
-.textHeader{
 
-    font-family: sans-serif;
-    font-size: clamp(0.3vw, 1rem + 1vw, 5vw);
-    flex-grow: 1;
-    flex-shrink: 0;
-    
-}
+        }
 
-.btnHeader{
-    width: clamp(1vw, 5rem + 4vw, 10vw);
-    height: auto;
-    font-size: clamp(0.2rem, 0.4rem + 0.5vw, 1.2rem);
-    border: 0px;
-    background-color: transparent;
-}
+        .textHeader {
 
-.btnProfile{
+            font-family: sans-serif;
+            font-size: clamp(1rem, 1rem + 1vw, 3rem);
+            flex-grow: 1;
+            flex-shrink: 0;
+            order: 1;
 
-    width: 3.5rem;
-    height: auto;
-    border: 0px;
-    border-radius: 5rem;
-    background-color: transparent;
+        }
 
-    flex-shrink: 0;
-    transition: 0.1s
+        .btnHeader {
+            width: clamp(5.6rem, 0.5rem + 2vw, 6rem);
+            margin-right: 10px;
+            height: auto;
+            font-size: clamp(1em, 3px + 0.2vw, 2rem );
+            border: 0px;
+            background-color: transparent;
+        }
 
-}
+        .divBtnHeader{
 
-.btnProfile:active{
+            display: flex;
+            order: 3;
+            flex-wrap: wrap;
 
-    transform: scale(0.9)
-}
+        }
 
-#profileImage{
-    width: clamp(1vw, 2rem + 1vw, 4vw);
-    height: auto;
-}
+        .btnProfile {
+            width: clamp(1rem, 0.5rem + 2vw, 5rem);
+            height: auto;
+            border: 0px;
+            border-radius: 5rem;
+            background-color: transparent;
+            flex-shrink: 0;
+            transition: 0.1s;
+            order: 4;
 
-</style>
+        }
+
+        .btnProfile:active {
+
+            transform: scale(0.9)
+        }
+
+        #profileImage {
+            width: clamp(1rem, 0.5rem + 4vw, 4rem);
+            height: auto;
+        }
+
+
+
+        @media (max-width: 901px) {
+
+            .divBtnHeader{
+
+                order: 4;
+            }
+            .btnProfile{
+
+                order: 3;
+            }
+
+       
+        }
+
+
+    </style>
 
     <header class="header">
         <img src="../assets/img/logoCenter.jpg" id="logoHeader">
         <h1 class="textHeader">Agrega Rural</h1>
-        <button class="btnHeader">HOME</button>
-        <button class="btnHeader">SOBRE NÓS</button>
-        <button class="btnHeader">PRODUTOS</button>
-        <button class="btnHeader">CONTATO</button>
+        <div class="divBtnHeader">
+            <button class="btnHeader">HOME</button>
+            <button class="btnHeader">SOBRE NÓS</button>
+            <button class="btnHeader">PRODUTOS</button>
+            <button class="btnHeader">CONTATO</button>
+            
+        </div>
         <button class="btnProfile"><img src="../assets/img/perfil.jpg" id="profileImage"></button>
     </header>
 </body>

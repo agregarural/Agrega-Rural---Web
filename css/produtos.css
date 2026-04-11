@@ -4,21 +4,122 @@ body{
     background-color: rgb(255, 255, 255);
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 
-    
 }
 
 .container{
 
-    margin-top: 20px;
+    margin-top: clamp(50px, 50px + 1vw, 4rem);
+    margin-left: clamp(50px, 50px + 3vw, 10rem);
+    margin-right: clamp(50px, 50px + 3vw, 10rem);
     display: flex;
     flex-direction: column;
-    align-items: center;
 }
+
+#btnNovoProduto{
+
+    width: 10rem;
+    height: 5rem;
+    background-color: brown;
+    border: 0;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: aliceblue;
+    gap: 10px;
+    margin-bottom: 10px;
+    padding: 1rem;
+    transition: 150ms;
+}
+
+#btnNovoProduto:active{
+
+    transform: scale(0.9);
+
+
+}
+
+
+.iconBtn{
+    width: auto;
+    height: 2rem;
+    filter: brightness(0) invert(1);
+}
+
+
+
+/* ESTILO DO FORM  */
+
+
+.containerForm{
+
+    background-color: rgb(226, 226, 226);
+    padding-right: clamp(20px, 20px + 0.5vw, 5rem);
+    padding-left: clamp(20px, 20px + 0.5vw, 5rem);
+    padding-top: clamp(20px, 20px + 0.5vw, 5rem);
+    padding-bottom: clamp(20px, 20px + 0.5vw, 5rem);
+    border-radius: 20px;
+    margin-bottom: 20px;
+
+}
+
+#formulario{
+    display: flex;
+    flex-direction: column;
+    color: rgb(0, 0, 0);
+}
+
+.inputProduto{
+    padding: 5px;
+    border-radius: 5px;
+    border: 0;
+    margin: 5px;
+}
+
+
+
+
+
+
+
+/* ESTILO DA TABELA  */
+
+
+
+
+.table-container{
+
+    display: flex;
+    padding-right: clamp(20px, 20px + 0.5vw, 5rem);
+    padding-left: clamp(20px, 20px + 0.5vw, 5rem);
+    padding-top: clamp(20px, 20px + 0.5vw, 5rem);
+    padding-bottom: clamp(20px, 20px + 0.5vw, 5rem);
+    background-color: rgb(226, 226, 226);
+    border-radius: 20px;
+    justify-content: center;
+}
+
 
 table {
     text-align: center;
     color: rgb(0, 0, 0);
-    padding: 10px;
-    border: 1px solid black;
+    background-color: rgb(187, 187, 187);
     border-radius: 10px;
+    font-size: clamp(10px, 10px + 0.5vw, 2rem);
+    overflow: hidden;
+    border-collapse: collapse;
+    border: 1px solid;
+    padding-left: 200px;
+    padding-right: 200px;
+
+}
+
+th {
+    background-color: brown;
+    padding: 0.5em;
+}
+
+td{
+    background-color: aliceblue;
+    padding: 0.5em;
 }
