@@ -1,4 +1,4 @@
-body{
+body {
     margin: 0px;
     padding: 0px;
     background-color: rgb(255, 255, 255);
@@ -6,16 +6,16 @@ body{
 
 }
 
-.container{
+.container {
 
     margin-top: clamp(50px, 50px + 1vw, 4rem);
-    margin-left: clamp(50px, 50px + 3vw, 10rem);
-    margin-right: clamp(50px, 50px + 3vw, 10rem);
+    margin-left: 10%;
+    margin-right: 10%;
     display: flex;
     flex-direction: column;
 }
 
-#btnNovoProduto{
+#btnNovoProduto {
 
     width: 10rem;
     height: 5rem;
@@ -32,7 +32,7 @@ body{
     transition: 150ms;
 }
 
-#btnNovoProduto:active{
+#btnNovoProduto:active {
 
     transform: scale(0.9);
 
@@ -40,7 +40,7 @@ body{
 }
 
 
-.iconBtn{
+.iconBtn {
     width: auto;
     height: 2rem;
     filter: brightness(0) invert(1);
@@ -51,7 +51,7 @@ body{
 /* ESTILO DO FORM  */
 
 
-.containerForm{
+.containerForm {
 
     background-color: rgb(226, 226, 226);
     padding-right: clamp(20px, 20px + 0.5vw, 5rem);
@@ -61,19 +61,49 @@ body{
     border-radius: 20px;
     margin-bottom: 20px;
 
+
 }
 
-#formulario{
+#formulario {
     display: flex;
     flex-direction: column;
     color: rgb(0, 0, 0);
+    gap: 0.5rem;
 }
 
-.inputProduto{
+.inputProduto {
+
     padding: 5px;
     border-radius: 5px;
     border: 0;
     margin: 5px;
+}
+
+#textAreaProduto {
+
+    height: 5rem;
+}
+
+.addProduto {
+
+    width: 10rem;
+    height: 3rem;
+    background-color: brown;
+    border: 0;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: aliceblue;
+    gap: 10px;
+    margin-bottom: 10px;
+    padding: 1rem;
+    transition: 150ms;
+}
+
+.addProduto:active{
+
+    transform: scale(0.9);
 }
 
 
@@ -87,7 +117,7 @@ body{
 
 
 
-.table-container{
+.table-container {
 
     display: flex;
     padding-right: clamp(20px, 20px + 0.5vw, 5rem);
@@ -119,7 +149,16 @@ th {
     padding: 0.5em;
 }
 
-td{
+td {
     background-color: aliceblue;
     padding: 0.5em;
+}
+
+
+
+/* js atividades */
+
+.oculto{
+
+    display: none !important;
 }

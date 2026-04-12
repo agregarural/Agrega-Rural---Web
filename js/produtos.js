@@ -47,6 +47,19 @@ function addProduto(produto, categoria, preco, estoque) {
     cell4.textContent = estoque
 }
 
+const btnNovoProduto = document.getElementById("btnNovoProduto")
+const formNovoProduto = document.getElementById("container-form")
+
+formNovoProduto.classList.add("oculto")
+
+btnNovoProduto.addEventListener("click", () => {
+
+    formNovoProduto.classList.remove("oculto")
+
+})
+
+
+
 
 //Impridindo produtos database (READ)
 const produtoRef = ref(db, 'Produto')

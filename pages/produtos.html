@@ -16,7 +16,6 @@
 
 
     <div class="container">
-
         <h2>GESTÃO DE PRODUTOS</h2>
         <h5>Painel de Controle para gerenciamento dos produtos Pedrocoop</h5>
         <button id="btnNovoProduto">
@@ -24,7 +23,7 @@
             <p>NOVO PRODUTO</p>
         </button>
 
-        <div class="containerForm">
+        <div class="containerForm" id="container-form">
             <form id="formulario">
                 <label>Nome</label>
                 <input type="text" class="inputProduto">
@@ -33,7 +32,10 @@
                 <label>Preço</label>
                 <input type="text" class="inputProduto">
                 <label>Quantidade em Estoque</label>
-                <input type="text" class="inputProduto">
+                <input type="number" class="inputProduto">
+                <label>Descrição</label>
+                <textarea class="inputProduto" id="textAreaProduto"></textarea>
+                <button class="addProduto">Adicionar produto</button>
             </form>
         </div>
 

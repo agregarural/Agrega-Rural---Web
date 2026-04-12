@@ -16,12 +16,11 @@
             flex-direction: row;
             align-self: center;
             align-items: center;
-            gap: 1rem;
             flex-wrap: wrap;
             padding: 1rem;
             background-color: rgb(255, 255, 255);
-            padding-right: clamp(50px, 50px + 1vw, 2rem);
-            padding-left: clamp(50px, 50px + 1vw, 2rem);
+            padding-right: clamp(1rem, 1rem + 1vw, 2rem);
+            padding-left: clamp(1rem, 1rem + 1vw, 2rem);
             margin-left: clamp(50px, 50px + 1vw, 10rem);
             margin-right: clamp(50px, 50px + 1vw, 10rem);
 
@@ -40,7 +39,7 @@
         .textHeader {
 
             font-family: sans-serif;
-            font-size: clamp(1rem, 1rem + 1vw, 3rem);
+            font-size: clamp(1rem, 5vw + 0.5rem, 2rem);
             flex-grow: 1;
             flex-shrink: 0;
             order: 1;
@@ -48,10 +47,11 @@
         }
 
         .btnHeader {
-            width: clamp(5.6rem, 0.5rem + 2vw, 6rem);
-            margin-right: 10px;
+            width: clamp(1.5rem, 10vw + 1.5rem, 7rem);
+            margin-right: clamp(1rem, 10vw + 1rem, 1.5rem);
             height: auto;
-            font-size: clamp(1em, 3px + 0.2vw, 2rem );
+            font-size: clamp(1rem, 0.4vw + 0.1rem, 2rem);
+            flex-shrink: 0;
             border: 0px;
             background-color: transparent;
         }
@@ -88,11 +88,17 @@
 
 
 
-        @media (max-width: 901px) {
+        @media (max-width: 1021px) {
+
+            .header{
+
+                justify-content: center;
+            }
 
             .divBtnHeader{
 
                 order: 4;
+                text-align: center;
             }
             .btnProfile{
 
@@ -110,7 +116,7 @@
         <h1 class="textHeader">Agrega Rural</h1>
         <div class="divBtnHeader">
             <button class="btnHeader">HOME</button>
-            <button class="btnHeader">SOBRE NÓS</button>
+            <button class="btnHeader"><p class="naoquebra">SOBRE NÓS</p></button>
             <button class="btnHeader">PRODUTOS</button>
             <button class="btnHeader">CONTATO</button>
             
