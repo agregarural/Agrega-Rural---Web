@@ -54,7 +54,15 @@ formNovoProduto.classList.add("oculto")
 
 btnNovoProduto.addEventListener("click", () => {
 
-    formNovoProduto.classList.remove("oculto")
+    if(formNovoProduto.classList.contains("oculto")){
+
+    formNovoProduto.classList.remove("oculto");
+
+    } else{
+
+        formNovoProduto.classList.add("oculto");
+
+    }
 
 })
 
