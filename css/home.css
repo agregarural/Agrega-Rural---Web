@@ -2,9 +2,13 @@ body{
     margin: 0px;
     padding: 0px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
 
+#container{
 
-    
+    margin-top: clamp(50px, 50px + 1vw, 4rem);
+    margin-left: 10%;
+    margin-right: 10%;
 }
 
 

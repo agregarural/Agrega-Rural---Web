@@ -26,16 +26,16 @@
         <div class="containerForm" id="container-form">
             <form id="formulario">
                 <label>Nome</label>
-                <input type="text" class="inputProduto">
+                <input id="nomeProduto" type="text" class="inputProduto">
                 <label>Categoria</label>
-                <input type="text" class="inputProduto">
+                <input id="categoriaProduto" type="text" class="inputProduto">
                 <label>Preço</label>
-                <input type="text" class="inputProduto">
+                <input id="precoProduto" type="text" class="inputProduto">
                 <label>Quantidade em Estoque</label>
-                <input type="number" class="inputProduto">
+                <input id="estoqueProduto" type="number" class="inputProduto">
                 <label>Descrição</label>
-                <textarea class="inputProduto" id="textAreaProduto"></textarea>
-                <button class="addProduto">Adicionar produto</button>
+                <textarea id="descricaoProduto" class="inputProduto" id="textAreaProduto"></textarea>
+                <button id="btnAddProduto" class="addProduto">Adicionar produto</button>
             </form>
         </div>
 
@@ -47,7 +47,7 @@
                         <th>CATEGORIA</th>
                         <th>PREÇO</th>
                         <th>EM ESTOQUE</th>
-                        <th>OPÇÔES</th>
+                        <th>OPÇÕES</th>
                     </tr>
                 </thead>
                 <tbody id="corpo-tabela-produtos">
@@ -56,7 +56,31 @@
             </table>
 
         </div>
-        <div class="container"></div>
+
+        <div id="conatiner-cardViewproduto">
+
+            <div id="cardViewProduto">
+
+                <div class="dataCardView">
+                    <img src="../assets/img/perfil.jpg" id="imgCardView">
+                    <div>
+                        <h4>Produto</h4>
+                        <p>categoria</p>
+                        <p>preco</p>
+                        <p>estoque</p>
+                    </div>
+                </div>
+                <div class="cardAcoes">
+                    <button class="btn-editar">editar</button>
+                    <button class="btn-editar">remover</button>
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
 
 </body>
 
