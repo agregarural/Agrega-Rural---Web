@@ -2,14 +2,15 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/12.12.0/fireba
 import { getDatabase, ref, onValue, push, remove } from "https://www.gstatic.com/firebasejs/12.12.0/firebase-database.js";
 
 const firebaseConfig = {
-    apiKey: "AIzaSyDgDXi-X6vk-ei_Sp_9PUlB745gHcapB4w",
-    authDomain: "aprendendo-firebase-pedro.firebaseapp.com",
-    databaseURL: "https://aprendendo-firebase-pedro-default-rtdb.firebaseio.com",
-    projectId: "aprendendo-firebase-pedro",
-    storageBucket: "aprendendo-firebase-pedro.firebasestorage.app",
-    messagingSenderId: "144229941890",
-    appId: "1:144229941890:web:37274dbafa54ecc1272a9b"
-};
+    apiKey: "AIzaSyDHtlAftkqyqfAEza_BELney4VdWrYmdhQ",
+    authDomain: "agrega-rural.firebaseapp.com",
+    databaseURL: "https://agrega-rural-default-rtdb.firebaseio.com",
+    projectId: "agrega-rural",
+    storageBucket: "agrega-rural.firebasestorage.app",
+    messagingSenderId: "990435539814",
+    appId: "1:990435539814:web:691caab2fccc6da7df66a7",
+    measurementId: "G-MD0SWV9SG5"
+  };
 
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
@@ -108,7 +109,7 @@ function criarCardProduto(idProdFirebase, produto, categoria, preco, estoque) {
     //configurando elemento de imagem do carview
 
     const img = document.createElement("img");
-    img.src = "../assets/img/logoCenter.jpg";
+    img.src = "../assets/img/perfil.jpg";
     img.alt = produto;
     img.className = "imgCardView"
 
