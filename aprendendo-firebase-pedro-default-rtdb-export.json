@@ -4,35 +4,35 @@
       "categoria": "ferramenta manual",
       "estoque": 150,
       "nome": "Podador Profissional Tramontina (Jardim)",
-      "preco": "R$49,90",
+      "preco": 49.90,
       "descricao": "Lâmina de aço carbono com corte preciso e cabo ergonômico revestido em PVC. Ideal para podas leves e médias em roseiras, arbustos e árvores frutíferas. Possui sistema de mola para reduzir a fadiga das mãos durante o uso prolongado."
     },
     "02": {
       "categoria": "semente",
       "estoque": 800,
       "nome": "Semente de Alface Crespa (5g)",
-      "preco": "R$4,50",
+      "preco": 4.50,
       "descricao": "Sementes selecionadas de alta germinação (variedade Grand Rapids). Proporciona folhas crocantes, soltas e de coloração verde-clara brilhante. Ciclo rápido de aproximadamente 65 dias. Ideal para plantio em canteiros, vasos ou sistemas hidropônicos durante o ano todo."
     },
     "03": {
       "categoria": "inseticida",
       "estoque": 220,
       "nome": "Óleo de Neem Puro (100ml)",
-      "preco": "R$18,90",
+      "preco": 18.90,
       "descricao": "Inseticida e fungicida natural prensado a frio, sem aditivos químicos. Eficaz no controle de pulgões, cochonilhas, ácaros e lagartas. Atua também como repelente e auxilia no tratamento de fungos como oídio e ferrugem. Modo de uso: Diluir 5ml em 1 litro de água com algumas gotas de detergente neutro para pulverização foliar."
     },
     "04": {
       "categoria": "irrigação",
       "estoque": 95,
       "nome": "Kit Gotejador Automático (10m + 10 bicos)",
-      "preco": "R$37,50",
+      "preco": 37.50,
       "descricao": "Sistema de irrigação por gotejamento econômico e fácil de instalar. Inclui 10 metros de mangueira de polietileno flexível e 10 gotejadores ajustáveis com vazão regulável. Ideal para vasos de flores, hortas verticais e pequenos canteiros. Conexão direta para torneira padrão 1/2 polegada."
     },
     "05": {
       "categoria": "vestuário",
       "estoque": 300,
       "nome": "Luva de Borracha Antiderrapante (Par)",
-      "preco": "R$12,90",
+      "preco": 12.90,
       "descricao": "Par de luvas confeccionadas em látex natural revestido internamente com pó de algodão para fácil calce. Possui palma com textura antiderrapante coralina para garantir firmeza no manuseio de ferramentas molhadas ou enlameadas. Proteção eficaz contra umidade, terra e produtos de limpeza leve."
     }
   }

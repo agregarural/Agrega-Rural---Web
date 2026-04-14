@@ -64,15 +64,15 @@ btnAddNovoProduto.addEventListener("click", () => {
     }
 
     push(produtoRef, novoProduto)
-    .then(() => {
-        alert("produto adicionado");
-        document.getElementById("formulario").reset();
-        document.getElementById("container-form").classList.add("oculto");
-    })
-    .catch((erro) => {
-        console.error("erro ao adicionar", erro);
-        
-    });
+        .then(() => {
+            alert("produto adicionado");
+            document.getElementById("formulario").reset();
+            document.getElementById("container-form").classList.add("oculto");
+        })
+        .catch((erro) => {
+            console.error("erro ao adicionar", erro);
+
+        });
 
 
 });
@@ -86,60 +86,118 @@ btnAddNovoProduto.addEventListener("click", () => {
 
 //Função Imprimir Produto do dtabase na tabela
 
-function addProdutoInTable(idProdFirebase, produto, categoria, preco, estoque) {
+
+//===================================
+//Função Criar cardview exibicional
+//===================================
 
 
-    const corpo = document.getElementById("corpo-tabela-produtos");
-    const linha = corpo.insertRow();
 
-    const cell1 = linha.insertCell(0)
-    cell1.textContent = produto
+function criarCardProduto(idProdFirebase, produto, categoria, preco, estoque) {
 
-    const cell2 = linha.insertCell(1)
-    cell2.textContent = categoria
+    const containerCards = document.getElementById("conatiner-cards-produto");
 
-    const cell3 = linha.insertCell(2)
-    cell3.textContent = preco
+    //configurando card
+    const card = document.createElement("div");
+    card.className = "card-produto";
+    card.dataset.id = idProdFirebase;
 
-    const cell4 = linha.insertCell(3)
-    cell4.textContent = estoque
+    const containerData = document.createElement("div")
+    containerData.className = "container-data";
 
-    const cell5 = linha.insertCell(4)
-    cell5.classList.add("acoes")
+    //configurando elemento de imagem do carview
+
+    const img = document.createElement("img");
+    img.src = "../assets/img/logoCenter.jpg";
+    img.alt = produto;
+    img.className = "imgCardView"
+
+    //configurando elementos de informação
+
+    const infoDiv = document.createElement("div");
+    infoDiv.className = "card-info";
+
+    const nomeP = document.createElement("h4");
+    nomeP.classList.add("nome-produto")
+    nomeP.textContent = produto;
+
+    const categoriaP = document.createElement("p");
+    categoriaP.classList.add("info-produto")
+    categoriaP.textContent = `Categoria: ${categoria}`;
+
+    const precoP = document.createElement("p");
+    precoP.classList.add("info-produto")
+    precoP.textContent = `Preço: R$ ${parseFloat(preco).toFixed(2)}`;
+
+    const estoqueP = document.createElement("p");
+    estoqueP.classList.add("info-produto")
+    estoqueP.textContent = `Estoque: ${estoque} unid.`;
+
+
+    infoDiv.append(nomeP);
+    infoDiv.append(categoriaP);
+    infoDiv.append(precoP);
+    infoDiv.append(estoqueP);
+
+    containerData.append(img, infoDiv);
+
+    //configurando elementos de interação
+
+    const actionDiv = document.createElement("div")
+    actionDiv.className = "card-action"
 
     const btnEditar = document.createElement("button")
     btnEditar.textContent = "Editar"
     btnEditar.classList.add("btn-editar")
     btnEditar.dataset.id = idProdFirebase
-    cell5.appendChild(btnEditar)
 
     const btnRemover = document.createElement("button")
     btnRemover.textContent = "Remover"
     btnRemover.dataset.id = idProdFirebase
     btnRemover.classList.add("btn-editar")
-    cell5.appendChild(btnRemover)
 
-    btnRemover.addEventListener( "click", () => {
+    btnRemover.addEventListener("click", () => {
 
-    const refRemoverProd = ref(db, `Produto/${idProdFirebase}`);
-    remove(refRemoverProd)
-    .then( () => {
-        alert("Produto removido com sucesso")
+        const refRemoverProd = ref(db, `Produto/${idProdFirebase}`);
+        remove(refRemoverProd)
+            .then(() => {
+                alert("Produto removido com sucesso")
+            })
+            .catch(() => {
+                alert("Erro")
+            })
+
     })
-    .catch(() =>{
-        alert("Erro")
+
+    btnEditar.addEventListener("click", () => {
+
+        alert("Botão editar em progresso");
+
     })
 
-})
+
+    actionDiv.append(btnEditar);
+    actionDiv.append(btnRemover);
+
+
+
+    card.append(containerData);
+    card.append(actionDiv);
+
+    containerCards.append(card);
+
 
 
 }
+
+
+// configurando btn Novo Produto
 
 const btnNovoProduto = document.getElementById("btnNovoProduto")
 const formNovoProduto = document.getElementById("container-form")
 
 
-// configurando btn Novo Produto
+
 
 formNovoProduto.classList.add("oculto")
 
@@ -162,21 +220,29 @@ btnNovoProduto.addEventListener("click", () => {
 
 
 onValue(produtoRef, (snapshot) => {
+
     const dados = snapshot.val();
 
-    const corpo = document.getElementById("corpo-tabela-produtos");
-    corpo.innerHTML = '';
 
-    for (let id in dados) {
-        const produto = dados[id];
+    const containerCards = document.getElementById("conatiner-cards-produto");
+    containerCards.innerHTML = "";
 
-        addProdutoInTable(
-            id,
-            produto.nome,
-            produto.categoria,
-            produto.preco,
-            produto.estoque
-        );
+    if (dados) {
+
+        for (let id in dados) {
+            const produto = dados[id];
+
+            criarCardProduto(
+                id,
+                produto.nome,
+                produto.categoria,
+                produto.preco,
+                produto.estoque
+            );
+        } 
+    } else {
+
+        containerCards.innerHTML = "SEM PRODUTOS"
     }
 
 
