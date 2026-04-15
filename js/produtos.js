@@ -1,5 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.12.0/firebase-app.js";
 import { getDatabase, ref, onValue, push, remove } from "https://www.gstatic.com/firebasejs/12.12.0/firebase-database.js";
+import { getStorage, ref as storageRef, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/12.12.0/firebase-storage.js";
 
 const firebaseConfig = {
     apiKey: "AIzaSyDHtlAftkqyqfAEza_BELney4VdWrYmdhQ",
@@ -15,6 +16,8 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 const produtoRef = ref(db, 'Produto')
+
+const storage = getStorage(app);
 
 
 //Importando Header
@@ -46,8 +49,9 @@ btnAddNovoProduto.addEventListener("click", () => {
     const precoProduto = document.getElementById("precoProduto").value;
     const estoqueProduto = document.getElementById("estoqueProduto").value;
     const descricaoProduto = document.getElementById("descricaoProduto").value.trim();
+    const imagemProduto = document.getElementById("imagemProduto")
 
-    if (!nomeProduto || !categoriaProduto || !precoProduto || !estoqueProduto || !descricaoProduto) {
+    if (!nomeProduto || !categoriaProduto || !precoProduto || !estoqueProduto || !descricaoProduto || !imagemProduto) {
 
         alert("Preencha os campos obrigatorios"); return;
     }
@@ -60,7 +64,8 @@ btnAddNovoProduto.addEventListener("click", () => {
         categoria: categoriaProduto,
         preco: parseFloat(precoProduto),
         estoque: parseInt(estoqueProduto),
-        descricao: descricaoProduto
+        descricao: descricaoProduto,
+        imagem: imagemProduto
 
     }
 
@@ -94,7 +99,7 @@ btnAddNovoProduto.addEventListener("click", () => {
 
 
 
-function criarCardProduto(idProdFirebase, produto, categoria, preco, estoque) {
+function criarCardProduto(idProdFirebase, produto, categoria, preco, estoque, imagem) {
 
     const containerCards = document.getElementById("conatiner-cards-produto");
 
@@ -109,7 +114,7 @@ function criarCardProduto(idProdFirebase, produto, categoria, preco, estoque) {
     //configurando elemento de imagem do carview
 
     const img = document.createElement("img");
-    img.src = "../assets/img/perfil.jpg";
+    img.src = imagem;
     img.alt = produto;
     img.className = "imgCardView"
 
@@ -238,7 +243,8 @@ onValue(produtoRef, (snapshot) => {
                 produto.nome,
                 produto.categoria,
                 produto.preco,
-                produto.estoque
+                produto.estoque,
+                produto.imagem
             );
         } 
     } else {

@@ -79,6 +79,14 @@ body {
     margin: 5px;
 }
 
+.inputImgProduto{
+
+    padding: 5px;
+    border-radius: 5px;
+    border: 0;
+    margin: 5px;
+}
+
 #textAreaProduto {
 
     height: 5rem;
