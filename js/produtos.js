@@ -49,7 +49,7 @@ btnAddNovoProduto.addEventListener("click", () => {
     const precoProduto = document.getElementById("precoProduto").value;
     const estoqueProduto = document.getElementById("estoqueProduto").value;
     const descricaoProduto = document.getElementById("descricaoProduto").value.trim();
-    const imagemProduto = document.getElementById("imagemProduto")
+    const imagemProduto = document.getElementById("imagemProduto").value;
 
     if (!nomeProduto || !categoriaProduto || !precoProduto || !estoqueProduto || !descricaoProduto || !imagemProduto) {
 
