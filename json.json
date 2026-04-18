@@ -1,0 +1,139 @@
+{
+  "Cooperativas": {
+    "01": {
+      "nome": "Cooperativa Agrícola Vale Verde",
+      "cnpj": "12.345.678/0001-99",
+      "fundacao": "2008-03-15",
+      "descricao": "Cooperativa especializada na produção e comercialização de hortifrutigranjeiros, com foco em agricultura familiar e sustentável.",
+      "contato": {
+        "email": "contato@valeverdecoop.org.br",
+        "telefone": "(34) 3821-5050"
+      },
+      "endereco": {
+        "logradouro": "Rodovia MG-230, Km 45",
+        "cidade": "Patos de Minas",
+        "estado": "MG",
+        "cep": "38700-000"
+      },
+      "Produtos": {
+        "p01": {
+          "nome": "Podador Profissional Tramontina (Jardim)",
+          "categoria": "ferramenta manual",
+          "preco": 49.9,
+          "estoque": 150,
+          "descricao": "Lâmina de aço carbono com corte preciso e cabo ergonômico."
+        },
+        "p02": {
+          "nome": "Semente de Alface Crespa (5g)",
+          "categoria": "semente",
+          "preco": 4.5,
+          "estoque": 800,
+          "descricao": "Variedade Grand Rapids, folhas crocantes e ciclo rápido."
+        },
+        "p03": {
+          "nome": "Óleo de Neem Puro (100ml)",
+          "categoria": "inseticida",
+          "preco": 18.9,
+          "estoque": 220,
+          "descricao": "Inseticida e fungicida natural eficaz contra pulgões e ácaros."
+        },
+        "p04": {
+          "nome": "Kit Gotejador Automático (10m)",
+          "categoria": "irrigação",
+          "preco": 37.5,
+          "estoque": 95,
+          "descricao": "Sistema econômico com 10 gotejadores ajustáveis."
+        },
+        "p05": {
+          "nome": "Luva de Borracha Antiderrapante",
+          "categoria": "vestuário",
+          "preco": 12.9,
+          "estoque": 300,
+          "descricao": "Látex natural com palma texturizada para manuseio seguro."
+        }
+      },
+      "Cooperados": {
+        "u02": {
+          "nome": "Fernanda Souza",
+          "email": "fernanda.souza@valeverdecoop.org.br",
+          "telefone": "(34) 99123-4567",
+          "tipo": "comum",
+          "dataCadastro": "2024-02-18"
+        },
+        "u05": {
+          "nome": "Antônio Carlos Ribeiro",
+          "email": "antonio.ribeiro@valeverdecoop.org.br",
+          "telefone": "(34) 99654-3210",
+          "tipo": "comum",
+          "dataCadastro": "2024-04-12"
+        }
+      }
+    },
+    "02": {
+      "nome": "Cooperativa Orgânica Raízes do Cerrado",
+      "cnpj": "98.765.432/0001-10",
+      "fundacao": "2015-07-22",
+      "descricao": "Rede de pequenos produtores orgânicos certificados que fornecem legumes, verduras e ervas.",
+      "contato": {
+        "email": "adm@raizesdocerrado.com.br",
+        "telefone": "(62) 3332-1212"
+      },
+      "endereco": {
+        "logradouro": "Estrada do Pomar, S/N, Zona Rural",
+        "cidade": "Pirenópolis",
+        "estado": "GO",
+        "cep": "72980-000"
+      },
+      "Produtos": {
+        "p06": {
+          "nome": "Enxada Forjada 1,5kg",
+          "categoria": "ferramenta manual",
+          "preco": 42.9,
+          "estoque": 80,
+          "descricao": "Aço carbono forjado com cabo de madeira envernizada."
+        },
+        "p07": {
+          "nome": "Semente de Tomate Cereja Orgânico",
+          "categoria": "semente",
+          "preco": 5.9,
+          "estoque": 1200,
+          "descricao": "Variedade Sweet Gold, frutos doces e sementes livres de agrotóxicos."
+        },
+        "p08": {
+          "nome": "Fertilizante Bokashi Orgânico 1kg",
+          "categoria": "fertilizante",
+          "preco": 16.5,
+          "estoque": 150,
+          "descricao": "Mix orgânico fermentado para enriquecimento do solo."
+        },
+        "p10": {
+          "nome": "Chapéu de Palha Proteção UV",
+          "categoria": "vestuário",
+          "preco": 34.9,
+          "estoque": 200,
+          "descricao": "Artesanal com aba larga e fator de proteção UV 50+."
+        },
+        "p11": {
+          "nome": "Tesoura para Colheita de Ervas",
+          "categoria": "ferramenta manual",
+          "preco": 22.9,
+          "estoque": 45,
+          "descricao": "Aço inoxidável com ponta fina para cortes precisos."
+        }
+      },
+      "Cooperados": {
+        "u03": {
+          "nome": "João Batista da Silva",
+          "email": "joao.silva@raizesdocerrado.com.br",
+          "telefone": "(62) 98877-6655",
+          "tipo": "comum",
+          "dataCadastro": "2024-03-05"
+        }
+      }
+    }
+  },
+  "Administradores_Sistema": {
+    "01": { "nome": "Marcos Almeida", "email": "marcos.admin@jardimtech.com" },
+    "04": { "nome": "Carla Mendes", "email": "carla.mendes@jardimtech.com" }
+  }
+}

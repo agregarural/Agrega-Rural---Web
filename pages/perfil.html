@@ -6,10 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>pagamentos</title>
     <link rel="stylesheet" href="../css/perfil.css">
-    
+
 </head>
 
 <body>
+
     <div class="header">
         <img src="../assets/img/logo.png" class="logo">
         <p class="title">AGREGA RURAL</p>
@@ -17,7 +18,6 @@
         <button class="btnHeader">SOBRE NÓS </button>
         <button class="btnHeader">PRODUTOS</button>
         <button class="btnHeader">CONTATOS</button>
-        <button class="btnPerfil"><img class="imgPerfil" src="../assets/img/perfil.jpg"></button>
     </div>
 
 
@@ -30,6 +30,7 @@
                 <p>AGREGA RURAL</p>
                 <p>realize seu cadastro e venha fazer parte</p>
                 <button class="btn" id="btnToCadastro">Cadastre-se</button>
+                <button class="btn" id="btnToCadastroCoop">Cadastre sua cooperativa</button>
             </div>
 
             <div id="login">
@@ -37,7 +38,7 @@
                 <input type="email" class="input" placeholder="E-mail">
                 <input type="password" class="input" placeholder="Senha">
                 <input type="password" class="input" placeholder="Matricula">
-                <button class="btn" ><a href="home.html">Fazer Login</a></button>
+                <button class="btn"><a href="home.html">Fazer Login</a></button>
                 <p>Esqueceu a Senha?</p>
             </div>
         </div>
@@ -62,6 +63,37 @@
             </div>
         </div>
 
+        <div class="TelaCadastroCoop" id="idTelaCadastroCoop">
+            <div id="fazerLogin">
+                <img src="../assets/img/logo.png" id="imgLogo2">
+                <p>AGREGA RURAL</p>
+                <p>Já possui conta? Realize seu login!!</p>
+                <button class="btn" id="btnToLogin2">Faça seu Login</button>
+            </div>
+
+            <div id="cadastroCoop">
+                <p>Faça seu cadastro (cooperativa)</p>
+
+                <div class="inputsCadastroCoop">
+
+                    <input type="text" class="input" placeholder="Nome da cooperativa" required>
+                    <input type="text" class="input" placeholder="CNPJ (apenas números)" required>
+
+                    <input type="email" class="input" placeholder="E-mail de contato" required>
+                    <input type="tel" class="input" placeholder="Telefone (com DDD)" required>
+
+                    <input type="text" class="input" placeholder="CEP (apenas números)" required>
+                    <input type="text" class="input" placeholder="Logradouro" required>
+                    <input type="text" class="input" placeholder="Cidade" required>
+                    <input type="text" class="input" placeholder="Estado (UF)" required>
+
+                    <input type="password" class="input" placeholder="Senha" required>
+                    <input type="password" class="input" placeholder="Repita a senha" required>
+
+                    <button class="btn"><a href="home.html">Cadastre-se</a></button>
+                </div>
+            </div>
+        </div>
 
     </div>
 

@@ -11,5 +11,73 @@ body{
     margin-right: 10%;
 }
 
+/*////////////////////////*/
+/* INFORMAÇÔES PRINCIPUIAS*/
+/*////////////////////////*/
+
+.card-info{
+
+    display: flex;
+    flex-wrap: wrap;
+    
+    flex-direction: row;
+    border-radius: 20px;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    justify-content: space-around;
+
+}
+
+.cardInfoGeral{
+
+    display: flex;
+    flex-direction: row;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin: 5px;
+    width: clamp(10rem, 10rem + 10vw, 40rem);
+    margin-top: 20px;
+    height: 100px;
+    box-shadow: 0px 2px 9px -4px black;
+    border-radius: 10px;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.numero-info{
+
+    font-size: 40px;
+}
+
+#iconDone{
+
+    filter: invert(0.5) sepia(1) saturate(50) hue-rotate(120deg);
+}
+#iconDone{
+
+    filter: invert(0.5) sepia(1) saturate(50) hue-rotate(120deg);
+}
+#iconDone{
+
+    filter: invert(0.5) sepia(1) saturate(50) hue-rotate(120deg);
+}
+
+
+/*////////////*/
+/* INFORMAÇÔES*/
+/*////////////*/
+
+
+.card{
+
+
+    height: 100px;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0px 3px 10px -4px black;
+    border-radius: 10px;
+    margin: 10px;
+}
+
 
 

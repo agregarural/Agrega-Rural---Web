@@ -20,8 +20,13 @@ body{
     gap: calc(0.5vw + 0.5vh);
 }
 
+
+
+
 .title{
     font-size: calc(1vw + 1vh);
+    flex-grow: 1;
+
 }
 
 .btnHeader{
@@ -62,7 +67,9 @@ button{
 }
 
 
+/*/////////////////////////////////*/
 /*  Tela Authetincation -- LOGIN   */
+/*/////////////////////////////////*/
 
 .TelaLogin{
     background-color: rgb(255, 255, 255,0);
@@ -114,6 +121,7 @@ button{
     border: 0px;
     border-radius: 5px;
     padding: 2px;
+    margin:2px;
 }
 .btn{
 
@@ -122,6 +130,7 @@ button{
     border: 0px;
     border-radius: 5px;
     padding: 2px;
+    margin: 5px;
     background-color: #76a072;
 }
 
@@ -129,6 +138,7 @@ button{
 
     transform: scale(0.95);
 }
+
 
 #imgLogo2{
 
@@ -144,12 +154,14 @@ button{
 
 
 
+/*////////////////////////////////////*/
 /*  Tela Authetincation -- CADASTRO   */
+/*////////////////////////////////////*/
 
 .TelaCadastro{
     background-color: rgb(255, 255, 255);
     width: calc(30vw + 30vh);
-    margin-top: calc(5vw + 5vh);
+    margin-top: calc(3vw + 3vh);
     border-radius: 20px;
     display: grid;
     box-shadow: 2px 2px 10px 0.1px;
@@ -184,7 +196,45 @@ button{
 }
 
 
-/*  Roda Pé   */
+/*////////////////////////////////////////////////*/
+/*  Tela Authetincation -- CADASTRO COOPERATIVA   */
+/*////////////////////////////////////////////////*/
+
+.TelaCadastroCoop{
+    align-items: center;
+    background-color: rgb(255, 255, 255);
+    margin-top: calc(3vw + 3vh);
+    border-radius: 20px;
+    display: flex;
+    flex-direction: row;
+    box-shadow: 2px 2px 10px 0.1px;
+    text-align: center;
+
+}
+
+#cadastroCoop{
+    width: calc(23vw + 23vh);
+    background-color: #d8d8d8;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    
+}
+
+.inputsCadastroCoop{
+
+    columns: 2;
+    align-items: center;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    padding: 30px;
+
+}
+
+
+
+/*///////////*/
+/*  RODAPE   */
+/*///////////*/
 
 
 

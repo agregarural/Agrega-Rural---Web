@@ -1,0 +1,182 @@
+{
+  "Cooperativa": {
+    "01": {
+      "cnpj": "12.345.678/0001-99",
+      "contato": {
+        "email": "contato@valeverdecoop.org.br",
+        "telefone": "(34) 3821-5050"
+      },
+      "descricao": "Cooperativa especializada na produção e comercialização de hortifrutigranjeiros, com foco em agricultura familiar e sustentável.",
+      "endereco": {
+        "cep": "38700-000",
+        "cidade": "Patos de Minas",
+        "estado": "MG",
+        "logradouro": "Rodovia MG-230, Km 45"
+      },
+      "fundacao": "2008-03-15",
+      "nome": "Cooperativa Agrícola Vale Verde"
+    },
+    "02": {
+      "cnpj": "98.765.432/0001-10",
+      "contato": {
+        "email": "adm@raizesdocerrado.com.br",
+        "telefone": "(62) 3332-1212"
+      },
+      "descricao": "Rede de pequenos produtores orgânicos certificados que fornecem legumes, verduras, ervas medicinais e produtos processados artesanalmente.",
+      "endereco": {
+        "cep": "72980-000",
+        "cidade": "Pirenópolis",
+        "estado": "GO",
+        "logradouro": "Estrada do Pomar, S/N, Zona Rural"
+      },
+      "fundacao": "2015-07-22",
+      "nome": "Cooperativa Orgânica Raízes do Cerrado"
+    }
+  },
+  "Produto": {
+    "10": {
+      "categoria": "vestuário",
+      "descricao": "Chapéu artesanal de palha natural com aba de 12 cm e fator de proteção UV 50+. Forro interno em algodão para absorção de suor. Ideal para longas jornadas sob o sol, garantindo conforto e proteção para rosto e pescoço.",
+      "estoque": 200,
+      "nome": "Chapéu de Palha Aba Larga Proteção UV",
+      "preco": 34.9
+    },
+    "11": {
+      "categoria": "ferramenta manual",
+      "descricao": "Tesoura em aço inoxidável com lâminas micro serrilhadas e ponta fina, específica para corte de ervas como manjericão, cebolinha e salsinha. Cabo com mola e trava de segurança. Design leve e preciso.",
+      "estoque": 45,
+      "nome": "Tesoura para Colheita de Ervas Finas",
+      "preco": 22.9
+    },
+    "12": {
+      "categoria": "semente",
+      "descricao": "Cultivar de verão tolerante ao calor e à queima das folhas. Raízes cilíndricas, lisas, com coloração alaranjada intensa e sabor adocicado. Germinação em 10-14 dias, colheita em 90-100 dias.",
+      "estoque": 950,
+      "nome": "Semente de Cenoura Brasília (3g)",
+      "preco": 3.99
+    },
+    "13": {
+      "categoria": "irrigação",
+      "descricao": "Programador de irrigação eletrônico com display LCD, funciona com 2 pilhas AA. Permite agendar até 16 regas diárias com duração de 1 minuto a 4 horas. Conexão universal para torneiras de 3/4''. Ideal para automatizar a rega em ausências prolongadas.",
+      "estoque": 30,
+      "nome": "Timer Digital para Torneira de Jardim",
+      "preco": 119.9
+    },
+    "01": {
+      "categoria": "ferramenta manual",
+      "descricao": "Lâmina de aço carbono com corte preciso e cabo ergonômico revestido em PVC. Ideal para podas leves e médias em roseiras, arbustos e árvores frutíferas. Possui sistema de mola para reduzir a fadiga das mãos durante o uso prolongado.",
+      "estoque": 150,
+      "nome": "Podador Profissional Tramontina (Jardim)",
+      "preco": 49.9
+    },
+    "02": {
+      "categoria": "semente",
+      "descricao": "Sementes selecionadas de alta germinação (variedade Grand Rapids). Proporciona folhas crocantes, soltas e de coloração verde-clara brilhante. Ciclo rápido de aproximadamente 65 dias. Ideal para plantio em canteiros, vasos ou sistemas hidropônicos durante o ano todo.",
+      "estoque": 800,
+      "nome": "Semente de Alface Crespa (5g)",
+      "preco": 4.5
+    },
+    "03": {
+      "categoria": "inseticida",
+      "descricao": "Inseticida e fungicida natural prensado a frio, sem aditivos químicos. Eficaz no controle de pulgões, cochonilhas, ácaros e lagartas. Atua também como repelente e auxilia no tratamento de fungos como oídio e ferrugem. Modo de uso: Diluir 5ml em 1 litro de água com algumas gotas de detergente neutro para pulverização foliar.",
+      "estoque": 220,
+      "nome": "Óleo de Neem Puro (100ml)",
+      "preco": 18.9
+    },
+    "04": {
+      "categoria": "irrigação",
+      "descricao": "Sistema de irrigação por gotejamento econômico e fácil de instalar. Inclui 10 metros de mangueira de polietileno flexível e 10 gotejadores ajustáveis com vazão regulável. Ideal para vasos de flores, hortas verticais e pequenos canteiros. Conexão direta para torneira padrão 1/2 polegada.",
+      "estoque": 95,
+      "nome": "Kit Gotejador Automático (10m + 10 bicos)",
+      "preco": 37.5
+    },
+    "05": {
+      "categoria": "vestuário",
+      "descricao": "Par de luvas confeccionadas em látex natural revestido internamente com pó de algodão para fácil calce. Possui palma com textura antiderrapante coralina para garantir firmeza no manuseio de ferramentas molhadas ou enlameadas. Proteção eficaz contra umidade, terra e produtos de limpeza leve.",
+      "estoque": 300,
+      "nome": "Luva de Borracha Antiderrapante (Par)",
+      "preco": 12.9
+    },
+    "06": {
+      "categoria": "ferramenta manual",
+      "descricao": "Enxada confeccionada em aço carbono forjado de alta durabilidade, com cabo de madeira envernizada de 150 cm. Ideal para capina, preparo de solo e abertura de sulcos. Lâmina afiada e resistente a impactos.",
+      "estoque": 80,
+      "nome": "Enxada Forjada com Cabo de Madeira 1,5kg",
+      "preco": 42.9
+    },
+    "07": {
+      "categoria": "semente",
+      "descricao": "Variedade Sweet Gold, não híbrida, com alto índice de germinação. Produz frutos doces e suculentos em pencas. Ciclo de 75 dias. Pode ser cultivado em vasos, jardineiras ou diretamente no solo. Sementes livres de agrotóxicos.",
+      "estoque": 1200,
+      "nome": "Semente de Tomate Cereja Orgânico (2g)",
+      "preco": 5.9
+    },
+    "08": {
+      "categoria": "inseticida",
+      "descricao": "Fertilizante orgânico fermentado à base de farelos de arroz, mamona, torta de algodão e micro-organismos benéficos. Enriquece a microbiota do solo, melhora a absorção de nutrientes e fortalece plantas contra pragas. Aplicação: 100g por metro quadrado a cada 40 dias.",
+      "estoque": 150,
+      "nome": "Fertilizante Bokashi Orgânico 1kg",
+      "preco": 16.5
+    },
+    "-OqH9P8D-F9Cr-_FwkcA": {
+      "categoria": "pedro",
+      "descricao": "pedro",
+      "estoque": 12,
+      "imagem": "C:\\fakepath\\logo.png",
+      "nome": "pedro",
+      "preco": 12
+    },
+    "-OqHDM5NAA51xWiLMyLI": {
+      "categoria": "pedro2",
+      "descricao": "qqjdnhkasbfd",
+      "estoque": 1,
+      "nome": "pedro",
+      "preco": 1
+    }
+  },
+  "Usuario": {
+    "01": {
+      "dataCadastro": "2024-01-10",
+      "email": "marcos.admin@jardimtech.com",
+      "nome": "Marcos Almeida",
+      "senha": "$2a$10$XkF8nQ9LpR3mU7yWzVx5OuJtBvCsDfG6Hk1lAeYz0IqNw8Xr",
+      "telefone": "(11) 99876-5432",
+      "tipo": "admin"
+    },
+    "02": {
+      "cooperativaId": "01",
+      "dataCadastro": "2024-02-18",
+      "email": "fernanda.souza@valeverdecoop.org.br",
+      "nome": "Fernanda Souza",
+      "senha": "$2a$10$PqL9WxR2TvY7uZ1aBcDeFgHiJkLmNoPqRsTuVwXyZ",
+      "telefone": "(34) 99123-4567",
+      "tipo": "comum"
+    },
+    "03": {
+      "cooperativaId": "02",
+      "dataCadastro": "2024-03-05",
+      "email": "joao.silva@raizesdocerrado.com.br",
+      "nome": "João Batista da Silva",
+      "senha": "$2a$10$JkLmNoPqRsTuVwXyZaBcDeFgHiJkLmNoPqRsTuVw",
+      "telefone": "(62) 98877-6655",
+      "tipo": "comum"
+    },
+    "04": {
+      "dataCadastro": "2023-11-22",
+      "email": "carla.mendes@jardimtech.com",
+      "nome": "Carla Mendes",
+      "senha": "$2a$10$VwXyZaBcDeFgHiJkLmNoPqRsTuVwXyZaBcDeFgHi",
+      "telefone": "(11) 97777-8888",
+      "tipo": "admin"
+    },
+    "05": {
+      "cooperativaId": "01",
+      "dataCadastro": "2024-04-12",
+      "email": "antonio.ribeiro@valeverdecoop.org.br",
+      "nome": "Antônio Carlos Ribeiro",
+      "senha": "$2a$10$DeFgHiJkLmNoPqRsTuVwXyZaBcDeFgHiJkLmNoPq",
+      "telefone": "(34) 99654-3210",
+      "tipo": "comum"
+    }
+  }
+}

@@ -15,7 +15,8 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
-const produtoRef = ref(db, 'Produto')
+var idCooperativa = '01';
+const produtoRef = ref(db, `Cooperativas/${idCooperativa}/Produtos`)
 
 const storage = getStorage(app);
 
@@ -164,7 +165,7 @@ function criarCardProduto(idProdFirebase, produto, categoria, preco, estoque, im
 
     btnRemover.addEventListener("click", () => {
 
-        const refRemoverProd = ref(db, `Produto/${idProdFirebase}`);
+        const refRemoverProd = ref(db, `Cooperativas/${idCooperativa}/Produtos/${idProdFirebase}`);
         remove(refRemoverProd)
             .then(() => {
                 alert("Produto removido com sucesso")
