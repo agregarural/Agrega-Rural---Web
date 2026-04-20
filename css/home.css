@@ -1,10 +1,29 @@
-body{
+body {
     margin: 0px;
     padding: 0px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
 }
 
-#container{
+body::-webkit-scrollbar {
+    display: none;
+}
+
+
+
+
+
+#header-placeholder {
+    position: sticky;
+    margin: 0px;
+    top: 0;
+    z-index: 10;
+    background-color: white;
+    box-shadow: 0px 5px 10px -4px;
+
+}
+
+#container {
 
     margin-top: clamp(50px, 50px + 1vw, 4rem);
     margin-left: 10%;
@@ -15,69 +34,69 @@ body{
 /* INFORMAÇÔES PRINCIPUIAS*/
 /*////////////////////////*/
 
-.card-info{
+.containerMainInfo {
 
     display: flex;
+    justify-content: space-between;
     flex-wrap: wrap;
-    
-    flex-direction: row;
-    border-radius: 20px;
-    margin-top: 40px;
-    margin-bottom: 40px;
-    justify-content: space-around;
+    gap: clamp(8px, 15px + 1vw, 18px);
 
 }
 
-.cardInfoGeral{
-
+.cardMainInfo {
     display: flex;
-    flex-direction: row;
-    padding-right: 15px;
-    padding-left: 15px;
-    margin: 5px;
-    width: clamp(10rem, 10rem + 10vw, 40rem);
-    margin-top: 20px;
-    height: 100px;
-    box-shadow: 0px 2px 9px -4px black;
-    border-radius: 10px;
+    flex-wrap: wrap;
+    flex-grow: 1;
+    padding: 1%;
+    flex-direction: column;
+    border-radius: 15px;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+
+}
+
+.info1 {
+    display: flex;
     justify-content: center;
-    align-items: center;
+    font-size: 1.2rem;
+    gap: 10px;
+
+}
+
+.iconMainInfo {}
+
+.info2 {
+    display: flex;
+    justify-content: center;
+    font-size: 0.9rem;
+}
+
+/*///////////////////*/
+/* INFORMAÇÔES GERAIS*/
+/*///////////////////*/
+
+
+.containerGeneralInfo {
+    display: flex;
+    flex-wrap: wrap;
+    height: clamp(1rem, 5rem + 10vw, 18rem);
+    margin-top: 3%;
     gap: 20px;
 }
 
-.numero-info{
+.containerGraphic {
 
-    font-size: 40px;
+
+    flex-grow: 1;
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+
 }
 
-#iconDone{
+.containerRecord {
 
-    filter: invert(0.5) sepia(1) saturate(50) hue-rotate(120deg);
+    background-color: white;
+    border-radius: 20px;
+    flex-grow: 1.2;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
 }
-#iconDone{
-
-    filter: invert(0.5) sepia(1) saturate(50) hue-rotate(120deg);
-}
-#iconDone{
-
-    filter: invert(0.5) sepia(1) saturate(50) hue-rotate(120deg);
-}
-
-
-/*////////////*/
-/* INFORMAÇÔES*/
-/*////////////*/
-
-
-.card{
-
-
-    height: 100px;
-    background-color: rgb(255, 255, 255);
-    box-shadow: 0px 3px 10px -4px black;
-    border-radius: 10px;
-    margin: 10px;
-}
-
-
-
