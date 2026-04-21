@@ -1,5 +1,8 @@
-body{
-    background-color: #659261;
+body {
+    background-image: url(../assets/img/background2.jpg);
+    background-repeat: no-repeat;
+    background-color: #ffffff;
+    background-size: cover;
     padding: 0;
     margin: 0;
     display: flex;
@@ -8,8 +11,8 @@ body{
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.header{
-    height: calc(3vw + 3vh);
+.header {
+
     background-color: rgb(255, 255, 255);
     display: grid;
     grid-template-columns: 1fr 4fr 1fr 1fr 1fr 1fr 1fr;
@@ -21,44 +24,42 @@ body{
 }
 
 
-
-
-.title{
+.title {
     font-size: calc(1vw + 1vh);
     flex-grow: 1;
 
 }
 
-.btnHeader{
+.btnHeader {
     border: 0;
     background-color: rgba(255, 255, 255, 0);
 }
 
-.btnPerfil{
+.btnPerfil {
     border: 0;
     background-color: rgba(255, 255, 255, 0);
 }
 
-button{
+button {
     height: calc(2vw + 2vh);
     text-align: center;
     font-size: calc(0.6vw + 0.6vh);
 }
 
-.logo{
+.logo {
     height: calc(2.5vw + 2.5vh);
     justify-content: center;
     align-items: center;
 }
 
-.imgPerfil{
+.imgPerfil {
     height: calc(2vw + 2vh);
     border-radius: 100px;
 }
 
 /*  Container   */
 
-.container{
+.container {
     justify-content: center;
     align-items: center;
     display: flex;
@@ -67,90 +68,77 @@ button{
 }
 
 
-/*/////////////////////////////////*/
-/*  Tela Authetincation -- LOGIN   */
-/*/////////////////////////////////*/
+/*///////////////////////////////*/
+/* Tela Authetincation -- LOGIN  */
+/*///////////////////////////////*/
 
-.TelaLogin{
-    background-color: rgb(255, 255, 255,0);
-    height: calc(20vw + 20vh);
-    width: calc(30vw + 30vh);
-    margin-top: calc(5vw + 5vh);
+.TelaLogin {
+    background-color: rgb(255, 255, 255);
     border-radius: 20px;
     display: grid;
-    margin: 10rem;
-    box-shadow: 2px 2px 10px 0.1px;
+    padding: 1.5%;
+    gap: 1%;
+    box-shadow: 2px 3px 15px -4px black;
     grid-template-columns: 4fr 5fr;
 
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.4s ease;
 }
 
-#login{
-
-    
+#login {
     background-color: rgb(224, 224, 224);
-    border-top-right-radius: 20px;
-    border-end-end-radius: 20px;
+    border-radius: 20px;
     display: flex;
     flex-direction: column;
-    padding: 15px;
-    gap: 10px;
-    justify-content: center;
     align-items: center;
-    text-align: center;
-    font-size: 16px;
+    font-size: 1rem;
+    gap: 5%;
+    box-shadow: 2px 4px 8px -4px black;
 }
 
 
-#fazerCadastro{
-    background-color:  rgb(255, 255, 255);
-    border-top-left-radius: 20px;
-    border-end-start-radius: 20px;
+#fazerCadastro {
+    background-color: rgb(255, 255, 255);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 30px;
     text-align: center;
-    
 }
 
-.input{
-
-    height: calc(1.5vw + 1.5vh);
-    width: calc(9.2vw + 9.2vh);
+.input {
+    width: 10rem;
+    height: 2rem;
     border: 0px;
+    margin: 0.5%;
+    flex-grow: 1;
+    height: 1rem;
     border-radius: 5px;
-    padding: 2px;
-    margin:2px;
+    padding: 5px;
 }
-.btn{
 
-    width: calc(9.5vw + 9.5vh);
-    height: calc(1.5vw + 1.5vh);
+.btn {
+    width: clamp(10rem, 12rem + 1vw, 20rem);
+    height: clamp(1.3rem, 1.5rem + 1vw, 3rem);
     border: 0px;
     border-radius: 5px;
+    font-size: 1rem;
     padding: 2px;
     margin: 5px;
     background-color: #76a072;
 }
 
-.btn:active{
-
+.btn:active {
     transform: scale(0.95);
 }
 
-
-#imgLogo2{
-
+#imgLogo2 {
     height: calc(5vw + 5vh);
     width: calc(5vw + 5vh);
 }
 
 
-.oculto{
-
-    display: none !important;
-}
 
 
 
@@ -158,41 +146,45 @@ button{
 /*  Tela Authetincation -- CADASTRO   */
 /*////////////////////////////////////*/
 
-.TelaCadastro{
+.TelaCadastro {
     background-color: rgb(255, 255, 255);
-    width: calc(30vw + 30vh);
-    margin-top: calc(3vw + 3vh);
+
     border-radius: 20px;
     display: grid;
-    box-shadow: 2px 2px 10px 0.1px;
+    padding: 1.5%;
+    gap: 1%;
+    box-shadow: 2px 3px 15px -4px black;
     grid-template-columns: 4fr 5fr;
-    box-shadow: 2px 2px 10px 0.1px;
+
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.4s ease;
+
 }
 
-#fazerLogin{
+#fazerLogin {
 
     background-color: #ffffff;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 30px;
+
     text-align: center;
-    border-top-left-radius: 20px;
-    border-bottom-left-radius: 20px;
+
 }
 
-#cadastro{
+#cadastro {
 
     display: flex;
     background-color: #d8d8d8;
     justify-content: center;
     align-items: center;
-    border-top-right-radius: 20px;
-    border-bottom-right-radius: 20px;
+    border-radius: 20px;
+    box-shadow: 2px 3px 7px -4px black;
     flex-direction: column;
-    padding: 30px;
-    gap: 10px;
+    padding: 1%;
+    gap: 5px;
 }
 
 
@@ -200,45 +192,60 @@ button{
 /*  Tela Authetincation -- CADASTRO COOPERATIVA   */
 /*////////////////////////////////////////////////*/
 
-.TelaCadastroCoop{
-    align-items: center;
-    background-color: rgb(255, 255, 255);
-    margin-top: calc(3vw + 3vh);
-    border-radius: 20px;
+
+.TelaCadastroCoop {
+    width: clamp(30rem, 30rem + 10vw, 90rem);
     display: flex;
-    flex-direction: row;
-    box-shadow: 2px 2px 10px 0.1px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 20px;
+    padding: 1.5%;
+    justify-content: center;
     text-align: center;
+    gap: 3%;
+    margin: 5%;
+    box-shadow: 2px 3px 15px -4px black;
+
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.4s ease;
 
 }
 
-#cadastroCoop{
-    width: calc(23vw + 23vh);
-    background-color: #d8d8d8;
-    border-top-right-radius: 20px;
-    border-bottom-right-radius: 20px;
-    
-}
-
-.inputsCadastroCoop{
-
-    columns: 2;
+#cadastroCoop {
+    display: flex;
+    flex-direction: column;
     align-items: center;
-    border-top-right-radius: 20px;
-    border-bottom-right-radius: 20px;
-    padding: 30px;
+    background-color: #d8d8d8;
+    padding: 1%;
+    border-radius: 20px;
+    box-shadow: 2px 3px 8px -4px black;
+    gap: 1%;
 
 }
 
-
+.contentInputCadastroCoop {
+    display: flex;
+    flex-wrap: wrap;
+}
 
 /*///////////*/
 /*  RODAPE   */
 /*///////////*/
 
 
-
-.rodape{
+.rodape {
     background-color: black;
+
+}
+
+/*///////////////*/
+/*  UTILITARIOS  */
+/*///////////////*/
+
+.oculto {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    position: absolute;
 
 }

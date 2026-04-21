@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>pagamentos</title>
+    <title>AUTH</title>
     <link rel="stylesheet" href="../css/perfil.css">
 
 </head>
@@ -55,8 +55,9 @@
                 <p>Faça seu cadastro</p>
                 <input type="name" class="input" placeholder="Nome Completo">
                 <input type="cpf" class="input" placeholder="CEP">
-                <input type="cpf" class="input" placeholder="E-mail">
+                <input type="emial" class="input" placeholder="E-mail">
                 <input type="email" class="input" placeholder="Nome da cooperativa">
+                <input type="matricula" class="input" placeholder="Matricula da cooperativa">
                 <input type="password" class="input" placeholder="Senha">
                 <input type="password" class="input" placeholder="Repita a senha">
                 <button class="btn"><a href="home.html">Cadastre-se</a></button>
@@ -72,26 +73,25 @@
             </div>
 
             <div id="cadastroCoop">
-                <p>Faça seu cadastro (cooperativa)</p>
-
-                <div class="inputsCadastroCoop">
-
-                    <input type="text" class="input" placeholder="Nome da cooperativa" required>
-                    <input type="text" class="input" placeholder="CNPJ (apenas números)" required>
-
-                    <input type="email" class="input" placeholder="E-mail de contato" required>
-                    <input type="tel" class="input" placeholder="Telefone (com DDD)" required>
-
-                    <input type="text" class="input" placeholder="CEP (apenas números)" required>
-                    <input type="text" class="input" placeholder="Logradouro" required>
-                    <input type="text" class="input" placeholder="Cidade" required>
-                    <input type="text" class="input" placeholder="Estado (UF)" required>
-
-                    <input type="password" class="input" placeholder="Senha" required>
-                    <input type="password" class="input" placeholder="Repita a senha" required>
-
-                    <button class="btn"><a href="home.html">Cadastre-se</a></button>
-                </div>
+                <form>
+                    <p>Faça seu cadastro (cooperativa)</p>
+                    <div class="contentInputCadastroCoop">
+                        <input type="text" id="coopNome" class="input" placeholder="Nome da cooperativa" required>
+                        <input type="text" id="coopCnpj" class="input" placeholder="CNPJ (apenas números)" required>
+                        <input type="email" id="admEmail" class="input" placeholder="Email do administrador" required>
+                        <input type="email" id="coopEmail" class="input" placeholder="Email de contato da cooperativa"
+                            required>
+                        <input type="tel" id="coopTelefone" class="input" placeholder="Telefone (com DDD)" required>
+                        <input type="text" id="coopCep" class="input" placeholder="CEP (apenas números)" required>
+                        <input type="text" id="coopLogradouro" class="input" placeholder="Logradouro" required>
+                        <input type="text" id="coopCidade" class="input" placeholder="Cidade" required>
+                        <input type="text" id="coopEstado" class="input" placeholder="Estado (UF)" required>
+                        <input type="password" id="coopSenha" class="input" placeholder="Senha" required>
+                        <input type="password" id="coopRepetirSenha" class="input" placeholder="Repita a senha"
+                            required>
+                    </div>
+                    <button class="btn" id="btnCiarCoop">Cadastre sua cooperativa</button>
+                </form>
             </div>
         </div>
 
@@ -100,6 +100,6 @@
 </body>
 
 
-<script src="../js/perfil.js"></script>
+<script type="module" src="../js/perfil.js"></script>
 
 </html>

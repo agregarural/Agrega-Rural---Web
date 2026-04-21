@@ -1,81 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>menuOptions</title>
 </head>
+
 <body>
     <style>
+        .menuOptions {
+            background-color: brown;
+            padding-top: 1%;
+            padding-bottom: 1%;
+            padding-right: 5%;
+            padding-left: 5%;
+            display: flex;
+            flex-wrap: wrap;
+            flex-direction: row;
+            justify-content: space-around;
+            align-items: center;
 
-.menuOptions{
-    background-color: brown;
-    padding-top: clamp(0.5rem, 0.5rem + 2vw, 2rem);
-    padding-bottom: clamp(0.5rem, 0.5rem + 2vw, 2rem);
-    padding-right: 5%;
-    padding-left: 5%;
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
+        }
 
-}
+        .btnMenu {
+            width: clamp(12rem, 1rem + 2vw, 20rem);
 
-.btnMenu{
-    width: clamp(12rem, 1rem + 2vw, 20rem);
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            justify-content: space-around;
+            height: 5rem;
+            color: aliceblue;
+            padding: 10px;
+            font-size: clamp(0.5rem, 2.5vw + 0.5rem, 1rem);
+            transition: 0.1s;
+            background-color: transparent;
+            border: 0;
+            border-radius: 20px;
+            margin-top: 5px;
+        }
 
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    justify-content: space-around;
-    height: 5rem;
-    color: aliceblue;
-    padding: 10px;
-    font-size: clamp(0.5rem, 2.5vw + 0.5rem, 1rem);
-    transition: 0.1s;
-    background-color: transparent;
-    border: 0;
-    border-radius: 20px;
-    margin-top: 5px;
-}
+        .iconBtnMenu {
+            height: 2rem;
+            filter: brightness(0) invert(1);
+        }
 
-.iconBtnMenu{
-    height: 2rem;
-    filter: brightness(0) invert(1);
-}
-
-a{
-    color: aliceblue;
-    text-decoration: none;
-}
-
-
+        a {
+            color: aliceblue;
+            text-decoration: none;
+        }
     </style>
 
     <div class="menuOptions">
 
-            <button class="btnMenu">
-                <img src="../assets/icons/painel.svg" class="iconBtnMenu">
-                <a href="../pages/home.html">Painel</a>
-            </button>
+        <button class="btnMenu">
+            <img src="../assets/icons/painel.svg" class="iconBtnMenu">
+            <a href="../pages/home.html">Painel</a>
+        </button>
 
-            <button class="btnMenu">
-                <img src="../assets/icons/clipboard.svg" class="iconBtnMenu">
-                <a href="../pages/produtos.html">Meus Produtos</a>
-            </button>
+        <button class="btnMenu">
+            <img src="../assets/icons/clipboard.svg" class="iconBtnMenu">
+            <a href="../pages/produtos.html">Meus Produtos</a>
+        </button>
 
-            <button class="btnMenu">
-                <img src="../assets/icons/minhaCoop.svg" class="iconBtnMenu">
-                <a href="../pages/cooperativa.html">Minha Cooperativa</a>
-            </button>
-            <button class="btnMenu">
-                <img src="../assets/icons/config.svg" class="iconBtnMenu">
-                <p>Configurações</p>
-            </button>
+        <button class="btnMenu">
+            <img src="../assets/icons/minhaCoop.svg" class="iconBtnMenu">
+            <a href="../pages/cooperativa.html">Minha Cooperativa</a>
+        </button>
+        <button class="btnMenu">
+            <img src="../assets/icons/config.svg" class="iconBtnMenu">
+            <p>Configurações</p>
+        </button>
 
-        
-        </div>
-    
+
+    </div>
+
 </body>
+
 </html>

@@ -11,7 +11,7 @@ const firebaseConfig = {
     messagingSenderId: "990435539814",
     appId: "1:990435539814:web:691caab2fccc6da7df66a7",
     measurementId: "G-MD0SWV9SG5"
-  };
+};
 
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
@@ -50,7 +50,7 @@ btnAddNovoProduto.addEventListener("click", () => {
     const precoProduto = document.getElementById("precoProduto").value;
     const estoqueProduto = document.getElementById("estoqueProduto").value;
     const descricaoProduto = document.getElementById("descricaoProduto").value.trim();
-    const imagemProduto = document.getElementById("imagemProduto").value;
+    var imagemProduto = document.getElementById("imagemProduto").value;
 
     if (!nomeProduto || !categoriaProduto || !precoProduto || !estoqueProduto || !descricaoProduto || !imagemProduto) {
 
@@ -247,7 +247,7 @@ onValue(produtoRef, (snapshot) => {
                 produto.estoque,
                 produto.imagem
             );
-        } 
+        }
     } else {
 
         containerCards.innerHTML = "SEM PRODUTOS"
