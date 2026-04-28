@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Dashboard</title>
+    <style>
+        :root {
+            --bg: #f4f6f9;
+            --card-bg: #ffffff;
+            --text-primary: #1a1d28;
+            --text-secondary: #5f6377;
+            --text-muted: #8b8fa3;
+            --accent-green: #10b981;
+            --accent-red: #ef4444;
+            --accent-blue: #4f6ef7;
+            --accent-orange: #f59e0b;
+            --accent-teal: #14b8a6;
+            --accent-purple: #8b5cf6;
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.06), 0 2px 6px rgba(0, 0, 0, 0.04);
+            --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.08), 0 4px 10px rgba(0, 0, 0, 0.04);
+            --radius-sm: 10px;
+            --radius-md: 14px;
+            --radius-lg: 18px;
+            --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-weight: 500;
+            background-color: var(--bg);
+            color: var(--text-primary);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            line-height: 1.5;
+        }
+
+        body::-webkit-scrollbar {
+            display: none;
+        }
+
+        #header-placeholder {
+            position: sticky;
+            margin: 0;
+            top: 0;
+            z-index: 10;
+            background-color: white;
+            box-shadow: 0px 2px 12px rgba(0, 0, 0, 0.06);
+        }
+
+        #container {
+            margin-top: clamp(40px, 3vw + 20px, 56px);
+            margin-left: clamp(16px, 6%, 8%);
+            margin-right: clamp(16px, 6%, 8%);
+            margin-bottom: 60px;
+        }
+
+        /* ============ HEADER AREA ============ */
+        .dashboard-header {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            margin-bottom: clamp(24px, 3vw, 36px);
+        }
+
+        .dashboard-header .welcome-group h2 {
+            margin: 0;
+            font-size: clamp(1.4rem, 2.5vw, 1.85rem);
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: -0.3px;
+        }
+
+        .dashboard-header .welcome-group .subtitle {
+            margin: 2px 0 0;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .subtitle .dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: var(--accent-green);
+            animation: pulse-dot 2s infinite;
+        }
+
+        @keyframes pulse-dot {
+            0%,
+            100% {
+                box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.5);
+            }
+            50% {
+                box-shadow: 0 0 0 10px rgba(16, 185, 129, 0);
+            }
+        }
+
+        .date-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--card-bg);
+            padding: 10px 18px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            box-shadow: var(--shadow-sm);
+            white-space: nowrap;
+        }
+
+        .date-badge .icon-cal {
+            font-size: 1.1rem;
+        }
+
+        /* ============ MAIN INFO CARDS ============ */
+        .containerMainInfo {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: clamp(14px, 2vw, 22px);
+            margin-bottom: clamp(28px, 3vw, 40px);
+        }
+
+        .cardMainInfo {
+            background: var(--card-bg);
+            border-radius: var(--radius-md);
+            padding: clamp(16px, 2.5vw, 24px) clamp(14px, 2vw, 22px);
+            box-shadow: var(--shadow-md);
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            transition: transform var(--transition), box-shadow var(--transition);
+            cursor: default;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cardMainInfo::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+        }
+
+        .cardMainInfo.card--green::after {
+            background: var(--accent-green);
+        }
+        .cardMainInfo.card--orange::after {
+            background: var(--accent-orange);
+        }
+        .cardMainInfo.card--blue::after {
+            background: var(--accent-blue);
+        }
+        .cardMainInfo.card--purple::after {
+            background: var(--accent-purple);
+        }
+
+        .cardMainInfo:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .info1 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .iconMainInfo {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            padding: 8px;
+            flex-shrink: 0;
+        }
+
+        .card--green .iconMainInfo {
+            background: #ecfdf5;
+            color: var(--accent-green);
+        }
+        .card--orange .iconMainInfo {
+            background: #fffbeb;
+            color: var(--accent-orange);
+        }
+        .card--blue .iconMainInfo {
+            background: #eff2ff;
+            color: var(--accent-blue);
+        }
+        .card--purple .iconMainInfo {
+            background: #f5f3ff;
+            color: var(--accent-purple);
+        }
+
+        /* Fallback for SVG icons without inline color — tint via filter */
+        .iconMainInfo img {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        .card--green .iconMainInfo img {
+            filter: brightness(0) saturate(100%) invert(47%) sepia(72%) saturate(520%) hue-rotate(102deg) brightness(95%) contrast(90%);
+        }
+        .card--orange .iconMainInfo img {
+            filter: brightness(0) saturate(100%) invert(70%) sepia(60%) saturate(800%) hue-rotate(5deg) brightness(98%) contrast(92%);
+        }
+        .card--blue .iconMainInfo img {
+            filter: brightness(0) saturate(100%) invert(35%) sepia(55%) saturate(1400%) hue-rotate(215deg) brightness(95%) contrast(94%);
+        }
+        .card--purple .iconMainInfo img {
+            filter: brightness(0) saturate(100%) invert(30%) sepia(75%) saturate(2200%) hue-rotate(250deg) brightness(95%) contrast(92%);
+        }
+
+        .info1 .label-info {
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-muted);
+            margin: 0;
+            flex: 1;
+            min-width: 100px;
+        }
+
+        .numero-info {
+            font-size: 2rem;
+            font-weight: 700;
+            margin: 0;
+            color: var(--text-primary);
+            letter-spacing: -0.5px;
+            margin-left: auto;
+        }
+
+        .info2 {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            padding-top: 4px;
+            border-top: 1px solid #f1f3f6;
+        }
+
+        .info2 .label-faturamento {
+            color: var(--text-muted);
+            margin: 0;
+            font-weight: 500;
+        }
+
+        .numero-info2 {
+            margin: 0;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 3px 9px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+
+        .badge--up {
+            background: #ecfdf5;
+            color: #059669;
+        }
+        .badge--down {
+            background: #fef2f2;
+            color: #dc2626;
+        }
+        .badge--neutral {
+            background: #f8fafc;
+            color: #64748b;
+        }
+
+        .arrow-up::before {
+            content: '▲';
+            font-size: 0.65rem;
+        }
+        .arrow-down::before {
+            content: '▼';
+            font-size: 0.65rem;
+        }
+
+        /* ============ GENERAL INFO SECTION ============ */
+        .containerGeneralInfo {
+            display: grid;
+            grid-template-columns: 1.3fr 1fr;
+            gap: clamp(18px, 2.5vw, 26px);
+            min-height: clamp(300px, 28vw, 420px);
+        }
+
+        @media (max-width: 768px) {
+            .containerGeneralInfo {
+                grid-template-columns: 1fr;
+                min-height: auto;
+            }
+        }
+
+        .containerGraphic {
+            background: var(--card-bg);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            padding: clamp(18px, 2.5vw, 28px);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            min-height: 280px;
+        }
+
+        .graphic-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .graphic-header h3 {
+            margin: 0;
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .graphic-tabs {
+            display: flex;
+            gap: 4px;
+            background: #f1f3f6;
+            border-radius: 22px;
+            padding: 3px;
+        }
+
+        .graphic-tab {
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            background: transparent;
+            color: var(--text-muted);
+            transition: all var(--transition);
+        }
+
+        .graphic-tab.active {
+            background: white;
+            color: var(--text-primary);
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+        }
+
+        .chart-placeholder {
+            flex: 1;
+            display: flex;
+            align-items: flex-end;
+            gap: clamp(10px, 3vw, 20px);
+            padding: 10px 0 0;
+            min-height: 160px;
+        }
+
+        .bar-group {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            height: 100%;
+            justify-content: flex-end;
+        }
+
+        .bar {
+            width: 100%;
+            max-width: 48px;
+            border-radius: 8px 8px 4px 4px;
+            background: linear-gradient(180deg, #4f6ef7 0%, #7b93fa 100%);
+            transition: height 0.6s cubic-bezier(0.4, 0, 0.2, 1), opacity var(--transition);
+            opacity: 0.85;
+            cursor: pointer;
+            position: relative;
+            min-height: 8px;
+        }
+
+        .bar:hover {
+            opacity: 1;
+            filter: brightness(1.05);
+        }
+
+        .bar-label {
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        /* ============ RECORD / TRANSACTIONS ============ */
+        .containerRecord {
+            background: var(--card-bg);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            padding: clamp(18px, 2.5vw, 28px);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .containerRecord h3 {
+            margin: 0;
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .table-wrapper {
+            flex: 1;
+            overflow-y: auto;
+            max-height: 320px;
+            border-radius: 8px;
+        }
+
+        .table-wrapper::-webkit-scrollbar {
+            width: 5px;
+        }
+        .table-wrapper::-webkit-scrollbar-track {
+            background: #f8fafc;
+            border-radius: 10px;
+        }
+        .table-wrapper::-webkit-scrollbar-thumb {
+            background: #d1d5db;
+            border-radius: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.84rem;
+        }
+
+        thead th {
+            text-align: left;
+            padding: 10px 12px;
+            font-weight: 700;
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            color: var(--text-muted);
+            position: sticky;
+            top: 0;
+            background: var(--card-bg);
+            border-bottom: 2px solid #eef1f5;
+        }
+
+        tbody td {
+            padding: 11px 12px;
+            border-bottom: 1px solid #f3f5f8;
+            color: var(--text-secondary);
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        tbody tr {
+            transition: background var(--transition);
+        }
+
+        tbody tr:hover {
+            background: #f9fafb;
+        }
+
+        .txn-status {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 14px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.3px;
+        }
+
+        .txn-status.completed {
+            background: #ecfdf5;
+            color: #059669;
+        }
+        .txn-status.pending {
+            background: #fffbeb;
+            color: #d97706;
+        }
+        .txn-status.cancelled {
+            background: #fef2f2;
+            color: #dc2626;
+        }
+
+        .txn-amount {
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        /* ============ RESPONSIVE ============ */
+        @media (max-width: 600px) {
+            .containerMainInfo {
+                grid-template-columns: 1fr 1fr;
+                gap: 10px;
+            }
+            .cardMainInfo {
+                padding: 14px;
+                gap: 8px;
+            }
+            .numero-info {
+                font-size: 1.4rem;
+            }
+            .info1 .label-info {
+                font-size: 0.7rem;
+            }
+            .dashboard-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .chart-placeholder {
+                gap: 6px;
+            }
+            .bar {
+                max-width: 32px;
+            }
+            .containerRecord {
+                min-height: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="header-placeholder"></div>
+
+    <div id="container">
+
+        <!-- ============ HEADER ============ -->
+        <div class="dashboard-header">
+            <div class="welcome-group">
+                <h2>👋 Bem-vindo, Admin!</h2>
+                <p class="subtitle">
+                    <span class="dot"></span> Cooperativa Pedrocoop LTDA
+                </p>
+            </div>
+            <div class="date-badge">
+                <span class="icon-cal">📅</span>
+                <span id="currentDate"></span>
+            </div>
+        </div>
+
+        <!-- ============ CARDS PRINCIPAIS ============ -->
+        <div class="containerMainInfo">
+
+            <div class="cardMainInfo card--green">
+                <div class="info1">
+                    <div class="iconMainInfo">
+                        <img src="../assets/icons/ic_done.svg" alt="Completos" onerror="this.style.display='none';this.parentElement.innerHTML='✅'">
+                    </div>
+                    <p class="label-info">Pedidos Completos</p>
+                    <p class="numero-info">1.284</p>
+                </div>
+                <div class="info2">
+                    <p class="label-faturamento">Faturamento:</p>
+                    <span class="numero-info2 badge--up arrow-up">12,5%</span>
+                </div>
+            </div>
+
+            <div class="cardMainInfo card--orange">
+                <div class="info1">
+                    <div class="iconMainInfo">
+                        <img src="../assets/icons/ic_alert.svg" alt="Pendentes" onerror="this.style.display='none';this.parentElement.innerHTML='⚠️'">
+                    </div>
+                    <p class="label-info">Pedidos Pendentes</p>
+                    <p class="numero-info">47</p>
+                </div>
+                <div class="info2">
+                    <p class="label-faturamento">Faturamento:</p>
+                    <span class="numero-info2 badge--down arrow-down">3,2%</span>
+                </div>
+            </div>
+
+            <div class="cardMainInfo card--blue">
+                <div class="info1">
+                    <div class="iconMainInfo">
+                        <img src="../assets/icons/ic_truck.svg" alt="Transporte" onerror="this.style.display='none';this.parentElement.innerHTML='🚚'">
+                    </div>
+                    <p class="label-info">Em Transporte</p>
+                    <p class="numero-info">89</p>
+                </div>
+                <div class="info2">
+                    <p class="label-faturamento">Faturamento:</p>
+                    <span class="numero-info2 badge--up arrow-up">8,7%</span>
+                </div>
+            </div>
+
+            <div class="cardMainInfo card--purple">
+                <div class="info1">
+                    <div class="iconMainInfo">
+                        <img src="../assets/icons/ic_box.svg" alt="Estoque" onerror="this.style.display='none';this.parentElement.innerHTML='📦'">
+                    </div>
+                    <p class="label-info">Produtos em Estoque</p>
+                    <p class="numero-info">3.560</p>
+                </div>
+                <div class="info2">
+                    <p class="label-faturamento">Faturamento:</p>
+                    <span class="numero-info2 badge--neutral">Estável</span>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ============ GRÁFICO & TRANSAÇÕES ============ -->
+        <div class="containerGeneralInfo">
+            <div class="containerGraphic">
+                <div class="graphic-header">
+                    <h3>📊 Faturamento Mensal</h3>
+                    <div class="graphic-tabs">
+                        <button class="graphic-tab active">6M</button>
+                        <button class="graphic-tab">1A</button>
+                        <button class="graphic-tab">Tudo</button>
+                    </div>
+                </div>
+                <div class="chart-placeholder">
+                    <div class="bar-group">
+                        <div class="bar" style="height:55%;"></div>
+                        <span class="bar-label">Jan</span>
+                    </div>
+                    <div class="bar-group">
+                        <div class="bar" style="height:70%;"></div>
+                        <span class="bar-label">Fev</span>
+                    </div>
+                    <div class="bar-group">
+                        <div class="bar" style="height:45%;"></div>
+                        <span class="bar-label">Mar</span>
+                    </div>
+                    <div class="bar-group">
+                        <div class="bar" style="height:82%;"></div>
+                        <span class="bar-label">Abr</span>
+                    </div>
+                    <div class="bar-group">
+                        <div class="bar" style="height:60%;"></div>
+                        <span class="bar-label">Mai</span>
+                    </div>
+                    <div class="bar-group">
+                        <div class="bar" style="height:92%;"></div>
+                        <span class="bar-label">Jun</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="containerRecord">
+                <h3>🕓 Últimas Transações</h3>
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Produto</th>
+                                <th>Valor</th>
+                                <th>Status</th>
+                                <th>Data</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Grãos de Café Arábica</td>
+                                <td class="txn-amount">R$ 12.450</td>
+                                <td><span class="txn-status completed">Concluído</span></td>
+                                <td>22/04/2026</td>
+                            </tr>
+                            <tr>
+                                <td>Leite Integral 1000L</td>
+                                <td class="txn-amount">R$ 4.820</td>
+                                <td><span class="txn-status completed">Concluído</span></td>
+                                <td>21/04/2026</td>
+                            </tr>
+                            <tr>
+                                <td>Milho Grão Sacas 60kg</td>
+                                <td class="txn-amount">R$ 8.900</td>
+                                <td><span class="txn-status pending">Pendente</span></td>
+                                <td>20/04/2026</td>
+                            </tr>
+                            <tr>
+                                <td>Soja em Grãos</td>
+                                <td class="txn-amount">R$ 15.200</td>
+                                <td><span class="txn-status completed">Concluído</span></td>
+                                <td>19/04/2026</td>
+                            </tr>
+                            <tr>
+                                <td>Fertilizante NPK</td>
+                                <td class="txn-amount">R$ 3.100</td>
+                                <td><span class="txn-status cancelled">Cancelado</span></td>
+                                <td>18/04/2026</td>
+                            </tr>
+                            <tr>
+                                <td>Queijo Minas 50kg</td>
+                                <td class="txn-amount">R$ 2.750</td>
+                                <td><span class="txn-status completed">Concluído</span></td>
+                                <td>17/04/2026</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // Define a data atual
+        (function() {
+            const diasSemana = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira',
+            'Sexta-feira', 'Sábado'];
+            const meses = ['janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro',
+                'outubro', 'novembro', 'dezembro'
+            ];
+            const hoje = new Date();
+            const dataFormatada =
+                `${diasSemana[hoje.getDay()]}, ${hoje.getDate()} de ${meses[hoje.getMonth()]} de ${hoje.getFullYear()}`;
+            const dateEl = document.getElementById('currentDate');
+            if (dateEl) dateEl.textContent = dataFormatada;
+        })();
+
+        // Tabs interativas do gráfico
+        document.querySelectorAll('.graphic-tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                document.querySelectorAll('.graphic-tab').forEach(t => t.classList.remove(
+                'active'));
+                this.classList.add('active');
+
+                // Simula atualização das barras
+                const bars = document.querySelectorAll('.bar');
+                bars.forEach(bar => {
+                    const randomHeight = Math.floor(Math.random() * 75) + 15;
+                    bar.style.height = randomHeight + '%';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
