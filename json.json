@@ -1,11 +1,57 @@
 {
+  "Users": {
+    "-NxY7q9L2mP3rS1tU5vW": {
+      "nome": "Administrador Vale Verde",
+      "email": "adm@valeverdecoop.org.br",
+      "senha": "hash_senha",
+      "cooperativa": "Cooperativa Agricola Vale Verde",
+      "dataCadastro": "2024-01-10",
+      "telefone": "3438215050",
+      "tipo": "adm"
+    },
+    "-NaB2cD4eF6gH8iJ0kL": {
+      "nome": "Fernanda Souza",
+      "email": "fernanda.souza@valeverdecoop.org.br",
+      "senha": null,
+      "cooperativa": "Cooperativa Agricola Vale Verde",
+      "dataCadastro": "2024-02-18",
+      "telefone": "34991234567",
+      "tipo": "comum"
+    },
+    "-NpQ3rS5tU7vW9xY1zA": {
+      "nome": "Antonio Carlos Ribeiro",
+      "email": "antonio.ribeiro@valeverdecoop.org.br",
+      "senha": null,
+      "cooperativa": "Cooperativa Agricola Vale Verde",
+      "dataCadastro": "2024-04-12",
+      "telefone": "34996543210",
+      "tipo": "comum"
+    },
+    "-NbC4dE6fG8hI0jK2lM": {
+      "nome": "Administrador Raizes",
+      "email": "adm@raizesdocerrado.com.br",
+      "senha": "hash_senha",
+      "cooperativa": "Cooperativa Organica Raizes do Cerrado",
+      "dataCadastro": "2024-01-15",
+      "telefone": "6233321212",
+      "tipo": "adm"
+    },
+    "-NoP5qR7sT9uV1wX3yZ": {
+      "nome": "Joao Batista da Silva",
+      "email": "joao.silva@raizesdocerrado.com.br",
+      "senha": null,
+      "cooperativa": "Cooperativa Organica Raizes do Cerrado",
+      "dataCadastro": "2024-03-05",
+      "telefone": "62988776655",
+      "tipo": "comum"
+    }
+  },
   "Cooperativas": {
     "01": {
       "nome": "Cooperativa Agricola Vale Verde",
       "cnpj": "12345678000199",
       "fundacao": "2008-03-15",
       "descricao": "Cooperativa especializada na producao e comercializacao de hortifrutigranjeiros, com foco em agricultura familiar e sustentavel",
-
       "Administradores": {
         "adm01": {
           "nome": "Administrador Vale Verde",
@@ -15,19 +61,16 @@
           "dataCadastro": "2024-01-10"
         }
       },
-
       "contato": {
         "email": "contato@valeverdecoop.org.br",
         "telefone": "3438215050"
       },
-
       "endereco": {
         "logradouro": "Rodovia MG-230 Km 45",
         "cidade": "Patos de Minas",
         "estado": "MG",
         "cep": "38700000"
       },
-
       "Produtos": {
         "p01": {
           "nome": "Podador Profissional Tramontina",
@@ -44,7 +87,6 @@
           "descricao": "Variedade Grand Rapids, folhas crocantes e ciclo rapido"
         }
       },
-
       "Cooperados": {
         "u02": {
           "nome": "Fernanda Souza",
@@ -62,13 +104,11 @@
         }
       }
     },
-
     "02": {
       "nome": "Cooperativa Organica Raizes do Cerrado",
       "cnpj": "98765432000110",
       "fundacao": "2015-07-22",
       "descricao": "Rede de pequenos produtores organicos certificados",
-
       "Administradores": {
         "adm02": {
           "nome": "Administrador Raizes",
@@ -78,19 +118,16 @@
           "dataCadastro": "2024-01-15"
         }
       },
-
       "contato": {
         "email": "contato@raizesdocerrado.com.br",
         "telefone": "6233321212"
       },
-
       "endereco": {
         "logradouro": "Estrada do Pomar Zona Rural",
         "cidade": "Pirenopolis",
         "estado": "GO",
         "cep": "72980000"
       },
-
       "Produtos": {
         "p06": {
           "nome": "Enxada Forjada 1.5kg",
@@ -100,7 +137,6 @@
           "descricao": "Aco carbono forjado com cabo de madeira"
         }
       },
-
       "Cooperados": {
         "u03": {
           "nome": "Joao Batista da Silva",
@@ -112,7 +148,6 @@
       }
     }
   },
-
   "Administradores_Sistema": {
     "01": {
       "nome": "Marcos Almeida",
