@@ -145,6 +145,12 @@ body {
     margin: 10px;
 }
 
+.card-produto:hover{
+
+
+}
+
+
 .container-data{
 
     display: flex;

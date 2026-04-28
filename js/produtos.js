@@ -2,6 +2,8 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/12.12.0/fireba
 import { getDatabase, ref, onValue, push, remove } from "https://www.gstatic.com/firebasejs/12.12.0/firebase-database.js";
 import { getStorage, ref as storageRef, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/12.12.0/firebase-storage.js";
 
+
+
 const firebaseConfig = {
     apiKey: "AIzaSyDHtlAftkqyqfAEza_BELney4VdWrYmdhQ",
     authDomain: "agrega-rural.firebaseapp.com",
@@ -20,7 +22,6 @@ const produtoRef = ref(db, `Cooperativas/${idCooperativa}/Produtos`)
 
 const storage = getStorage(app);
 
-
 //Importando Header
 fetch('../components/header.html')
     .then(res => res.text())
@@ -32,6 +33,27 @@ fetch('../components/menuoptions.html')
     .then(html => { document.getElementById("menu-options").innerHTML = html; });
 
 
+//Configurando Image Baby
+const IMGBB_API_KEY = "ac742aebcb5ef3bbef2489f934240205";
+
+async function enviarImgbb(file) {
+    const formData = new FormData();
+    formData.append("image", file);
+
+    const resposta = await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, {
+        method: "POST",
+        body: formData
+    });
+
+    const dados = await resposta.json();
+
+    if (!dados.success) {
+        throw new Error("Erro ao enviar imagem para o ImgBB");
+    }
+
+    return dados.data.url;
+
+}
 
 
 
@@ -41,47 +63,47 @@ fetch('../components/menuoptions.html')
 
 const btnAddNovoProduto = document.getElementById("btnAddProduto");
 
-btnAddNovoProduto.addEventListener("click", () => {
+btnAddNovoProduto.addEventListener("click", async (event) => {
+  event.preventDefault();
 
+  const nomeProduto = document.getElementById("nomeProduto").value.trim();
+  const categoriaProduto = document.getElementById("categoriaProduto").value.trim();
+  const precoProduto = document.getElementById("precoProduto").value;
+  const estoqueProduto = document.getElementById("estoqueProduto").value;
+  const descricaoProduto = document.getElementById("descricaoProduto").value.trim();
 
+  const inputImagem = document.getElementById("imagemProduto");
+  const fileImagem = inputImagem.files[0];
 
-    const nomeProduto = document.getElementById("nomeProduto").value.trim();
-    const categoriaProduto = document.getElementById("categoriaProduto").value.trim();
-    const precoProduto = document.getElementById("precoProduto").value;
-    const estoqueProduto = document.getElementById("estoqueProduto").value;
-    const descricaoProduto = document.getElementById("descricaoProduto").value.trim();
-    var imagemProduto = document.getElementById("imagemProduto").value;
+  if (!nomeProduto || !categoriaProduto || !precoProduto || !estoqueProduto || !descricaoProduto || !fileImagem) {
+    alert("Preencha os campos obrigatórios");
+    return;
+  }
 
-    if (!nomeProduto || !categoriaProduto || !precoProduto || !estoqueProduto || !descricaoProduto || !imagemProduto) {
-
-        alert("Preencha os campos obrigatorios"); return;
-    }
-
-
+  try {
+    const urlImagem = await enviarImgbb(fileImagem);
 
     const novoProduto = {
+      nome: nomeProduto,
+      categoria: categoriaProduto,
+      preco: parseFloat(precoProduto),
+      estoque: parseInt(estoqueProduto),
+      descricao: descricaoProduto,
+      imagem: urlImagem
+    };
 
-        nome: nomeProduto,
-        categoria: categoriaProduto,
-        preco: parseFloat(precoProduto),
-        estoque: parseInt(estoqueProduto),
-        descricao: descricaoProduto,
-        imagem: imagemProduto
+    await push(produtoRef, novoProduto);
 
-    }
+    alert("Produto adicionado");
 
-    push(produtoRef, novoProduto)
-        .then(() => {
-            alert("produto adicionado");
-            document.getElementById("formulario").reset();
-            document.getElementById("container-form").classList.add("oculto");
-        })
-        .catch((erro) => {
-            console.error("erro ao adicionar", erro);
+    document.getElementById("formulario").reset();
+    document.getElementById("container-form").classList.add("oculto");
 
-        });
-
-
+  } catch (erro) {
+    console.error("Erro ao adicionar produto:", erro);
+    alert("Erro ao adicionar produto");
+  }
+  
 });
 
 //Função Remover Produto do dtabase na tabela
