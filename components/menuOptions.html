@@ -24,52 +24,61 @@
         }
 
         .btnMenu {
-            width: clamp(4rem, 25%, 12rem);
+            width: clamp(4rem, 25%, 6rem);
             height: 5rem;
             display: flex;
             align-items: center;
             flex-direction: column;
             justify-content: space-around;
-
             color: aliceblue;
-            font-size: clamp(0.5rem, 2.5vw + 0.5rem, 1rem);
+            font-size: clamp(0.9rem, 50%, 11.5rem);
             background-color: transparent;
             border: 0px;
-            box-shadow: 0px 0px 8px -5px black;
             border-radius: 10px;
             margin-top: 5px;
             margin-right: 1%;
             margin-left: 1%;
+
+            transition: 0.2s;
+        }
+
+        .btnMenu:hover{
+            transform: translateY(-2px);
         }
 
         .iconBtnMenu {
-            height: 2rem;
+            height: 1.5rem;
             filter: brightness(0) invert(1);
+            margin: 0;
+            background-color: rgba(92, 92, 92, 0.274);
+            padding: 10px;
+            border-radius: 15px;
         }
 
         a {
             color: aliceblue;
             text-decoration: none;
+            margin: 0;
         }
     </style>
 
     <div class="menuOptions">
 
-        <button class="btnMenu">
+        <button class="btnMenu" onclick="window.location.href='../pages/home.html'">
             <img src="../assets/icons/painel.svg" class="iconBtnMenu">
             <a href="../pages/home.html">Painel</a>
         </button>
 
-        <button class="btnMenu">
+        <button class="btnMenu" onclick="window.location.href='../pages/produtos.html'">
             <img src="../assets/icons/clipboard.svg" class="iconBtnMenu">
             <a href="../pages/produtos.html">Meus Produtos</a>
         </button>
 
-        <button class="btnMenu">
+        <button class="btnMenu" onclick="window.location.href='../pages/cooperativa.html'">
             <img src="../assets/icons/minhaCoop.svg" class="iconBtnMenu">
             <a href="../pages/cooperativa.html">Minha Cooperativa</a>
         </button>
-        <button class="btnMenu">
+        <button class="btnMenu" onclick="window.location.href='../pages/config.html'">
             <img src="../assets/icons/config.svg" class="iconBtnMenu">
             <p>Configurações</p>
         </button>
@@ -78,5 +87,4 @@
     </div>
 
 </body>
-
 </html>

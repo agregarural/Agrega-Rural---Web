@@ -11,7 +11,7 @@
 
     <style>
         .header {
-            
+
             display: flex;
             flex-direction: row;
             align-self: center;
@@ -21,8 +21,8 @@
             background-color: rgb(255, 255, 255);
             padding-right: clamp(1rem, 1rem + 1vw, 2rem);
             padding-left: clamp(1rem, 1rem + 1vw, 2rem);
-            margin-left: clamp(50px, 50px + 1vw, 10rem);
-            margin-right: clamp(50px, 50px + 1vw, 10rem);
+            margin-left: 9%;
+            margin-right: 9%;
 
         }
 
@@ -38,7 +38,7 @@
             font-family: sans-serif;
             font-size: clamp(1rem, 5vw + 0.5rem, 2rem);
             flex-grow: 1;
-            font-weight: 50;
+            font-weight: 550;
             flex-shrink: 0;
             order: 1;
             color: black;
@@ -55,7 +55,7 @@
             background-color: transparent;
         }
 
-        .divBtnHeader{
+        .divBtnHeader {
 
             display: flex;
             order: 3;
@@ -89,36 +89,37 @@
 
         @media (max-width: 1092px) {
 
-            .header{
+            .header {
 
                 justify-content: center;
             }
 
-            .divBtnHeader{
+            .divBtnHeader {
 
                 order: 4;
                 text-align: center;
             }
-            .btnProfile{
+
+            .btnProfile {
 
                 order: 3;
             }
 
-       
+
         }
-
-
     </style>
 
     <header class="header">
         <img src="../assets/img/logoCenter.jpg" id="logoHeader">
         <h1 class="textHeader">AGREGA RURAL</h1>
+        <!-- 
         <div class="divBtnHeader">
             <button class="btnHeader">HOME</button>
             <button class="btnHeader"><p class="naoquebra">SOBRE NÓS</p></button>
             <button class="btnHeader">PRODUTOS</button>
             <button class="btnHeader">CONTATO</button>
         </div>
+        -->
         <button class="btnProfile"><img src="../assets/img/perfil.jpg" id="profileImage"></button>
     </header>
 </body>
