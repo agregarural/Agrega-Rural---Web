@@ -11,51 +11,69 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.header {
-
-    background-color: rgb(255, 255, 255);
-    display: grid;
-    grid-template-columns: 1fr 4fr 1fr 1fr 1fr 1fr 1fr;
-    align-items: center;
-    align-content: center;
-    padding-left: calc(5vw + 5vh);
-    padding-right: calc(5vw + 5vh);
-    gap: calc(0.5vw + 0.5vh);
+header {
+  width: 100%;
+  background-color: #ffffff;
+  height: 68px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  z-index: 10;
 }
 
-
-.title {
-    font-size: calc(1vw + 1vh);
-    flex-grow: 1;
-
-}
-
-.btnHeader {
-    border: 0;
-    background-color: rgba(255, 255, 255, 0);
-}
-
-.btnPerfil {
-    border: 0;
-    background-color: rgba(255, 255, 255, 0);
-}
-
-button {
-    height: calc(2vw + 2vh);
-    text-align: center;
-    font-size: calc(0.6vw + 0.6vh);
+.header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .logo {
-    height: calc(2.5vw + 2.5vh);
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 800;
+  font-size: 15px;
 }
 
-.imgPerfil {
-    height: calc(2vw + 2vh);
-    border-radius: 100px;
+.logo img {
+  width: 42px;
+  height: auto;
 }
+
+nav {
+  display: flex;
+  gap: 60px;
+  align-items: center;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+nav a {
+  text-decoration: none;
+  color: #000;
+  font-size: 12px;
+}
+
+.button-area1 {
+  text-align: center;
+}
+
+.btn1 {
+  display: inline-block;
+  background-color: #08713b;
+  color: white;
+  padding: 10px 16px;
+  border-radius: 9px;
+  text-decoration: none;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+
 
 /*  Container   */
 
@@ -248,4 +266,38 @@ button {
     pointer-events: none;
     position: absolute;
 
+}
+
+@media (max-width: 600px) {
+  header {
+    width: 100%;
+    background-color: #ffffff;
+    padding: 20px 0;
+    height: auto;
+  }
+
+  .header-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 22px;
+    width: 90%;
+    margin: 0 auto;
+  }
+
+  .logo {
+    justify-content: center;
+  }
+
+  nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 28px;
+  }
+
+  .button-area1 {
+    text-align: center;
+  }
 }
