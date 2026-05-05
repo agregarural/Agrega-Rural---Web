@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Agrega Rural | Atendimento ao Cliente</title>
+  <link rel="stylesheet" href="../css/atendimento.css" />
+</head>
+<body>
+  <header>
+  <div class="header-content">
+    <div class="logo">
+      <img src="../assets/img/logo.png" alt="Logo Agrega Rural">
+      <span>AGREGA RURAL</span>
+    </div>
+
+    <nav>
+      <a href="home1.html">Home</a>
+      <a href="#">Sobre nós</a>
+      <a href="#">Produtos</a>
+      <a href="atendimento.html">Contato</a>
+    </nav>
+
+    <div class="button-area1">
+      <a href="perfil.html" class="btn1">ENTRAR</a>
+    </div>
+  </div>
+</header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-grid container">
+        <div class="hero-content">
+          <h1>Atendimento<br />ao Cliente</h1>
+          <div class="hero-line"></div>
+          <p>Estamos aqui para ajudar você em cada etapa da sua compra.</p>
+        </div>
+
+        <div class="hero-person" aria-hidden="true">
+          <div class="person-card"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="quick-contact">
+      <div class="quick-grid container">
+        <article class="quick-card">
+          <div class="quick-icon">☎</div>
+          <div>
+            <span>Telefone</span>
+            <strong>(34) 99999-9999</strong>
+            <small>Fale conosco</small>
+          </div>
+        </article>
+
+        <article class="quick-card">
+          <div class="quick-icon">✉</div>
+          <div>
+            <span>E-mail</span>
+            <strong>contato@agregarural.com.br</strong>
+            <small>Respondemos em breve</small>
+          </div>
+        </article>
+
+        <article class="quick-card">
+          <div class="quick-icon">☘</div>
+          <div>
+            <span>WhatsApp</span>
+            <strong>(34) 99999-9999</strong>
+            <small>Atendimento rápido</small>
+          </div>
+        </article>
+
+        <article class="quick-card">
+          <div class="quick-icon">◷</div>
+          <div>
+            <span>Horário de atendimento</span>
+            <strong>Seg. a Sex. 8h às 18h</strong>
+            <small>Exceto feriados</small>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section container" aria-labelledby="faq-title">
+      <div class="faq-box">
+        <div>
+          <div class="section-kicker">☘</div>
+          <h2 class="section-title" id="faq-title">Perguntas Frequentes</h2>
+          <p class="section-text">Tire suas dúvidas sobre pedidos, entregas e conta.</p>
+        </div>
+
+        <div class="faq-list">
+          <article class="faq-item">
+            <button class="faq-question" type="button">
+              <span>🚚</span>
+              <span>Como acompanhar a entrega do meu pedido?</span>
+              <span class="arrow">⌄</span>
+            </button>
+          </article>
+
+          <article class="faq-item">
+            <button class="faq-question" type="button">
+              <span>📍</span>
+              <span>Como editar o meu endereço?</span>
+              <span class="arrow">⌄</span>
+            </button>
+          </article>
+
+          <article class="faq-item">
+            <button class="faq-question" type="button">
+              <span>👤</span>
+              <span>Como mudar a minha foto de perfil?</span>
+              <span class="arrow">⌄</span>
+            </button>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section container" id="contato" aria-labelledby="contato-title">
+      <div class="contact-layout">
+        <div class="contact-card">
+          <div class="section-kicker">☘</div>
+          <h2 class="section-title" id="contato-title">Fale Conosco</h2>
+          <p class="section-text">Preencha o formulário abaixo e nossa equipe entrará em contato.</p>
+
+          <form class="form-grid">
+            <div class="field">
+              <label for="nome">Nome <span>*</span></label>
+              <input id="nome" name="nome" type="text" placeholder="Seu nome" required />
+            </div>
+
+            <div class="field">
+              <label for="email">E-mail <span>*</span></label>
+              <input id="email" name="email" type="email" placeholder="seu@email.com" required />
+            </div>
+
+            <div class="field">
+              <label for="telefone">Telefone</label>
+              <input id="telefone" name="telefone" type="tel" placeholder="☎  (34) 99999-9999" />
+            </div>
+
+            <div class="field full">
+              <label for="assunto">Assunto <span>*</span></label>
+              <select id="assunto" name="assunto" required>
+                <option value="">Selecione um assunto</option>
+                <option value="pedido">Acompanhamento de pedido</option>
+                <option value="entrega">Entrega</option>
+                <option value="cadastro">Cadastro e conta</option>
+                <option value="outro">Outro assunto</option>
+              </select>
+            </div>
+
+            <div class="field full">
+              <label for="mensagem">Mensagem <span>*</span></label>
+              <textarea id="mensagem" name="mensagem" placeholder="Escreva sua mensagem aqui..." required></textarea>
+            </div>
+
+            <button class="btn-primary" type="submit">✈ Enviar mensagem</button>
+          </form>
+        </div>
+
+        <aside class="support-card" aria-label="Canais de atendimento">
+          <div class="support-image" role="img" aria-label="Trator em plantação no campo"></div>
+
+          <h3>Canais de atendimento</h3>
+
+          <div class="channel-list">
+            <div class="channel">
+              <span class="channel-icon">☘</span>
+              <div>
+                <strong>WhatsApp</strong>
+                <small>Atendimento rápido e direto</small>
+              </div>
+            </div>
+
+            <div class="channel">
+              <span class="channel-icon">✉</span>
+              <div>
+                <strong>E-mail</strong>
+                <small>Respondemos o mais breve possível</small>
+              </div>
+            </div>
+
+            <div class="channel">
+              <span class="channel-icon">☎</span>
+              <div>
+                <strong>Telefone</strong>
+                <small>Fale com nossa equipe</small>
+              </div>
+            </div>
+
+            <div class="channel">
+              <span class="channel-icon">◷</span>
+              <div>
+                <strong>Horário de atendimento</strong>
+                <small>Segunda a Sexta, das 8h às 18h</small>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    
+  </main>
+
+  <footer>
+  <div class="footer-content">
+
+    <div class="footer-column">
+      <div class="footer-logo">
+        <img src="../assets/img/logo.png" alt="Logo Agrega Rural">
+        <span>AGREGA RURAL</span>
+      </div>
+
+      <p>
+        Conectando cooperativas, produtores e fornecedores por meio de soluções digitais
+        para fortalecer o agronegócio capixaba.
+      </p>
+    </div>
+
+    <div class="footer-column">
+      <h3>Contato</h3>
+
+      <p>E-mail: contato@agregarural.com.br</p>
+      <p>Telefone: (27) 99999-9999</p>
+      <p>WhatsApp: (27) 99999-9999</p>
+    </div>
+
+    <div class="footer-column">
+      <h3>Endereço</h3>
+
+      <p>Vila Velha - ES</p>
+      <p>Espírito Santo, Brasil</p>
+    </div>
+
+    <div class="footer-column">
+      <h3>Links úteis</h3>
+
+      <a href="#">Home</a>
+      <a href="#">Sobre nós</a>
+      <a href="#">Produtos</a>
+      <a href="#">Contato</a>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    <p>© 2026 Agrega Rural. Todos os direitos reservados.</p>
+  </div>
+</footer>
+</body>
+</html>
