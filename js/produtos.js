@@ -106,19 +106,10 @@ btnAddNovoProduto.addEventListener("click", async (event) => {
   
 });
 
-//Função Remover Produto do dtabase na tabela
 
 
-
-
-
-
-//Função Imprimir Produto do dtabase na tabela
-
-
-//===================================
 //Função Criar cardview exibicional
-//===================================
+
 
 
 
