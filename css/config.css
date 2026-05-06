@@ -1,0 +1,32 @@
+:root {
+  --cor-primaria: #2a2a72;
+  --cor-secundaria: #ff6b6b;
+  --cor-texto: #1f1f1f;
+  --cor-fundo: #ffffff;
+  --espacamento-padrao: 1rem;
+  --font-principal: 'Inter', sans-serif;
+  --font-size-base: 1rem;
+}
+
+
+html {
+  font-size: 100%;     
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-principal);
+  font-size: var(--font-size-base);
+  line-height: 1.6;
+  color: var(--cor-texto);
+  background-color: var(--cor-fundo);
+  -webkit-font-smoothing: antialiased;  /* melhora renderização no macOS */
+  margin: 0;
+  padding: 0;
+}
+
+.container{
+
+    margin: 10%;
+
+}
