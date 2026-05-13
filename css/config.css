@@ -1,0 +1,236 @@
+/* =========================
+   VARIÁVEIS GLOBAIS
+   ========================= */
+:root {
+  --green-dark:#1f3d2b;
+  --green-light:#4a9e5c;
+  --cream:#faf8f3;
+  --text:#1c2a1e;
+  --red:#c0392b;
+  --white:#fff;
+}
+
+.card-item{
+  padding: 10px;
+}
+
+.modalConfirmacao{
+  display: block;
+  width: fit-content;
+  border-radius: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.418);
+  position: fixed;
+  top: 95%;
+  right: 0;
+}
+
+.modalHeader{
+  background-color: rgba(0, 128, 0, 0.726);
+  padding-left: 10px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.modalBody{
+  padding-left: 10px;
+  padding-right: 10px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.field-error{
+  display:none;
+  color:#e63946;
+  font-size:13px;
+  margin-top:6px;
+}
+
+/* Reset básico */
+* {
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+} 
+
+/* =========================
+   BASE
+   ========================= */
+body.dark {
+  background: #121212;
+  color: #f2f2f2;
+}
+
+body.dark .card {
+  background: #1e1e1e;
+  color: #f2f2f2;
+}
+
+body.dark input {
+  background: #2a2a2a;
+  color: #fff;
+  border: 1px solid #444;
+}
+
+body.dark .page-title,
+body.dark .page-sub,
+body.dark .card-header h3,
+body.dark label,
+body.dark strong,
+body.dark span {
+  color: #f2f2f2;
+}
+
+/* =========================
+   HEADER
+   ========================= */
+header {
+  background:var(--green-dark);
+  color:white;
+  display:flex;
+  align-items:center;
+  padding:15px 30px;
+}
+
+/* =========================
+   LAYOUT
+   ========================= */
+.page {
+  max-width:900px;
+  margin:40px auto;
+  padding:20px;
+  background-color: rgba(255, 0, 0, 0.116);
+  border-radius: 10px;
+}
+
+/* =========================
+   CARDS
+   ========================= */
+.card {
+  background:white;
+  padding:20px;
+  border-radius:12px;
+  margin-bottom:20px;
+}
+
+/* =========================
+   FORM
+   ========================= */
+.input-group {
+  margin-bottom:15px;
+}
+
+input {
+  width:100%;
+  padding:8px;
+}
+
+/* =========================
+   BOTÕES
+   ========================= */
+.btn {
+  padding:10px 15px;
+  border:none;
+  cursor:pointer;
+}
+
+.btn-green {
+  background:var(--green-light);
+  color:white;
+}
+
+.btn-red {
+  background:var(--red);
+  color:white;
+}
+
+/* =========================
+   TOAST
+   ========================= */
+.toast{
+  padding:14px 18px;
+  border-radius:12px;
+  color:white;
+  margin-bottom:10px;
+  font-weight:600;
+  animation:fade .3s ease;
+}
+
+.toast-success{
+  background:#2a9d8f;
+}
+
+.toast-error{
+  background:#e63946;
+}
+
+@keyframes fade{
+  from{
+    opacity:0;
+    transform:translateY(-10px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+.modal-overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.5);
+
+  display:none;
+
+  justify-content:center;
+  align-items:center;
+
+  z-index:9999;
+}
+
+.modal-overlay.show{
+  display:flex;
+}
+
+.modal{
+  width:100%;
+  max-width:420px;
+
+  background:white;
+
+  border-radius:18px;
+
+  padding:28px;
+
+  animation:modalFade .2s ease;
+}
+
+.modal h3{
+  margin-bottom:12px;
+}
+
+.modal p{
+  margin-bottom:24px;
+  line-height:1.5;
+}
+
+.modal-actions{
+  display:flex;
+  gap:12px;
+  justify-content:flex-end;
+}
+
+body.dark .modal{
+  background:#1f1f1f;
+  color:white;
+}
+
+@keyframes modalFade{
+  from{
+    opacity:0;
+    transform:translateY(10px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
