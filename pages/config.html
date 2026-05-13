@@ -1,11 +1,159 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <title>Configurações - Agrega Rural</title>
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../css/config.css">
 </head>
-<body>
-    
+<body>  
+
+  <div id="header-placeholder"></div>
+    <div id="menuOptions"></div>
+
+  <!-- TOASTS -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- CONTEÚDO -->
+  <main class="page">
+
+    <div class="modalConfirmacao">
+      <div  class="modalHeader">
+        <p>Sucesso!</p>
+      </div>
+      <div class="modalBody">
+        <p>Suas informações foram alterada com sucesso!</p>
+      </div>
+    </div>
+
+    <h2 class="page-title">Configurações</h2>
+    <p class="page-sub">Gerencie seu perfil, preferências e segurança da conta.</p>
+
+    <!-- PERFIL -->
+    <div class="card perfil">
+
+      <div class="card-header">
+        <h3>Perfil da Cooperativa</h3>
+      </div>
+
+      <div class=>
+        <div class="card-item">
+          <label for="nome">Nome da Cooperativa</label>
+          <input type="text" id="nome">
+          <span class="field-error" id="nomeError">Campo obrigatório</span>
+        </div>
+
+        <div class="card-item">
+          <label for="cnpj">CNPJ</label>
+          <input type="text" id="cnpj">
+        </div>
+      </div>
+
+      <div class="card-item">
+        <label for="email">E-mail</label>
+        <input type="email" id="email">
+        <span class="field-error" id="emailError">E-mail inválido</span>
+      </div>
+
+      <div class="card-item">
+        <label for="telefone">Telefone</label>
+        <input type="text" id="telefone">
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-green" id="btnSalvarPerfil" type="button">
+          Salvar Alterações
+        </button>
+      </div>
+    </div>
+
+    <!-- PREFERÊNCIAS -->
+    <div class="card earth">
+      <div class="card-header">
+        <h3>Preferências</h3>
+      </div>
+
+      <div class="switch-row">
+        <div class="switch-info">
+          <strong>Receber notificações</strong>
+          <span>Alertas de pedidos e estoque</span>
+        </div>
+        <label class="toggle">
+          <input type="checkbox" id="notificacoes" checked>
+          <span class="slider"></span>
+        </label>
+      </div>
+
+      <div class="switch-row">
+        <div class="switch-info">
+          <strong>Modo escuro</strong>
+        </div>
+        <label class="toggle">
+          <input type="checkbox" id="darkMode">
+          <span class="slider"></span>
+        </label>
+      </div>
+    </div>
+
+    <!-- SEGURANÇA -->
+    <div class="card red">
+      <div class="card-header">
+        <h3>Segurança</h3>
+      </div>
+
+      <div class="input-group">
+        <label for="senha">Nova senha</label>
+        <input type="password" id="senha">
+        <div class="strength-bar">
+          <div class="strength-fill" id="strengthFill"></div>
+        </div>
+        <span class="strength-label" id="strengthLabel"></span>
+      </div>
+
+      <div class="input-group">
+        <label for="confirmarSenha">Confirmar senha</label>
+        <input type="password" id="confirmarSenha">
+        <span class="field-error" id="senhaError">As senhas não conferem</span>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-red" id="btnAlterarSenha" type="button">
+          Atualizar Senha
+        </button>
+      </div>
+    </div>
+  </main>
+  <div class="modal-overlay" id="changesModal">
+
+  <div class="modal">
+
+    <h3>Alterações não salvas</h3>
+
+    <p>
+      Você possui alterações pendentes. Deseja salvar antes de sair?
+    </p>
+
+    <div class="modal-actions">
+
+      <button class="btn btn-red" id="discardChanges">
+        Descartar
+      </button>
+
+      <button class="btn btn-green" id="saveChanges">
+        Salvar
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<script type="module" src="../js/produtos.js"></script>
 </body>
+
+
 </html>
