@@ -3,9 +3,419 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Configurações · Perfil</title>
+    <style>
+        /* RESET E BASE (mantendo a identidade do seu sistema) */
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #2d2d2d;
+        }
+
+        .container {
+            margin-top: 30px;
+            margin-left: 10%;
+            margin-right: 10%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            margin-bottom: 0.2rem;
+            font-weight: 600;
+        }
+
+        h5 {
+            font-weight: 400;
+            color: #4a4a4a;
+            margin-top: 0;
+            margin-bottom: 24px;
+        }
+
+        /* FORMULÁRIO - seguindo o padrão cinza claro */
+        .container-form {
+            background-color: #e2e2e2;
+            padding: 2rem clamp(1rem, 1rem + 0.5vw, 3rem);
+            border-radius: 20px;
+            margin-bottom: 20px;
+        }
+
+        .form-perfil {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .linha {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            align-items: flex-end;
+        }
+
+        .campo {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .campo label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #3a3a3a;
+            margin-bottom: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        .input-padrao,
+        textarea {
+            padding: 8px 10px;
+            border-radius: 6px;
+            border: 0;
+            background: #fff;
+            font-size: 0.9rem;
+            font-family: inherit;
+            width: 100%;
+            box-sizing: border-box;
+            transition: 0.2s;
+            border: 1px solid transparent;
+        }
+
+        .input-padrao:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #a0522d;
+            box-shadow: 0 0 0 2px rgba(139, 69, 19, 0.1);
+        }
+
+        textarea {
+            min-height: 70px;
+            resize: vertical;
+        }
+
+        /* Foto */
+        .foto-area {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 8px;
+        }
+
+        .foto-preview {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background-color: #d1ccc0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: 600;
+            color: #5c4a3a;
+            background-size: cover;
+            background-position: center;
+            border: 2px solid #b0a090;
+            flex-shrink: 0;
+            overflow: hidden;
+        }
+
+        .btn-foto {
+            background-color: #fff;
+            border: 1px solid #b0a090;
+            color: #4a3a2a;
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .btn-foto:hover {
+            background-color: #f4f0eb;
+            border-color: #8b5a2b;
+        }
+
+        #input-foto {
+            display: none;
+        }
+
+        /* Botões */
+        .botoes {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .btn-salvar {
+            background-color: brown;
+            border: 0;
+            border-radius: 12px;
+            color: white;
+            font-weight: 600;
+            padding: 10px 22px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: 0.15s;
+            letter-spacing: 0.3px;
+        }
+
+        .btn-salvar:active {
+            transform: scale(0.95);
+        }
+
+        .btn-limpar {
+            background-color: #c4b7a8;
+            border: 0;
+            border-radius: 12px;
+            color: #2d2d2d;
+            font-weight: 600;
+            padding: 10px 22px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: 0.15s;
+        }
+
+        .btn-limpar:active {
+            transform: scale(0.95);
+        }
+
+        /* Mensagem de feedback */
+        .mensagem {
+            font-size: 0.8rem;
+            margin-top: 10px;
+            color: #2e7d32;
+            display: none;
+        }
+
+        .mensagem.mostrar {
+            display: block;
+        }
+
+        /* Indicador sutil de Firebase */
+        .dica-firebase {
+            font-size: 0.68rem;
+            color: #8b7a6b;
+            margin-top: 16px;
+            border-top: 1px solid #c5bfb6;
+            padding-top: 10px;
+            text-align: right;
+        }
+    </style>
 </head>
 <body>
-    
+    <!-- 
+        Este conteúdo deve ser inserido dentro da página config.html,
+        substituindo o container principal. O menu e header são carregados
+        pelo seu sistema (placeholders). Aqui está apenas a área de perfil.
+    -->
+    <div class="container">
+        <h2>Configurações do Perfil</h2>
+        <h5>Atualize suas informações pessoais</h5>
+
+        <div class="container-form">
+            <form class="form-perfil" id="form-perfil">
+                <!-- Foto -->
+                <div class="foto-area">
+                    <div class="foto-preview" id="foto-preview"></div>
+                    <button type="button" class="btn-foto" id="btn-upload">Alterar foto</button>
+                    <input type="file" id="input-foto" accept="image/*">
+                </div>
+
+                <div class="linha">
+                    <div class="campo">
+                        <label>Nome completo</label>
+                        <input type="text" id="nome" class="input-padrao" placeholder="Seu nome completo">
+                    </div>
+                    <div class="campo">
+                        <label>E-mail</label>
+                        <input type="email" id="email" class="input-padrao" placeholder="email@exemplo.com">
+                    </div>
+                </div>
+
+                <div class="linha">
+                    <div class="campo">
+                        <label>Telefone</label>
+                        <input type="tel" id="telefone" class="input-padrao" placeholder="(XX) XXXXX-XXXX">
+                    </div>
+                    <div class="campo">
+                        <label>Endereço</label>
+                        <input type="text" id="endereco" class="input-padrao" placeholder="Rua, número, bairro">
+                    </div>
+                </div>
+
+                <div class="linha">
+                    <div class="campo">
+                        <label>Cidade / Estado</label>
+                        <input type="text" id="cidade" class="input-padrao" placeholder="Cidade - UF">
+                    </div>
+                </div>
+
+                <div class="campo">
+                    <label>Observações</label>
+                    <textarea id="observacoes" class="input-padrao" placeholder="Informações complementares..."></textarea>
+                </div>
+
+                <div class="botoes">
+                    <button type="button" class="btn-salvar" id="btn-salvar">Salvar informações</button>
+                    <button type="button" class="btn-limpar" id="btn-limpar">Limpar campos</button>
+                </div>
+                <div class="mensagem" id="mensagem">Perfil salvo com sucesso.</div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            // ---------- ELEMENTOS ----------
+            const fotoPreview = document.getElementById('foto-preview');
+            const btnUpload = document.getElementById('btn-upload');
+            const inputFoto = document.getElementById('input-foto');
+            const inputNome = document.getElementById('nome');
+            const inputEmail = document.getElementById('email');
+            const inputTelefone = document.getElementById('telefone');
+            const inputEndereco = document.getElementById('endereco');
+            const inputCidade = document.getElementById('cidade');
+            const inputObs = document.getElementById('observacoes');
+            const btnSalvar = document.getElementById('btn-salvar');
+            const btnLimpar = document.getElementById('btn-limpar');
+            const msgDiv = document.getElementById('mensagem');
+
+            // ---------- DADOS INICIAIS ----------
+            const DADOS_VAZIOS = {
+                nome: '',
+                email: '',
+                telefone: '',
+                endereco: '',
+                cidade: '',
+                observacoes: '',
+                foto: '' // base64 ou url
+            };
+
+            // ---------- SIMULAÇÃO FIREBASE (localStorage) ----------
+            // Substitua estas duas funções para usar Firebase Realtime Database:
+            // firebase.database().ref('usuarios/' + userId + '/perfil').set(dados)
+            function salvarNoBanco(dados) {
+                localStorage.setItem('perfil_config', JSON.stringify(dados));
+            }
+
+            function carregarDoBanco() {
+                const json = localStorage.getItem('perfil_config');
+                if (json) {
+                    try { return JSON.parse(json); } catch (e) { return {...DADOS_VAZIOS }; }
+                }
+                return {...DADOS_VAZIOS };
+            }
+
+            // ---------- ATUALIZA PREVIEW DA FOTO ----------
+            function atualizarPreview(fotoBase64) {
+                if (fotoBase64) {
+                    fotoPreview.style.backgroundImage = `url(${fotoBase64})`;
+                    fotoPreview.textContent = '';
+                } else {
+                    fotoPreview.style.backgroundImage = '';
+                    const nome = inputNome.value.trim();
+                    fotoPreview.textContent = nome ? nome.charAt(0).toUpperCase() : '?';
+                }
+            }
+
+            // ---------- PREENCHE FORMULÁRIO ----------
+            function preencherForm(dados) {
+                inputNome.value = dados.nome || '';
+                inputEmail.value = dados.email || '';
+                inputTelefone.value = dados.telefone || '';
+                inputEndereco.value = dados.endereco || '';
+                inputCidade.value = dados.cidade || '';
+                inputObs.value = dados.observacoes || '';
+                atualizarPreview(dados.foto);
+            }
+
+            // ---------- COLETA DADOS ----------
+            function coletarDados() {
+                let foto = '';
+                if (fotoPreview.style.backgroundImage && fotoPreview.style.backgroundImage !== 'none') {
+                    // Extrai conteúdo de url("...")
+                    const bg = fotoPreview.style.backgroundImage;
+                    foto = bg.slice(5, -2);
+                }
+                return {
+                    nome: inputNome.value.trim(),
+                    email: inputEmail.value.trim(),
+                    telefone: inputTelefone.value.trim(),
+                    endereco: inputEndereco.value.trim(),
+                    cidade: inputCidade.value.trim(),
+                    observacoes: inputObs.value.trim(),
+                    foto: foto
+                };
+            }
+
+            // ---------- MENSAGEM ----------
+            function mostrarMensagem(texto) {
+                msgDiv.textContent = texto;
+                msgDiv.classList.add('mostrar');
+                setTimeout(() => msgDiv.classList.remove('mostrar'), 3000);
+            }
+
+            // ---------- SALVAR ----------
+            function salvar() {
+                const dados = coletarDados();
+                salvarNoBanco(dados);
+                mostrarMensagem('Perfil salvo com sucesso.');
+                // Exibe no console a estrutura pronta para o Firebase:
+                console.log('Dados para Firebase Realtime Database:', dados);
+            }
+
+            // ---------- LIMPAR ----------
+            function limpar() {
+                if (confirm('Deseja limpar todos os campos?')) {
+                    preencherForm(DADOS_VAZIOS);
+                    salvarNoBanco(DADOS_VAZIOS);
+                    mostrarMensagem('Campos limpos.');
+                }
+            }
+
+            // ---------- UPLOAD DE FOTO ----------
+            btnUpload.addEventListener('click', () => inputFoto.click());
+
+            inputFoto.addEventListener('change', function(e) {
+                const arquivo = e.target.files[0];
+                if (!arquivo) return;
+                const leitor = new FileReader();
+                leitor.onload = function(evento) {
+                    const base64 = evento.target.result;
+                    fotoPreview.style.backgroundImage = `url(${base64})`;
+                    fotoPreview.textContent = '';
+                    mostrarMensagem('Foto carregada. Clique em Salvar para guardar.');
+                };
+                leitor.readAsDataURL(arquivo);
+                inputFoto.value = ''; // permite reenvio
+            });
+
+            // Atualiza letra inicial ao digitar nome (se não houver foto)
+            inputNome.addEventListener('input', function() {
+                if (!fotoPreview.style.backgroundImage || fotoPreview.style.backgroundImage === 'none') {
+                    const nome = inputNome.value.trim();
+                    fotoPreview.textContent = nome ? nome.charAt(0).toUpperCase() : '?';
+                }
+            });
+
+            // ---------- EVENTOS ----------
+            btnSalvar.addEventListener('click', salvar);
+            btnLimpar.addEventListener('click', limpar);
+
+            // ---------- INICIALIZAÇÃO ----------
+            const dadosSalvos = carregarDoBanco();
+            preencherForm(dadosSalvos);
+            console.log('Perfil carregado (simulação):', dadosSalvos);
+
+            // Facilita integração futura
+            window.obterPerfil = coletarDados;
+        })();
+    </script>
 </body>
 </html>
