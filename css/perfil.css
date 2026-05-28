@@ -11,25 +11,6 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-header {
-  width: 100%;
-  background-color: #ffffff;
-  height: 68px;
-  display: flex;
-  align-items: center;
-  position: relative;
-  z-index: 10;
-}
-
-.header-content {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 90%;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
 .logo {
   display: flex;
   align-items: center;
@@ -92,7 +73,7 @@ nav a {
 
 .TelaLogin {
     background-color: rgb(255, 255, 255);
-    border-radius: 20px;
+    border-radius: clamp(8px, 1.2vw, 12px);
     display: grid;
     padding: 1.5%;
     gap: 1%;
@@ -106,13 +87,12 @@ nav a {
 
 #login {
     background-color: rgb(224, 224, 224);
-    border-radius: 20px;
+    border-radius: clamp(5px, 0.8vw, 8px);
     display: flex;
     flex-direction: column;
     align-items: center;
     font-size: 1rem;
     gap: 5%;
-    box-shadow: 2px 4px 8px -4px black;
 }
 
 
@@ -132,7 +112,7 @@ nav a {
     margin: 0.5%;
     flex-grow: 1;
     height: 1rem;
-    border-radius: 5px;
+    border-radius: clamp(4px, 0.6vw, 8px);
     padding: 5px;
 }
 
@@ -140,7 +120,7 @@ nav a {
     width: clamp(10rem, 12rem + 1vw, 20rem);
     height: clamp(1.3rem, 1.5rem + 1vw, 3rem);
     border: 0px;
-    border-radius: 5px;
+    border-radius: clamp(5px, 0.8vw, 8px);
     font-size: 1rem;
     padding: 2px;
     margin: 5px;
@@ -167,7 +147,7 @@ nav a {
 .TelaCadastro {
     background-color: rgb(255, 255, 255);
 
-    border-radius: 20px;
+    border-radius: clamp(8px, 1.2vw, 12px);
     display: grid;
     padding: 1.5%;
     gap: 1%;
@@ -198,8 +178,7 @@ nav a {
     background-color: #d8d8d8;
     justify-content: center;
     align-items: center;
-    border-radius: 20px;
-    box-shadow: 2px 3px 7px -4px black;
+    border-radius: clamp(5px, 0.8vw, 8px);
     flex-direction: column;
     padding: 1%;
     gap: 5px;
@@ -215,7 +194,7 @@ nav a {
     width: clamp(30rem, 30rem + 10vw, 90rem);
     display: flex;
     background-color: rgb(255, 255, 255);
-    border-radius: 20px;
+    border-radius: clamp(8px, 1.2vw, 12px);
     padding: 1.5%;
     justify-content: center;
     text-align: center;
@@ -235,8 +214,7 @@ nav a {
     align-items: center;
     background-color: #d8d8d8;
     padding: 1%;
-    border-radius: 20px;
-    box-shadow: 2px 3px 8px -4px black;
+    border-radius: clamp(5px, 0.8vw, 8px);
     gap: 1%;
 
 }

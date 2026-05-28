@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
     <meta charset="UTF-8">
@@ -11,7 +11,6 @@
 
     <style>
         .header {
-
             display: flex;
             flex-direction: row;
             align-self: center;
@@ -21,7 +20,6 @@
             background-color: rgb(255, 255, 255);
             padding-right: 9%;
             padding-left: 9%;
-
         }
 
         #logoHeader {
@@ -32,7 +30,6 @@
         }
 
         .textHeader {
-
             font-family: sans-serif;
             font-size: clamp(1rem, 5vw + 0.5rem, 2rem);
             flex-grow: 1;
@@ -40,7 +37,6 @@
             flex-shrink: 0;
             order: 1;
             color: black;
-
         }
 
         .btnHeader {
@@ -51,76 +47,79 @@
             flex-shrink: 0;
             border: 0px;
             background-color: transparent;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .btnHeader:hover {
+            color: #4a7c3f;
+            text-decoration: underline;
         }
 
         .divBtnHeader {
-
             display: flex;
             order: 3;
             flex-wrap: wrap;
-
         }
 
-        .btnProfile {
-            width: clamp(1rem, 0.5rem + 2vw, 5rem);
-            height: auto;
-            border: 0px;
-            border-radius: 5rem;
-            background-color: transparent;
+        .naoquebra {
+            white-space: nowrap;
+        }
+
+        .btnEntrar {
+            padding: 0.6rem 1.5rem;
+            font-size: clamp(0.9rem, 0.4vw + 0.1rem, 1.3rem);
+            font-weight: 600;
+            font-family: sans-serif;
+            border: 2px solid #4a7c3f;
+            border-radius: 2rem;
+            background-color: #4a7c3f;
+            color: white;
+            cursor: pointer;
             flex-shrink: 0;
-            transition: 0.1s;
+            transition: 0.2s;
             order: 4;
-
+            white-space: nowrap;
         }
 
-        .btnProfile:active {
-
-            transform: scale(0.9)
+        .btnEntrar:hover {
+            background-color: white;
+            color: #4a7c3f;
         }
 
-        #profileImage {
-            width: clamp(1rem, 0.5rem + 4vw, 3rem);
-            height: auto;
+        .btnEntrar:active {
+            transform: scale(0.95);
         }
 
-
-
-        @media (max-width: 1092px) {
-
+        @media (max-width: 1230px) {
             .header {
-
                 justify-content: center;
             }
 
             .divBtnHeader {
-
                 order: 4;
                 text-align: center;
             }
 
-            .btnProfile {
-
+            .btnEntrar {
                 order: 3;
             }
-
-
         }
     </style>
 
     <header class="header">
-        <img src="../assets/img/logoCenter.jpg" id="logoHeader">
+        <img src="../assets/img/logo.png" id="logoHeader" alt="Logo Agrega Rural">
         <h1 class="textHeader">AGREGA RURAL</h1>
-        <!-- 
+
         <div class="divBtnHeader">
             <button class="btnHeader">HOME</button>
-            <button class="btnHeader"><p class="naoquebra">SOBRE NÓS</p></button>
+            <button class="btnHeader"><span class="naoquebra">SOBRE NÓS</span></button>
             <button class="btnHeader">PRODUTOS</button>
             <button class="btnHeader">CONTATO</button>
         </div>
-        -->
-        <button class="btnProfile"><img src="../assets/img/perfil.jpg" id="profileImage"></button>
+
+        <button class="btnEntrar">ENTRAR</button>
     </header>
 </body>
-
 
 </html>

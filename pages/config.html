@@ -1,11 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Configurações · Perfil</title>
     <style>
-        /* RESET E BASE (mantendo a identidade do seu sistema) */
         body {
             margin: 0;
             padding: 0;
@@ -35,7 +34,6 @@
             margin-bottom: 24px;
         }
 
-        /* FORMULÁRIO - seguindo o padrão cinza claro */
         .container-form {
             background-color: #e2e2e2;
             padding: 2rem clamp(1rem, 1rem + 0.5vw, 3rem);
@@ -84,6 +82,7 @@
             box-sizing: border-box;
             transition: 0.2s;
             border: 1px solid transparent;
+            cursor: pointer; /* indica que é clicável */
         }
 
         .input-padrao:focus,
@@ -98,7 +97,6 @@
             resize: vertical;
         }
 
-        /* Foto */
         .foto-area {
             display: flex;
             align-items: center;
@@ -145,7 +143,6 @@
             display: none;
         }
 
-        /* Botões */
         .botoes {
             display: flex;
             gap: 10px;
@@ -185,7 +182,6 @@
             transform: scale(0.95);
         }
 
-        /* Mensagem de feedback */
         .mensagem {
             font-size: 0.8rem;
             margin-top: 10px;
@@ -197,7 +193,6 @@
             display: block;
         }
 
-        /* Indicador sutil de Firebase */
         .dica-firebase {
             font-size: 0.68rem;
             color: #8b7a6b;
@@ -206,21 +201,122 @@
             padding-top: 10px;
             text-align: right;
         }
+
+        /* ---- MODAL (pop‑up) ---- */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s;
+        }
+
+        .modal-overlay.ativo {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-caixa {
+            background: #fff;
+            border-radius: 16px;
+            padding: 24px 28px;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .modal-titulo {
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: #2d2d2d;
+            margin: 0;
+        }
+
+        .modal-valor-atual {
+            font-size: 0.85rem;
+            color: #4a4a4a;
+            background: #f4f4f4;
+            padding: 8px 12px;
+            border-radius: 6px;
+            word-break: break-word;
+        }
+
+        .modal-input {
+            padding: 10px 12px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            font-size: 0.9rem;
+            width: 100%;
+            box-sizing: border-box;
+            font-family: inherit;
+            resize: vertical;
+        }
+
+        .modal-input:focus {
+            outline: none;
+            border-color: #a0522d;
+            box-shadow: 0 0 0 2px rgba(139,69,19,0.15);
+        }
+
+        .modal-botoes {
+            display: flex;
+            gap: 8px;
+            justify-content: flex-end;
+        }
+
+        .btn-cancelar {
+            background: #e0e0e0;
+            border: none;
+            border-radius: 8px;
+            padding: 8px 18px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .btn-cancelar:hover {
+            background: #ccc;
+        }
+
+        .btn-aplicar {
+            background-color: brown;
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-weight: 600;
+            padding: 8px 18px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: 0.15s;
+        }
+
+        .btn-aplicar:active {
+            transform: scale(0.95);
+        }
     </style>
 </head>
 <body>
-    <!-- 
-        Este conteúdo deve ser inserido dentro da página config.html,
-        substituindo o container principal. O menu e header são carregados
-        pelo seu sistema (placeholders). Aqui está apenas a área de perfil.
-    -->
+    <div id="header-placeholder"></div>
+    <div id="menuOptions"></div>
+
     <div class="container">
         <h2>Configurações do Perfil</h2>
         <h5>Atualize suas informações pessoais</h5>
 
         <div class="container-form">
             <form class="form-perfil" id="form-perfil">
-                <!-- Foto -->
                 <div class="foto-area">
                     <div class="foto-preview" id="foto-preview"></div>
                     <button type="button" class="btn-foto" id="btn-upload">Alterar foto</button>
@@ -230,35 +326,35 @@
                 <div class="linha">
                     <div class="campo">
                         <label>Nome completo</label>
-                        <input type="text" id="nome" class="input-padrao" placeholder="Seu nome completo">
+                        <input type="text" id="nome" class="input-padrao" placeholder="Seu nome completo" data-label="Nome completo">
                     </div>
                     <div class="campo">
                         <label>E-mail</label>
-                        <input type="email" id="email" class="input-padrao" placeholder="email@exemplo.com">
+                        <input type="email" id="email" class="input-padrao" placeholder="email@exemplo.com" data-label="E-mail">
                     </div>
                 </div>
 
                 <div class="linha">
                     <div class="campo">
                         <label>Telefone</label>
-                        <input type="tel" id="telefone" class="input-padrao" placeholder="(XX) XXXXX-XXXX">
+                        <input type="tel" id="telefone" class="input-padrao" placeholder="(XX) XXXXX-XXXX" data-label="Telefone">
                     </div>
                     <div class="campo">
                         <label>Endereço</label>
-                        <input type="text" id="endereco" class="input-padrao" placeholder="Rua, número, bairro">
+                        <input type="text" id="endereco" class="input-padrao" placeholder="Rua, número, bairro" data-label="Endereço">
                     </div>
                 </div>
 
                 <div class="linha">
                     <div class="campo">
                         <label>Cidade / Estado</label>
-                        <input type="text" id="cidade" class="input-padrao" placeholder="Cidade - UF">
+                        <input type="text" id="cidade" class="input-padrao" placeholder="Cidade - UF" data-label="Cidade / Estado">
                     </div>
                 </div>
 
                 <div class="campo">
                     <label>Observações</label>
-                    <textarea id="observacoes" class="input-padrao" placeholder="Informações complementares..."></textarea>
+                    <textarea id="observacoes" class="input-padrao" placeholder="Informações complementares..." data-label="Observações"></textarea>
                 </div>
 
                 <div class="botoes">
@@ -268,11 +364,46 @@
                 <div class="mensagem" id="mensagem">Perfil salvo com sucesso.</div>
             </form>
         </div>
+
+        <div class="dica-firebase">
+            Pronto para integrar com Firebase Realtime Database
+        </div>
+    </div>
+
+    <!-- POP-UP DE EDIÇÃO RÁPIDA -->
+    <div class="modal-overlay" id="modal-overlay">
+        <div class="modal-caixa">
+            <h3 class="modal-titulo" id="modal-titulo">Editar campo</h3>
+            <div>
+                <span style="font-size:0.8rem; color:#555;">Valor atual:</span>
+                <div class="modal-valor-atual" id="modal-valor-atual"></div>
+            </div>
+            <div>
+                <label style="font-size:0.8rem; color:#555;">Novo valor:</label>
+                <textarea id="modal-input" class="modal-input" rows="2" placeholder="Digite o novo valor"></textarea>
+            </div>
+            <div class="modal-botoes">
+                <button class="btn-cancelar" id="modal-cancelar">Cancelar</button>
+                <button class="btn-aplicar" id="modal-salvar">Salvar</button>
+            </div>
+        </div>
     </div>
 
     <script>
-        (function() {
-            // ---------- ELEMENTOS ----------
+        fetch('/components/header.html')
+            .then(res => res.text())
+            .then(html => {
+                document.getElementById('header-placeholder').innerHTML = html;
+            });
+
+        fetch('/components/menuoptions.html')
+            .then(res => res.text())
+            .then(html => {
+                document.getElementById('menuOptions').innerHTML = html;
+            });
+
+        (function () {
+            // Elementos principais
             const fotoPreview = document.getElementById('foto-preview');
             const btnUpload = document.getElementById('btn-upload');
             const inputFoto = document.getElementById('input-foto');
@@ -286,7 +417,16 @@
             const btnLimpar = document.getElementById('btn-limpar');
             const msgDiv = document.getElementById('mensagem');
 
-            // ---------- DADOS INICIAIS ----------
+            // Modal
+            const modalOverlay = document.getElementById('modal-overlay');
+            const modalTitulo = document.getElementById('modal-titulo');
+            const modalValorAtual = document.getElementById('modal-valor-atual');
+            const modalInput = document.getElementById('modal-input');
+            const modalSalvar = document.getElementById('modal-salvar');
+            const modalCancelar = document.getElementById('modal-cancelar');
+
+            let campoAtual = null; // referência ao input/textarea que será editado
+
             const DADOS_VAZIOS = {
                 nome: '',
                 email: '',
@@ -294,12 +434,9 @@
                 endereco: '',
                 cidade: '',
                 observacoes: '',
-                foto: '' // base64 ou url
+                foto: ''
             };
 
-            // ---------- SIMULAÇÃO FIREBASE (localStorage) ----------
-            // Substitua estas duas funções para usar Firebase Realtime Database:
-            // firebase.database().ref('usuarios/' + userId + '/perfil').set(dados)
             function salvarNoBanco(dados) {
                 localStorage.setItem('perfil_config', JSON.stringify(dados));
             }
@@ -307,12 +444,11 @@
             function carregarDoBanco() {
                 const json = localStorage.getItem('perfil_config');
                 if (json) {
-                    try { return JSON.parse(json); } catch (e) { return {...DADOS_VAZIOS }; }
+                    try { return JSON.parse(json); } catch (e) { return { ...DADOS_VAZIOS }; }
                 }
-                return {...DADOS_VAZIOS };
+                return { ...DADOS_VAZIOS };
             }
 
-            // ---------- ATUALIZA PREVIEW DA FOTO ----------
             function atualizarPreview(fotoBase64) {
                 if (fotoBase64) {
                     fotoPreview.style.backgroundImage = `url(${fotoBase64})`;
@@ -324,7 +460,6 @@
                 }
             }
 
-            // ---------- PREENCHE FORMULÁRIO ----------
             function preencherForm(dados) {
                 inputNome.value = dados.nome || '';
                 inputEmail.value = dados.email || '';
@@ -335,11 +470,9 @@
                 atualizarPreview(dados.foto);
             }
 
-            // ---------- COLETA DADOS ----------
             function coletarDados() {
                 let foto = '';
                 if (fotoPreview.style.backgroundImage && fotoPreview.style.backgroundImage !== 'none') {
-                    // Extrai conteúdo de url("...")
                     const bg = fotoPreview.style.backgroundImage;
                     foto = bg.slice(5, -2);
                 }
@@ -354,23 +487,19 @@
                 };
             }
 
-            // ---------- MENSAGEM ----------
             function mostrarMensagem(texto) {
                 msgDiv.textContent = texto;
                 msgDiv.classList.add('mostrar');
                 setTimeout(() => msgDiv.classList.remove('mostrar'), 3000);
             }
 
-            // ---------- SALVAR ----------
             function salvar() {
                 const dados = coletarDados();
                 salvarNoBanco(dados);
                 mostrarMensagem('Perfil salvo com sucesso.');
-                // Exibe no console a estrutura pronta para o Firebase:
                 console.log('Dados para Firebase Realtime Database:', dados);
             }
 
-            // ---------- LIMPAR ----------
             function limpar() {
                 if (confirm('Deseja limpar todos os campos?')) {
                     preencherForm(DADOS_VAZIOS);
@@ -379,41 +508,96 @@
                 }
             }
 
-            // ---------- UPLOAD DE FOTO ----------
+            // ---- MODAL: abrir ao clicar em qualquer campo de texto ----
+            function abrirModal(campo) {
+                if (!campo || !campo.dataset.label) return;
+                campoAtual = campo;
+                const label = campo.dataset.label;
+                const valor = campo.value;
+                modalTitulo.textContent = 'Editar ' + label;
+                modalValorAtual.textContent = valor || '(vazio)';
+                modalInput.value = valor;
+                // Ajusta tipo de input (textarea ou input simples)
+                if (campo.tagName === 'TEXTAREA') {
+                    modalInput.style.height = '80px';
+                } else {
+                    modalInput.style.height = 'auto';
+                }
+                modalOverlay.classList.add('ativo');
+                modalInput.focus();
+            }
+
+            function fecharModal() {
+                modalOverlay.classList.remove('ativo');
+                campoAtual = null;
+            }
+
+            function aplicarEdicao() {
+                if (!campoAtual) return;
+                const novoValor = modalInput.value;
+                campoAtual.value = novoValor;
+                // Se for o campo nome, atualiza preview da foto
+                if (campoAtual === inputNome) {
+                    atualizarPreview(coletarDados().foto);
+                }
+                fecharModal();
+                mostrarMensagem('Campo atualizado. Lembre-se de salvar as informações.');
+            }
+
+            // Eventos do modal
+            modalSalvar.addEventListener('click', aplicarEdicao);
+            modalCancelar.addEventListener('click', fecharModal);
+            modalOverlay.addEventListener('click', function(e) {
+                if (e.target === modalOverlay) fecharModal();
+            });
+
+            // Fechar com ESC
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && modalOverlay.classList.contains('ativo')) {
+                    fecharModal();
+                }
+            });
+
+            // Clique nos campos de texto (excluindo o de foto)
+            document.querySelectorAll('.input-padrao[data-label]').forEach(campo => {
+                campo.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    abrirModal(this);
+                });
+            });
+
+            // Upload de foto (mantido como antes)
             btnUpload.addEventListener('click', () => inputFoto.click());
 
-            inputFoto.addEventListener('change', function(e) {
+            inputFoto.addEventListener('change', function (e) {
                 const arquivo = e.target.files[0];
                 if (!arquivo) return;
                 const leitor = new FileReader();
-                leitor.onload = function(evento) {
+                leitor.onload = function (evento) {
                     const base64 = evento.target.result;
                     fotoPreview.style.backgroundImage = `url(${base64})`;
                     fotoPreview.textContent = '';
                     mostrarMensagem('Foto carregada. Clique em Salvar para guardar.');
                 };
                 leitor.readAsDataURL(arquivo);
-                inputFoto.value = ''; // permite reenvio
+                inputFoto.value = '';
             });
 
-            // Atualiza letra inicial ao digitar nome (se não houver foto)
-            inputNome.addEventListener('input', function() {
+            // Atualiza letra ao digitar nome (só se não houver foto)
+            inputNome.addEventListener('input', function () {
                 if (!fotoPreview.style.backgroundImage || fotoPreview.style.backgroundImage === 'none') {
                     const nome = inputNome.value.trim();
                     fotoPreview.textContent = nome ? nome.charAt(0).toUpperCase() : '?';
                 }
             });
 
-            // ---------- EVENTOS ----------
             btnSalvar.addEventListener('click', salvar);
             btnLimpar.addEventListener('click', limpar);
 
-            // ---------- INICIALIZAÇÃO ----------
             const dadosSalvos = carregarDoBanco();
             preencherForm(dadosSalvos);
             console.log('Perfil carregado (simulação):', dadosSalvos);
 
-            // Facilita integração futura
             window.obterPerfil = coletarDados;
         })();
     </script>

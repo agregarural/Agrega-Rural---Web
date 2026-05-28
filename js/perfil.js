@@ -1,3 +1,10 @@
+fetch('/components/headerNlogin.html')
+    .then(res => res.text())
+    .then(html => {
+        document.getElementById('header-placeholder').innerHTML = html;
+    });
+
+
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.12.0/firebase-app.js";
 import { getDatabase, ref, onValue, push, remove } from "https://www.gstatic.com/firebasejs/12.12.0/firebase-database.js";
 
