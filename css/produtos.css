@@ -214,17 +214,18 @@ body {
     flex:1;
     height: clamp(30px, 30px + 0.5vw, 4rem);
     margin: clamp(5px, 5px + 0.1vw, 10px);
-    background-color: rgb(136, 136, 136);
-    color: rgb(0, 0, 0);
+    background-color: brown;
+    color: rgb(223, 223, 223);
     font-size: clamp(1rem, 1rem + 0.1vw, 2rem);
+    font-weight: 600;
     border: 0;
-    border-radius: 5px;
+    border-radius: 8px;
     transition: 80ms;
-    box-shadow: 2px 2px 10px -4px black;
+    box-shadow: 2px 2px 10px -4px rgb(0, 0, 0);
 }
 
 .btn-editar:hover{
-    transform: translateY(-2px);
+    transform: translateY(-0px);
 
 
 }
