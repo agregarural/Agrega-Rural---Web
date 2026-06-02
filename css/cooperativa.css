@@ -55,7 +55,7 @@ body {
 
 .card {
 
-    min-width: 500px;
+    min-width: 250px;
     display: flex;
     flex-grow: 1;
     flex-basis: 1;
@@ -139,6 +139,7 @@ th {
     justify-content: center;
     align-items: center;
 
+
 }
 
 .overlay{
@@ -149,7 +150,8 @@ th {
     justify-content: center;
     background-color: #e7e7e7;
     padding: 2%;
-    border-radius: 8px;
+    border-radius: 15px;
+    box-shadow: 3px 3px 4px -5px black;
 
 }
 
