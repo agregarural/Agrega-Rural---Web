@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cooperativa</title>
     <link rel="stylesheet" href="../css/cooperativa.css">
 </head>
+
 <body>
 
     <div id="header-placeholder"></div>
@@ -27,7 +29,64 @@
         <div class="container-cards">
 
             <div class="card" id="card-data">
+                <span class="title-data">DADOS GERAIS</span>
+                <label>Nome: </label>
+                <label>CNPJ: </label>
+                <label>Nome: </label>
+                <label>Nome: </label>
+            </div>
+            <div class="card" id="card">
+                <span class="title-data">DADOS GERAIS</span>
+            </div>
+            <div class="card" id="card">
+                <span class="title-data">Administradores</span>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Email</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Pedro</td>
+                            <td>pedro@example.com</td>
+                            <td>Ativo</td>
+                        </tr>
+                        <tr>
+                            <td>Jaime</td>
+                            <td>jaime@example.com</td>
+                            <td>Inativo</td>
+                        </tr>
+                        <tr>
+                            <td>Carlos</td>
+                            <td>carlos@example.com</td>
+                            <td>Ativo</td>
+                        </tr>
+                    </tbody>
+                </table>
 
+                <button id="btnAddAdm">Adcionar Administrador</button>
+
+                <div class="overlay, oculto" id="overlay">
+                    <div class="overlay">
+                        <span>Cadastrar Administrador</span>
+                        <label>Nome:</label>
+                        <input>
+                        <label>CPF:</label>
+                        <input>
+                        <label>Email:</label>
+                        <input>
+                        <label>Senha:</label>
+                        <input>
+                        <div class="dosbtn">
+                            <button type="submit" class="btn">CADASTAR</button>
+                            <button type="submit" class="btn">CANCELAR</button>
+                        </div>
+                    </div>
+
+                </div>
 
 
             </div>
@@ -40,9 +99,10 @@
 
     </div>
 
-    
-    
+
+
 </body>
 
 <script src="../js/cooperativa.js"></script>
+
 </html>

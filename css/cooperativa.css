@@ -1,11 +1,11 @@
-body{
+body {
     margin: 0px;
     padding: 0px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #f4f6f9;
 }
 
-#container{
+#container {
 
     margin-top: clamp(50px, 50px + 1vw, 4rem);
     margin-left: 10%;
@@ -15,7 +15,7 @@ body{
 
 /* BANNER COOP*/
 
-.container-banner{
+.container-banner {
 
     display: flex;
     flex-direction: column;
@@ -26,7 +26,7 @@ body{
 
 }
 
-.imgCB{
+.imgCB {
 
     width: 90px;
     height: 90px;
@@ -34,17 +34,17 @@ body{
 
 }
 
-.btnCB{
+.btnCB {
 
     width: 170px;
     height: 30px;
-    
+
 }
 
 /* CARDS COOP*/
 
 
-.container-cards{
+.container-cards {
 
     display: flex;
     margin-top: 2%;
@@ -53,12 +53,14 @@ body{
 
 }
 
-.card{
+.card {
 
+    min-width: 500px;
     display: flex;
     flex-grow: 1;
     flex-basis: 1;
     padding: 3%;
+    margin: 0% 0% 2% 0%;
     border: 1px solid rgb(226, 226, 226);
     background-color: rgb(255, 255, 255);
     box-shadow: 0px 0px 6px -6px black;
@@ -68,16 +70,17 @@ body{
     font-size: calc(1rem + 10%);
 }
 
-span.title-data{
+span.title-data {
 
-    font-size: calc(1rem + 10%);
+    font-size: calc(1rem + 5%);
     display: flex;
+    color: rgb(48, 41, 32);
     justify-content: center;
     font-weight: 600;
     padding: 3%;
 }
 
-.data{
+.data {
     font-size: 1rem;
     padding: 1.5%;
     background-color: #f4f6f9;
@@ -85,5 +88,117 @@ span.title-data{
     border-radius: 8px;
 }
 
+#btnAddAdm {
+
+    display: flex;
+    max-height: 40px;
+    width: 20%;
+    margin: 2% 0% 2% 0%;
+    padding: 2%;
+    color: aliceblue;
+    background-color: brown;
+    border: 0px;
+    border-radius: 8px;
+    transition: 0.15s;
+
+    justify-content: center;
+    align-items: center;
+
+    font-size: 1rem;
+}
+
+#btnAddAdm:active {
+    transform: scale(0.9);
 
 
+}
+
+table {
+
+    border: 1px solid rgb(124, 124, 124);
+    padding: 2%;
+    border-radius: 8px;
+    background-color: #e7e7e7;
+
+}
+
+th {
+
+    text-align: justify;
+}
+
+#overlay{
+
+    position: fixed;   /* 👈 fundamental */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.overlay{
+
+    display: flex;
+    flex-direction: column;
+    margin: 10% 33% 10% 33%;
+    justify-content: center;
+    background-color: #e7e7e7;
+    padding: 2%;
+    border-radius: 8px;
+
+}
+
+span{
+
+    display: flex;
+    margin: 1% 0 1% 0;
+    justify-content: center;
+    font-weight: 550;
+}
+
+input{
+    height: 20px;
+    padding: 0.5%;
+    border: 0px;
+    background-color: rgb(238, 238, 238);
+    border: 1px solid rgb(138, 138, 138);
+    border-radius: 5px;
+}
+
+.dosbtn{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 10%;
+}
+
+.btn{
+    
+    display: flex;
+    flex-grow: 1;
+    margin: 5% 0% 1% 0%;
+    padding: 2%;
+    color: rgb(255, 255, 255);
+    background-color: brown;
+    border: 1px solid rgb(219, 219, 219);
+    border-radius: 8px;
+    transition: 0.15s;
+    font-size: 1rem;
+    transform: 100ms;
+justify-content: center;
+    text-align: center;
+}
+
+.btn:active{
+transform: scale(0.9);
+
+}
+
+.oculto{
+    display: none !important; 
+}
