@@ -3,6 +3,8 @@ body {
     background-repeat: no-repeat;
     background-color: #ffffff;
     background-size: cover;
+    background-position: center;
+    background-attachment: fixed; 
     padding: 0;
     margin: 0;
     display: flex;
@@ -25,9 +27,11 @@ header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 90%;
-  max-width: 1200px;
+  width: 100%;
+  max-width: 1000px;
   margin: 0 auto;
+  padding: 0 20px; 
+  box-sizing: border-box;
 }
 
 .logo {
@@ -73,18 +77,16 @@ nav a {
   font-weight: 500;
 }
 
-
-
-/*  Container   */
-
+/* Container Principal */
 .container {
+    display: flex;
     justify-content: center;
     align-items: center;
-    display: flex;
-    flex-direction: column;
     flex: 1;
+    min-height: calc(100vh - 68px); 
+    padding: 40px 20px; 
+    box-sizing: border-box;
 }
-
 
 /*///////////////////////////////*/
 /* Tela Authetincation -- LOGIN  */
@@ -94,11 +96,13 @@ nav a {
     background-color: rgb(255, 255, 255);
     border-radius: 20px;
     display: grid;
-    padding: 1.5%;
-    gap: 1%;
-    box-shadow: 2px 3px 15px -4px black;
-    grid-template-columns: 4fr 5fr;
-
+    padding: 30px; 
+    gap: 25px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); 
+    grid-template-columns: 1fr 1.2fr; 
+    width: 100%;
+    max-width: 780px;
+    box-sizing: border-box;
     opacity: 1;
     visibility: visible;
     transition: opacity 0.4s ease;
@@ -110,11 +114,13 @@ nav a {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     font-size: 1rem;
-    gap: 5%;
+    padding: 30px 20px;
+    gap: 15px;
     box-shadow: 2px 4px 8px -4px black;
+    box-sizing: border-box;
 }
-
 
 #fazerCadastro {
     background-color: rgb(255, 255, 255);
@@ -123,77 +129,145 @@ nav a {
     justify-content: center;
     align-items: center;
     text-align: center;
+    padding: 10px;
 }
 
+.titulo-marca {
+    font-size: 1.4rem;
+    margin: 10px 0 5px 0;
+}
+
+.subtitulo-marca {
+    font-size: 1rem;
+    color: #444;
+    margin-bottom: 20px;
+}
+
+.titulo-login {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+/* Ajuste Fino de Responsividade de Inputs e Botões */
 .input {
-    width: 10rem;
-    height: 2rem;
+    width: 100%;
+    max-width: 18rem;
+    height: 2.3rem;
     border: 0px;
-    margin: 0.5%;
-    flex-grow: 1;
-    height: 1rem;
     border-radius: 5px;
-    padding: 5px;
+    padding: 5px 12px;
+    box-sizing: border-box;
+    font-size: 0.95rem;
 }
 
 .btn {
-    width: clamp(10rem, 12rem + 1vw, 20rem);
-    height: clamp(1.3rem, 1.5rem + 1vw, 3rem);
+    width: 100%;
+    max-width: 18rem;
+    height: 2.5rem;
     border: 0px;
     border-radius: 5px;
     font-size: 1rem;
-    padding: 2px;
-    margin: 5px;
+    font-weight: 600;
+    padding: 5px;
+    margin: 5px 0;
     background-color: #76a072;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s;
+}
+
+.btn:hover {
+    background-color: #658b61;
 }
 
 .btn:active {
-    transform: scale(0.95);
+    transform: scale(0.97);
+}
+
+/* ID específico para o link "Esqueceu sua senha?" na tela de Login */
+#btnToEsqueciSenha {
+    font-size: 16px;                     /* Tamanho aumentado */
+    color: #333;                        /* Tom mais escuro para destaque */
+    cursor: pointer;
+    margin-top: 10px;
+    font-weight: bold;                  /* Texto em negrito */
+    text-decoration: underline;         /* Sublinhado padrão ativo */
+    transition: color 0.2s;
+}
+
+#btnToEsqueciSenha:hover {
+    color: #000;                        /* Fica totalmente preto ao passar o mouse */
+}
+
+/* Se você ainda usar a classe antiga em algum lugar, ela foi mantida atualizada aqui */
+.esqueceu-senha {
+    font-size: 16px;
+    color: #333;
+    cursor: pointer;
+    margin-top: 10px;
+    font-weight: bold;
+    text-decoration: underline;
+    transition: color 0.2s;
+}
+
+.esqueceu-senha:hover {
+    color: #000;
 }
 
 #imgLogo2 {
-    height: calc(5vw + 5vh);
-    width: calc(5vw + 5vh);
+    height: 90px;
+    width: auto;
 }
 
+/* Estilos específicos para aumentar a legibilidade dentro do formulário de recuperação (quadrado cinza) */
+#formEsqueciSenha p:first-of-type {
+    font-size: 24px !important;         /* Título da recuperação aumentado */
+    font-weight: bold !important;
+    color: #222 !important;
+    margin-bottom: 5px;
+}
 
-
-
+#formEsqueciSenha p.desc-recuperar {
+    font-size: 15px !important;         /* Texto descritivo aumentado */
+    color: #333 !important;             /* Cor escurecida para contraste com o cinza */
+    font-weight: 500 !important;
+    text-align: center;
+    padding: 0 10px;
+    line-height: 1.4;
+}
 
 /*////////////////////////////////////*/
-/*  Tela Authetincation -- CADASTRO   */
+/* Tela Authetincation -- CADASTRO    */
 /*////////////////////////////////////*/
 
 .TelaCadastro {
     background-color: rgb(255, 255, 255);
-
     border-radius: 20px;
     display: grid;
-    padding: 1.5%;
-    gap: 1%;
+    padding: 25px;
+    gap: 20px;
     box-shadow: 2px 3px 15px -4px black;
     grid-template-columns: 4fr 5fr;
-
+    width: 100%;
+    max-width: 850px;
+    box-sizing: border-box;
     opacity: 1;
     visibility: visible;
     transition: opacity 0.4s ease;
-
 }
 
 #fazerLogin {
-
     background-color: #ffffff;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
     text-align: center;
-
+    padding: 10px;
 }
 
 #cadastro {
-
     display: flex;
     background-color: #d8d8d8;
     justify-content: center;
@@ -201,32 +275,31 @@ nav a {
     border-radius: 20px;
     box-shadow: 2px 3px 7px -4px black;
     flex-direction: column;
-    padding: 1%;
-    gap: 5px;
+    padding: 30px 20px;
+    gap: 12px;
+    box-sizing: border-box;
 }
 
-
 /*////////////////////////////////////////////////*/
-/*  Tela Authetincation -- CADASTRO COOPERATIVA   */
+/* Tela Authetincation -- CADASTRO COOPERATIVA   */
 /*////////////////////////////////////////////////*/
-
 
 .TelaCadastroCoop {
-    width: clamp(30rem, 30rem + 10vw, 90rem);
-    display: flex;
+    width: 100%;
+    max-width: 850px;
+    display: grid;
+    grid-template-columns: 4fr 5fr;
     background-color: rgb(255, 255, 255);
     border-radius: 20px;
-    padding: 1.5%;
+    padding: 25px;
     justify-content: center;
     text-align: center;
-    gap: 3%;
-    margin: 5%;
+    gap: 20px;
     box-shadow: 2px 3px 15px -4px black;
-
+    box-sizing: border-box;
     opacity: 1;
     visibility: visible;
     transition: opacity 0.4s ease;
-
 }
 
 #cadastroCoop {
@@ -234,41 +307,130 @@ nav a {
     flex-direction: column;
     align-items: center;
     background-color: #d8d8d8;
-    padding: 1%;
+    padding: 25px;
     border-radius: 20px;
     box-shadow: 2px 3px 8px -4px black;
-    gap: 1%;
-
+    gap: 15px;
+    box-sizing: border-box;
 }
 
 .contentInputCadastroCoop {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
 }
 
-/*///////////*/
-/*  RODAPE   */
-/*///////////*/
+.contentInputCadastroCoop .input {
+    flex: 1 1 200px; 
+    max-width: 100%;
+}
 
+/* Garante que o título do cadastro da cooperativa fique centralizado e destacado */
+#cadastroCoop .titulo-login {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 5px;
+    text-align: center;
+}
 
+/* Ajuste na organização dos inputs para que eles fiquem bem distribuídos */
+.contentInputCadastroCoop {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    width: 100%;
+    max-width: 38rem; /* Aumenta a área útil dos inputs */
+}
+
+/* Faz com que cada input ocupe metade do espaço se houver largura disponível */
+.contentInputCadastroCoop .input {
+    flex: 1 1 16rem; 
+    max-width: 18rem;
+}
+/*///////////*/
+/* RODAPE    */
+/*///////////*/
 .rodape {
     background-color: black;
-
 }
 
 /*///////////////*/
-/*  UTILITARIOS  */
+/* UTILITARIOS   */
 /*///////////////*/
-
 .oculto {
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-    position: absolute;
-
+    display: none !important; /* CORREÇÃO: Impede que grids invisíveis ocupem espaço na renderização */
 }
 
-@media (max-width: 600px) {
+/*///////////////////////////////*/
+/* Toasts - MENSAGENS DE ERRO    */
+/*///////////////////////////////*/
+#toast-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 10000;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.toast {
+    padding: 15px 25px;
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    min-width: 250px;
+    text-align: center;
+}
+
+.toast.mostrar {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.toast.erro {
+    background-color: #e74c3c;
+    border-left: 5px solid #c0392b;
+    color: white;
+}
+
+.toast.sucesso {
+    background-color: #2ecc71;
+    border-left: 5px solid #27ae60;
+    color: white;
+}
+
+@media (max-width: 576px) {
+  .TelaLogin, .TelaCadastro, .TelaCadastroCoop {
+    grid-template-columns: 1fr; 
+    width: 95%;
+    padding: 15px;
+    gap: 20px;
+  }
+
+  #login, #cadastro, #cadastroCoop {
+    width: 100%;
+    padding: 25px 15px;
+  }
+
+  .input, .btn {
+    max-width: 100%; 
+  }
+
+  #imgLogo2 {
+    height: 75px;
+  }
+}
+
+@media (max-width: 768px) {
   header {
     width: 100%;
     background-color: #ffffff;
