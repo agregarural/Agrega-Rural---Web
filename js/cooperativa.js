@@ -11,7 +11,9 @@ fetch('/components/menuoptions.html')
     });
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.12.0/firebase-app.js";
-import { getAuth, createUserWithEmailAndPassword, signOut} from "https://www.gstatic.com/firebasejs/12.12.0/firebase-auth.js";
+import { getAuth, createUserWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/12.12.0/firebase-auth.js";
+import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/12.12.0/firebase-database.js";
+
 
 const firebaseConfig = {
     apiKey: "AIzaSyDHtlAftkqyqfAEza_BELney4VdWrYmdhQ",
@@ -26,8 +28,9 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+const db = getDatabase(app);
 
-const secondApp = initializeApp( firebaseConfig, "secondary");
+const secondApp = initializeApp(firebaseConfig, "secondary");
 const secondAuth = getAuth(secondApp);
 
 
@@ -59,16 +62,31 @@ btnConfirm.addEventListener("click", async (e) => {
     const cpf = document.getElementById("cpf").value;
     const email = document.getElementById("email").value;
     const senha = document.getElementById("senha").value;
+    const matricula = document.getElementById("matricula").value;
+    const tipo = document.getElementById("tipo").value;
 
     try {
         const cred = await createUserWithEmailAndPassword(secondAuth, email, senha);
         const novoUid = cred.user.uid;
 
+        await set(ref(db, 'Usuarios/' + novoUid), {
+            nome: nome,
+            cpf: cpf,
+            email: email,
+            matricula: matricula,
+            tipo: tipo,
+            userUid: novoUid,
+            dataCadastro: new Date().toISOString().split("T")[0]
+
+        });
+
         console.log("Usuário criado com sucesso:", novoUid);
-
         await signOut(secondAuth);
-
         alert("Administrador criado!");
+
+
+
+
 
         formularioOverlay.classList.add("oculto");
 

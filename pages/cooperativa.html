@@ -106,18 +106,34 @@
 
                 <div class="oculto" id="overlay">
                     <div class="overlay">
-                        <span>Cadastrar Administrador</span>
+                        <span>Cadastrar Usuario</span>
+
                         <label>Nome:</label>
-                        <input id="nome">
+                        <input id="nome" placeholder="Ex: Pedro">
+
                         <label>CPF:</label>
-                        <input id="cpf">
+                        <input id="cpf" placeholder="Ex: 22334811785">
+
                         <label>Email:</label>
-                        <input id="email">
+                        <input id="email" type="email" placeholder="Ex: email@gmail.com">
+
                         <label>Senha:</label>
-                        <input id="senha">
+                        <input id="senha" placeholder="Ex: 123456">
+
+                        <label>Matrícula:</label>
+                        <input id="matricula" placeholder="Ex: 1010">
+
+                        <label>Tipo:</label>
+                        <select id="tipo">
+                            <option value="">Selecione...</option>
+                            <option value="produtor">Produtor</option>
+                            <option value="administrador">Administrador</option>
+                            <option value="cooperativa">Cooperativa</option>
+                        </select>
+
                         <div class="dosbtn">
-                            <button type="submit" class="btn" id="btnConfirm">CADASTAR</button>
-                            <button type="submit" class="btn" id="btnRefuse">CANCELAR</button>
+                            <button type="button" class="btn" id="btnConfirm">CADASTRAR</button>
+                            <button type="button" class="btn" id="btnRefuse">CANCELAR</button>
                         </div>
                     </div>
                 </div>

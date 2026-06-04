@@ -79,6 +79,12 @@ span.title-data {
     padding: 20px;
 }
 
+.data-list{
+
+    display: grid;
+    grid-template-columns:1fr 1fr;
+}
+
 .data {
     font-size: 1rem;
     padding: 1.5%;
@@ -142,6 +148,9 @@ th,td {
     
 }
 
+
+/*POP UP*/
+
 #overlay{
 
     position: fixed;   /* 👈 fundamental */
@@ -160,13 +169,14 @@ th,td {
 .overlay{
 
     display: flex;
+    min-width: 300px;
     flex-direction: column;
-    margin: 10% 30% 10% 30%;
     justify-content: center;
     background-color: #e7e7e7;
-    padding: 4%;
+    padding: 20px;
     border-radius: 15px;
     box-shadow: 3px 3px 4px -5px black;
+
 
 }
 
@@ -178,28 +188,35 @@ span{
     font-weight: 550;
 }
 
-input{
+input, select{
+
     height: 20px;
-    padding: 0.5%;
+    padding: 7px;
     border: 0px;
     background-color: rgb(238, 238, 238);
     border: 1px solid rgb(138, 138, 138);
     border-radius: 5px;
 }
 
+select {
+    height: auto;
+    min-height: 34px;
+}
+
 .dosbtn{
     display: flex;
     flex-direction: row;
     justify-content: center;
-    gap: 10%;
+    gap: 20px;
 }
 
 .btn{
     
     display: flex;
+    min-height: 30px;
     flex-grow: 1;
+    flex-basis: 1;
     margin: 5% 0% 1% 0%;
-    padding: 2%;
     color: rgb(255, 255, 255);
     background-color: brown;
     border: 1px solid rgb(219, 219, 219);
@@ -208,6 +225,7 @@ input{
     font-size: 1rem;
     transform: 100ms;
     justify-content: center;
+    align-items: center;
     text-align: center;
 }
 
