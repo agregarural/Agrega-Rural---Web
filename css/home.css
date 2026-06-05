@@ -75,8 +75,8 @@ body::-webkit-scrollbar {
 }
 
 .cardMainInfo:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    transform: translateY(-2px);
+    box-shadow: 1px 1px 4px -4px black;
 }
 
 .info1 {
@@ -129,26 +129,4 @@ body::-webkit-scrollbar {
     height: clamp(1rem, 5rem + 10vw, 18rem);
     margin-top: 3%;
     gap: 20px;
-}
-
-.containerGraphic {
-
-
-    flex-grow: 1;
-    background-color: white;
-    border-radius: 10px;
-    border: 1px solid rgb(226, 226, 226);
-    box-shadow: 1px 1px 6px -6px black;
-    padding: 2%;
-
-}
-
-.containerRecord {
-
-    background-color: white;
-    border-radius: 10px;
-    flex-grow: 1.2;
-    padding: 2%;
-    box-shadow: 1px 1px 6px -6px black;
-    border: 1px solid rgb(226, 226, 226);
 }
