@@ -13,7 +13,7 @@ fetch('/components/menuoptions.html')
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.12.0/firebase-app.js";
 import { getAuth, createUserWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.12.0/firebase-auth.js";
-import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/12.12.0/firebase-database.js";
+import { getDatabase, ref, set, get } from "https://www.gstatic.com/firebasejs/12.12.0/firebase-database.js";
 
 
 const firebaseConfig = {
@@ -36,11 +36,11 @@ const welcomeMessage = document.getElementById('welcome-message');
 onAuthStateChanged(auth, (user) => {
     if (user) {
         const userRef = ref(db, 'Usuarios/' + user.uid);
-        
+
         get(userRef).then((snapshot) => {
             if (snapshot.exists()) {
                 const userData = snapshot.val();
-                const username = userData.nome || user.email;
+                const username = userData.nome || userData.name || user.email;
                 welcomeMessage.textContent = `Bem Vindo, ${username}!`;
             } else {
                 // se não houver nó para esse UID, exibe o email

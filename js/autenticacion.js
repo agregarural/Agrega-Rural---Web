@@ -314,7 +314,9 @@ if (formRegistroAdmin) {
             await set(ref(database, `Usuarios/${userUid}`), adminData);
             mostrarToast("Conta criada com sucesso! Agora faça login e depois crie sua cooperativa.", "sucesso");
             await enviarDadosParaPHP({ email: adminEmail, matricula: "pendente", acao: "cadastro_admin" });
+            await signOut(auth);
             formRegistroAdmin.reset();
+            
         } catch (error) {
             console.error(error);
             if (error.code === "auth/email-already-in-use") {

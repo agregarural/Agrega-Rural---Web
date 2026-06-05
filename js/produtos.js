@@ -1,8 +1,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.12.0/firebase-app.js";
-import { getDatabase, ref, onValue, push, remove } from "https://www.gstatic.com/firebasejs/12.12.0/firebase-database.js";
+import { getDatabase, ref, onValue, push, remove, get } from "https://www.gstatic.com/firebasejs/12.12.0/firebase-database.js";
 import { getStorage, ref as storageRef, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/12.12.0/firebase-storage.js";
-
-
+import { getAuth, createUserWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.12.0/firebase-auth.js";
 
 const firebaseConfig = {
     apiKey: "AIzaSyDHtlAftkqyqfAEza_BELney4VdWrYmdhQ",
@@ -17,23 +16,27 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
-var idCooperativa = '01';
-const produtoRef = ref(db, `Cooperativas/${idCooperativa}/Produtos`)
-
+const auth = getAuth(app);
 const storage = getStorage(app);
 
-//Importando Header
+// Variáveis globais para manter o escopo acessível
+let idCooperativa = null;
+let produtoRef = null;
+
+// ==========================================
+// IMPORTANDO COMPONENTES
+// ==========================================
 fetch('../components/header.html')
     .then(res => res.text())
     .then(html => { document.getElementById('header-placeholder').innerHTML = html; });
 
-//Importando menuOptions
 fetch('../components/menuoptions.html')
     .then(res => res.text())
     .then(html => { document.getElementById("menu-options").innerHTML = html; });
 
-
-//Configurando Image Baby
+// ==========================================
+// CONFIGURANDO IMGBB
+// ==========================================
 const IMGBB_API_KEY = "ac742aebcb5ef3bbef2489f934240205";
 
 async function enviarImgbb(file) {
@@ -52,116 +55,157 @@ async function enviarImgbb(file) {
     }
 
     return dados.data.url;
-
 }
 
+// ==========================================
+// AUTENTICAÇÃO E INICIALIZAÇÃO DE DADOS
+// ==========================================
+onAuthStateChanged(auth, async (user) => {
 
+    if (!user) {
+        console.log("Usuário não autenticado");
+        return;
+    }
 
+    const snap = await get(ref(db, `Usuarios/${user.uid}`));
+    if (snap.exists()) {
+        idCooperativa = snap.val().coopUid;
+        produtoRef = ref(db, `Cooperativas/${idCooperativa}/Produtos`);
 
+        // Imprimindo produtos database (READ)
+        onValue(produtoRef, (snapshot) => {
+            const dados = snapshot.val();
+            const containerCards = document.getElementById("conatiner-cards-produto");
+            containerCards.innerHTML = "";
 
-//Função adicionar Produto no database
+            if (dados) {
+                for (let id in dados) {
+                    const produto = dados[id];
 
+                    criarCardProduto(
+                        id,
+                        produto.nome,
+                        produto.categoria,
+                        produto.preco,
+                        produto.estoque,
+                        produto.imagem
+                    );
+                }
+            } else {
+                containerCards.innerHTML = "SEM PRODUTOS";
+            }
+        });
+    }
+});
+
+// ==========================================
+// INTERFACE: EXIBIR/OCULTAR FORMULÁRIO
+// ==========================================
+const btnNovoProduto = document.getElementById("btnNovoProduto");
+const formNovoProduto = document.getElementById("container-form");
+
+formNovoProduto.classList.add("oculto");
+
+btnNovoProduto.addEventListener("click", () => {
+    if (formNovoProduto.classList.contains("oculto")) {
+        formNovoProduto.classList.remove("oculto");
+    } else {
+        formNovoProduto.classList.add("oculto");
+    }
+});
+
+// ==========================================
+// ADICIONAR PRODUTO NO DATABASE
+// ==========================================
 const btnAddNovoProduto = document.getElementById("btnAddProduto");
 
 btnAddNovoProduto.addEventListener("click", async (event) => {
-  event.preventDefault();
+    event.preventDefault();
 
-  const nomeProduto = document.getElementById("nomeProduto").value.trim();
-  const categoriaProduto = document.getElementById("categoriaProduto").value.trim();
-  const precoProduto = document.getElementById("precoProduto").value;
-  const estoqueProduto = document.getElementById("estoqueProduto").value;
-  const descricaoProduto = document.getElementById("descricaoProduto").value.trim();
+    if (!produtoRef) {
+        alert("Aguarde a autenticação antes de adicionar um produto.");
+        return;
+    }
 
-  const inputImagem = document.getElementById("imagemProduto");
-  const fileImagem = inputImagem.files[0];
+    const nomeProduto = document.getElementById("nomeProduto").value.trim();
+    const categoriaProduto = document.getElementById("categoriaProduto").value.trim();
+    const precoProduto = document.getElementById("precoProduto").value;
+    const estoqueProduto = document.getElementById("estoqueProduto").value;
+    const descricaoProduto = document.getElementById("descricaoProduto").value.trim();
 
-  if (!nomeProduto || !categoriaProduto || !precoProduto || !estoqueProduto || !descricaoProduto || !fileImagem) {
-    alert("Preencha os campos obrigatórios");
-    return;
-  }
+    const inputImagem = document.getElementById("imagemProduto");
+    const fileImagem = inputImagem.files[0];
 
-  try {
-    const urlImagem = await enviarImgbb(fileImagem);
+    if (!nomeProduto || !categoriaProduto || !precoProduto || !estoqueProduto || !descricaoProduto || !fileImagem) {
+        alert("Preencha os campos obrigatórios");
+        return;
+    }
 
-    const novoProduto = {
-      nome: nomeProduto,
-      categoria: categoriaProduto,
-      preco: parseFloat(precoProduto),
-      estoque: parseInt(estoqueProduto),
-      descricao: descricaoProduto,
-      imagem: urlImagem
-    };
+    try {
+        const urlImagem = await enviarImgbb(fileImagem);
 
-    await push(produtoRef, novoProduto);
+        const novoProduto = {
+            nome: nomeProduto,
+            categoria: categoriaProduto,
+            preco: parseFloat(precoProduto),
+            estoque: parseInt(estoqueProduto),
+            descricao: descricaoProduto,
+            imagem: urlImagem
+        };
 
-    alert("Produto adicionado");
+        await push(produtoRef, novoProduto);
 
-    document.getElementById("formulario").reset();
-    document.getElementById("container-form").classList.add("oculto");
+        alert("Produto adicionado");
 
-  } catch (erro) {
-    console.error("Erro ao adicionar produto:", erro);
-    alert("Erro ao adicionar produto");
-  }
-  
+        document.getElementById("formulario").reset();
+        document.getElementById("container-form").classList.add("oculto");
+
+    } catch (erro) {
+        console.error("Erro ao adicionar produto:", erro);
+        alert("Erro ao adicionar produto");
+    }
 });
 
-//Função Remover Produto do dtabase na tabela
-
-
-
-
-
-
-//Função Imprimir Produto do dtabase na tabela
-
-
-//===================================
-//Função Criar cardview exibicional
-//===================================
-
-
-
+// ==========================================
+// CRIAR CARDVIEW EXIBICIONAL E REMOVER PRODUTO
+// ==========================================
 function criarCardProduto(idProdFirebase, produto, categoria, preco, estoque, imagem) {
 
     const containerCards = document.getElementById("conatiner-cards-produto");
 
-    //configurando card
+    // Configurando card
     const card = document.createElement("div");
     card.className = "card-produto";
     card.dataset.id = idProdFirebase;
 
-    const containerData = document.createElement("div")
+    const containerData = document.createElement("div");
     containerData.className = "container-data";
 
-    //configurando elemento de imagem do carview
-
+    // Configurando elemento de imagem do cardview
     const img = document.createElement("img");
     img.src = imagem;
     img.alt = produto;
-    img.className = "imgCardView"
+    img.className = "imgCardView";
 
-    //configurando elementos de informação
-
+    // Configurando elementos de informação
     const infoDiv = document.createElement("div");
     infoDiv.className = "card-info";
 
     const nomeP = document.createElement("h4");
-    nomeP.classList.add("nome-produto")
+    nomeP.classList.add("nome-produto");
     nomeP.textContent = produto;
 
     const categoriaP = document.createElement("p");
-    categoriaP.classList.add("info-produto")
+    categoriaP.classList.add("info-produto");
     categoriaP.textContent = `Categoria: ${categoria}`;
 
     const precoP = document.createElement("p");
-    precoP.classList.add("info-produto")
+    precoP.classList.add("info-produto");
     precoP.textContent = `Preço: R$ ${parseFloat(preco).toFixed(2)}`;
 
     const estoqueP = document.createElement("p");
-    estoqueP.classList.add("info-produto")
+    estoqueP.classList.add("info-produto");
     estoqueP.textContent = `Estoque: ${estoque} unid.`;
-
 
     infoDiv.append(nomeP);
     infoDiv.append(categoriaP);
@@ -170,110 +214,43 @@ function criarCardProduto(idProdFirebase, produto, categoria, preco, estoque, im
 
     containerData.append(img, infoDiv);
 
-    //configurando elementos de interação
+    // Configurando elementos de interação
+    const actionDiv = document.createElement("div");
+    actionDiv.className = "card-action";
 
-    const actionDiv = document.createElement("div")
-    actionDiv.className = "card-action"
+    const btnEditar = document.createElement("button");
+    btnEditar.textContent = "Editar";
+    btnEditar.classList.add("btn-editar");
+    btnEditar.dataset.id = idProdFirebase;
 
-    const btnEditar = document.createElement("button")
-    btnEditar.textContent = "Editar"
-    btnEditar.classList.add("btn-editar")
-    btnEditar.dataset.id = idProdFirebase
+    const btnRemover = document.createElement("button");
+    btnRemover.textContent = "Remover";
+    btnRemover.dataset.id = idProdFirebase;
+    btnRemover.classList.add("btn-editar");
 
-    const btnRemover = document.createElement("button")
-    btnRemover.textContent = "Remover"
-    btnRemover.dataset.id = idProdFirebase
-    btnRemover.classList.add("btn-editar")
-
+    // Evento para remover produto
     btnRemover.addEventListener("click", () => {
+        if (!idCooperativa) return;
 
         const refRemoverProd = ref(db, `Cooperativas/${idCooperativa}/Produtos/${idProdFirebase}`);
         remove(refRemoverProd)
             .then(() => {
-                alert("Produto removido com sucesso")
+                alert("Produto removido com sucesso");
             })
             .catch(() => {
-                alert("Erro")
-            })
-
-    })
+                alert("Erro ao remover produto");
+            });
+    });
 
     btnEditar.addEventListener("click", () => {
-
         alert("Botão editar em progresso");
-
-    })
-
+    });
 
     actionDiv.append(btnEditar);
     actionDiv.append(btnRemover);
-
-
 
     card.append(containerData);
     card.append(actionDiv);
 
     containerCards.append(card);
-
-
-
 }
-
-
-// configurando btn Novo Produto
-
-const btnNovoProduto = document.getElementById("btnNovoProduto")
-const formNovoProduto = document.getElementById("container-form")
-
-
-
-
-formNovoProduto.classList.add("oculto")
-
-btnNovoProduto.addEventListener("click", () => {
-
-    if (formNovoProduto.classList.contains("oculto")) {
-
-        formNovoProduto.classList.remove("oculto");
-
-    } else {
-
-        formNovoProduto.classList.add("oculto");
-
-    }
-
-})
-
-
-//Impridindo produtos database (READ)
-
-
-onValue(produtoRef, (snapshot) => {
-
-    const dados = snapshot.val();
-
-
-    const containerCards = document.getElementById("conatiner-cards-produto");
-    containerCards.innerHTML = "";
-
-    if (dados) {
-
-        for (let id in dados) {
-            const produto = dados[id];
-
-            criarCardProduto(
-                id,
-                produto.nome,
-                produto.categoria,
-                produto.preco,
-                produto.estoque,
-                produto.imagem
-            );
-        }
-    } else {
-
-        containerCards.innerHTML = "SEM PRODUTOS"
-    }
-
-
-});
