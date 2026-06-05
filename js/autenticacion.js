@@ -3,14 +3,14 @@ import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, se
 import { getDatabase, ref, set, get, child } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDHtlAftkqyqfAEza_BELney4VdWrYmdhQ",
-  authDomain: "agrega-rural.firebaseapp.com",
-  databaseURL: "https://agrega-rural-default-rtdb.firebaseio.com",
-  projectId: "agrega-rural",
-  storageBucket: "agrega-rural.firebasestorage.app",
-  messagingSenderId: "990435539814",
-  appId: "1:990435539814:web:691caab2fccc6da7df66a7",
-  measurementId: "G-MD0SWV9SG5"
+    apiKey: "AIzaSyDHtlAftkqyqfAEza_BELney4VdWrYmdhQ",
+    authDomain: "agrega-rural.firebaseapp.com",
+    databaseURL: "https://agrega-rural-default-rtdb.firebaseio.com",
+    projectId: "agrega-rural",
+    storageBucket: "agrega-rural.firebasestorage.app",
+    messagingSenderId: "990435539814",
+    appId: "1:990435539814:web:691caab2fccc6da7df66a7",
+    measurementId: "G-MD0SWV9SG5"
 };
 
 const app = initializeApp(firebaseConfig);
@@ -38,7 +38,7 @@ if (btnToCadastro) {
     btnToCadastro.addEventListener("click", () => {
         TelaLogin.classList.add("oculto");
         TelacadastroCoop.classList.add("oculto");
-        if(TelaEsqueciSenha) TelaEsqueciSenha.classList.add("oculto");
+        if (TelaEsqueciSenha) TelaEsqueciSenha.classList.add("oculto");
         Telacadastro.classList.remove("oculto");
         carregarCooperativasNoSelect();
     });
@@ -48,7 +48,7 @@ if (btnToCadastroCoop) {
     btnToCadastroCoop.addEventListener("click", () => {
         TelaLogin.classList.add("oculto");
         Telacadastro.classList.add("oculto");
-        if(TelaEsqueciSenha) TelaEsqueciSenha.classList.add("oculto");
+        if (TelaEsqueciSenha) TelaEsqueciSenha.classList.add("oculto");
         TelacadastroCoop.classList.remove("oculto");
     });
 }
@@ -78,14 +78,14 @@ if (btnVoltarLoginRecuperar) btnVoltarLoginRecuperar.addEventListener("click", v
 function mostrarToast(mensagem, tipo = "erro") {
     const container = document.getElementById("toast-container");
     if (!container) return;
-    
+
     const toast = document.createElement("div");
     toast.classList.add("toast", tipo);
-    toast.textContent = mensagem; 
-    
+    toast.textContent = mensagem;
+
     container.appendChild(toast);
     setTimeout(() => toast.classList.add("mostrar"), 10);
-    
+
     setTimeout(() => {
         toast.classList.remove("mostrar");
         setTimeout(() => toast.remove(), 300);
@@ -108,12 +108,12 @@ function validarCPF(cpf) {
     cpf = cpf.replace(/\D/g, '');
     if (cpf.length !== 11 || /^(\d)\1{10}$/.test(cpf)) return false;
     let soma = 0, resto;
-    for (let i = 1; i <= 9; i++) soma += parseInt(cpf.substring(i-1, i)) * (11 - i);
+    for (let i = 1; i <= 9; i++) soma += parseInt(cpf.substring(i - 1, i)) * (11 - i);
     resto = (soma * 10) % 11;
     if ((resto === 10) || (resto === 11)) resto = 0;
     if (resto !== parseInt(cpf.substring(9, 10))) return false;
     soma = 0;
-    for (let i = 1; i <= 10; i++) soma += parseInt(cpf.substring(i-1, i)) * (12 - i);
+    for (let i = 1; i <= 10; i++) soma += parseInt(cpf.substring(i - 1, i)) * (12 - i);
     resto = (soma * 10) % 11;
     if ((resto === 10) || (resto === 11)) resto = 0;
     return resto === parseInt(cpf.substring(10, 11));
@@ -183,29 +183,29 @@ const formEsqueciSenha = document.getElementById("formEsqueciSenha");
 if (formEsqueciSenha) {
     formEsqueciSenha.addEventListener("submit", async (e) => {
         e.preventDefault();
-        
+
         const emailRecuperar = document.getElementById("recuperarEmail").value.trim();
-        
+
         if (!validarEmail(emailRecuperar)) {
             mostrarToast("Por favor, digite um formato de e-mail válido!", "erro");
             return;
         }
-        
+
         try {
             // Executa a chamada nativa do Firebase Auth
             await sendPasswordResetEmail(auth, emailRecuperar);
             mostrarToast("E-mail de redefinição enviado com sucesso! Verifique sua caixa de entrada.", "sucesso");
-            
+
             // Registra a ação no seu log do PHP de forma segura
             await enviarDadosParaPHP({
                 email: emailRecuperar,
                 matricula: "N/A",
                 acao: "recuperacao_senha_solicitada"
             });
-            
+
             formEsqueciSenha.reset();
             setTimeout(voltarParaLogin, 2500); // Retorna o produtor/coop para a tela de login
-            
+
         } catch (error) {
             console.error(error);
             let mensagemErro = "Não foi possível enviar o e-mail de recuperação.";
@@ -227,6 +227,8 @@ if (formCadastroCoop) {
         const nomeCoop = document.getElementById("coopNome").value.trim();
         const cnpj = document.getElementById("coopCnpj").value.trim().replace(/\D/g, '');
         const admEmail = document.getElementById("admEmail").value.trim();
+        const admNome = document.getElementById("admNome")?.value.trim();
+        const admMatricula = document.getElementById("admMatricula")?.value.trim();
         const coopEmail = document.getElementById("coopEmail").value.trim();
         const telefone = document.getElementById("coopTelefone").value.trim().replace(/\D/g, '');
         const cep = document.getElementById("coopCep").value.trim().replace(/\D/g, '');
@@ -265,6 +267,20 @@ if (formCadastroCoop) {
                 endereco: { logradouro: logradouro, cidade: cidade, estado: estado, cep: cep }
             };
             await set(ref(database, `Cooperativas/${userUid}`), novaCoop);
+
+            const adminData = {
+                userUid: userUid,
+                nome: admNome,                
+                email: admEmail,
+                matricula: admMatricula,
+                tipo: "administrador",        
+                coopUid: userUid,       
+                dataCadastro: new Date().toISOString().split('T')[0]
+            };
+            await set(ref(database, `Usuarios/${userUid}`), adminData);
+
+
+
             mostrarToast("Cooperativa registrada com sucesso!", "sucesso");
             await enviarDadosParaPHP({ email: admEmail, matricula: cnpj, acao: "cadastro_cooperativa" });
             formCadastroCoop.reset();
@@ -284,7 +300,7 @@ if (formCadastroUser) {
     formCadastroUser.addEventListener("submit", async (e) => {
         e.preventDefault();
         const nomeUser = document.getElementById("userNome").value.trim();
-        const cpfUser = document.getElementById("userCpf").value.trim().replace(/\D/g, ''); 
+        const cpfUser = document.getElementById("userCpf").value.trim().replace(/\D/g, '');
         const emailUser = document.getElementById("userEmail").value.trim();
         const nomeCoopVinc = document.getElementById("userNomeCoop").value;
         const matricula = document.getElementById("userMatricula").value.trim();
@@ -336,14 +352,14 @@ if (formCadastroUser) {
 const formLoginElement = document.getElementById("formLogin");
 if (formLoginElement) {
     formLoginElement.addEventListener("submit", async (e) => {
-        e.preventDefault(); 
+        e.preventDefault();
         const emailLogin = document.getElementById("loginEmail").value.trim();
         const senhaLogin = document.getElementById("loginSenha").value;
         const matriculaLogin = document.getElementById("loginMatricula").value.trim();
 
         if (!emailLogin || !senhaLogin || !matriculaLogin) {
             mostrarToast("Preencha todos os campos do Login!", "erro");
-            return; 
+            return;
         }
 
         try {
