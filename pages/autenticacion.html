@@ -1,116 +1,156 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AUTH</title>
+    <title>Agrega Rural - Login</title>
     <link rel="stylesheet" href="../css/autenticacion.css">
-
 </head>
 
 <body>
 
     <header>
-  <div class="header-content">
-    <div class="logo">
-      <img src="../assets/img/logo.png" alt="Logo Agrega Rural">
-      <span>AGREGA RURAL</span>
-    </div>
+        <div class="header-content">
+            <div class="logo">
+                <img src="../assets/img/logo.png" alt="Logo Agrega Rural">
+                <span>AGREGA RURAL</span>
+            </div>
 
-    <nav>
-      <a href="home1.html">Home</a>
-      <a href="#">Sobre nós</a>
-      <a href="#">Produtos</a>
-      <a href="atendimento.html">Contato</a>
-    </nav>
+            <nav>
+                <a href="home1.html">Home</a>
+                <a href="#">Sobre nós</a>
+                <a href="#">Produtos</a>
+                <a href="atendimento.html">Contato</a>
+            </nav>
 
-    <div class="button-area1">
-      <a href="autenticacion.html" class="btn1">ENTRAR</a>
-    </div>
-  </div>
-</header>
-
-
-
+            <div class="button-area1">
+                <a href="autenticacion.html" id="btnEntrar" class="btn1">ENTRAR</a>
+                <button id="btnLogout" class="btn1" style="display: none;">SAIR</button>
+            </div>
+        </div>
+    </header>
 
     <div class="container">
+
+        <div id="toast-container"></div>
+
+        <!-- TELA DE LOGIN -->
         <div class="TelaLogin" id="idTelaLogin">
             <div id="fazerCadastro">
                 <img src="../assets/img/logo.png" id="imgLogo2">
-                <p>AGREGA RURAL</p>
-                <p>realize seu cadastro e venha fazer parte</p>
-                <button class="btn" id="btnToCadastro">Cadastre-se</button>
-                <button class="btn" id="btnToCadastroCoop">Cadastre sua cooperativa</button>
+                <p><b>AGREGA RURAL</b></p>
+                <p>Cadastre-se e venha fazer parte da rede Agrega Rural!</p>
+                <button class="btn" id="btnToRegistroAdmin">Criar conta de administrador</button>
             </div>
 
             <div id="login">
-                <p>Entrar com seu login</p>
-                <input type="email" class="input" placeholder="E-mail">
-                <input type="password" class="input" placeholder="Senha">
-                <input type="password" class="input" placeholder="Matricula">
-                <button class="btn"><a href="home.html">Fazer Login</a></button>
-                <p>Esqueceu a Senha?</p>
+                <form id="formLogin" style="width: 100%; display: flex; flex-direction: column; align-items: center; gap: 15px;">
+                    <p class="titulo-login">Entrar com seu login</p>
+                    <input type="email" id="loginEmail" class="input" placeholder="E-mail">
+                    <input type="password" id="loginSenha" class="input" placeholder="Senha">
+                    <input type="text" id="loginMatricula" class="input" placeholder="Matricula">
+                    <button type="submit" class="btn">Fazer Login</button>
+                    <a href="#" id="btnToEsqueciSenha">Esqueceu sua senha?</a>
+                </form>
             </div>
         </div>
 
-
-        <div class="TelaCadastro" id="idTelaCadastro">
+        <!-- TELA DE CADASTRO DE PRODUTOR -->
+        <div class="TelaCadastro oculto" id="idTelaCadastro">
             <div id="fazerLogin">
                 <img src="../assets/img/logo.png" id="imgLogo2">
                 <p>AGREGA RURAL</p>
                 <p>Já possui conta? Realize seu login!!</p>
                 <button class="btn" id="btnToLogin">Faça seu Login</button>
+                <button class="btn" id="btnToCadastroCoop">Cadastre sua cooperativa</button>
             </div>
             <div id="cadastro">
-                <p>Faça seu cadastro</p>
-                <input type="name" class="input" placeholder="Nome Completo">
-                <input type="cpf" class="input" placeholder="CEP">
-                <input type="emial" class="input" placeholder="E-mail">
-                <input type="email" class="input" placeholder="Nome da cooperativa">
-                <input type="matricula" class="input" placeholder="Matricula da cooperativa">
-                <input type="password" class="input" placeholder="Senha">
-                <input type="password" class="input" placeholder="Repita a senha">
-                <button class="btn"><a href="home.html">Cadastre-se</a></button>
+                <form id="formCadastroUser" style="width: 100%; display: flex; flex-direction: column; align-items: center; gap: 12px;">
+                    <p>Faça seu cadastro</p>
+                    <input type="text" id="userNome" class="input" placeholder="Nome Completo">
+                    <input type="text" id="userCpf" class="input" placeholder="CPF (apenas números)" maxlength="11">
+                    <input type="email" id="userEmail" class="input" placeholder="E-mail">
+                    <input type="password" id="userSenha" class="input" placeholder="Senha">
+                    <input type="password" id="userRepetirSenha" class="input" placeholder="Repita a senha">
+                    <button type="submit" class="btn">Cadastre-se</button>
+                </form>
             </div>
         </div>
 
-        <div class="TelaCadastroCoop" id="idTelaCadastroCoop">
-            <div id="fazerLogin">
+        <!-- TELA DE RECUPERAÇÃO DE SENHA -->
+        <div class="TelaLogin oculto" id="idTelaEsqueciSenha">
+            <div id="fazerCadastro">
                 <img src="../assets/img/logo.png" id="imgLogo2">
-                <p>AGREGA RURAL</p>
-                <p>Já possui conta? Realize seu login!!</p>
-                <button class="btn" id="btnToLogin2">Faça seu Login</button>
+                <p><b>AGREGA RURAL</b></p>
+                <p>Lembrou as credenciais? Volte para o acesso!</p>
+                <button class="btn" id="btnVoltarLoginRecuperar">Voltar para o Login</button>
             </div>
 
-            <div id="cadastroCoop">
-                <form>
-                    <p>Faça seu cadastro (cooperativa)</p>
+            <div id="login">
+                <form id="formEsqueciSenha" style="width: 100%; display: flex; flex-direction: column; align-items: center; gap: 15px;">
+                    <p>Recuperar sua Senha</p>
+                    <p class="desc-recuperar">Insira o e-mail cadastrado para receber as instruções de redefinição.</p>
+                    <input type="email" id="recuperarEmail" class="input" placeholder="E-mail Cadastrado" required>
+                    <button type="submit" class="btn">Enviar Instruções</button>
+                </form>
+            </div>
+        </div>
+        
+        <!-- NOVA TELA: REGISTRO DO ADMINISTRADOR -->
+        <div class="TelaCadastroCoop oculto" id="idTelaRegistroAdmin">
+            <div id="fazerLogin">
+                <img src="../assets/img/logo.png" id="imgLogo2">
+                <p><b>AGREGA RURAL</b></p>
+                <p>Já possui conta? Realize seu login!!</p>
+                <button class="btn" id="btnToLoginFromAdminReg">Faça seu Login</button>
+                <button class="btn" id="btnToCadastroCoopFromAdminReg">Criar Cooperativa</button>
+            </div>
+
+            <div id="cadastroCoop" style="display: flex; flex-direction: column; align-items: center; gap: 20px;">
+                <form id="formRegistroAdmin" style="width: 100%; display: flex; flex-direction: column; align-items: center; gap: 15px;">
+                    <p class="titulo-login">Crie sua conta de administrador</p>
+                    <input type="text" id="adminNome" class="input" placeholder="Nome completo" required>
+                    <input type="email" id="adminEmail" class="input" placeholder="E-mail" required>
+                    <input type="password" id="adminSenha" class="input" placeholder="Senha" required>
+                    <input type="password" id="adminRepetirSenha" class="input" placeholder="Repita a senha" required>
+                    <button type="submit" class="btn">Criar conta</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- TELA DE CRIAÇÃO DA COOPERATIVA (somente o formulário da cooperativa) -->
+        <div class="TelaCadastroCoop oculto" id="idTelaCadastroCoop">
+            <div id="fazerLogin">
+                <img src="../assets/img/logo.png" id="imgLogo2">
+                <p><b>AGREGA RURAL</b></p>
+                <p>Já possui conta? Realize seu login!!</p>
+                <button class="btn" id="btnToLogin2">Faça seu Login</button>
+                <button class="btn" id="btnToRegistroAdminFromCoop">Criar conta de administrador</button>
+            </div>
+
+            <div id="cadastroCoop" style="display: flex; flex-direction: column; align-items: center; gap: 20px;">
+                <form id="formCadastroCoop" style="width: 100%; display: flex; flex-direction: column; align-items: center; gap: 15px;">
+                    <p class="titulo-login">Cadastre sua cooperativa</p>
                     <div class="contentInputCadastroCoop">
                         <input type="text" id="coopNome" class="input" placeholder="Nome da cooperativa" required>
-                        <input type="text" id="coopCnpj" class="input" placeholder="CNPJ (apenas números)" required>
-                        <input type="email" id="admEmail" class="input" placeholder="Email do administrador" required>
-                        <input type="email" id="coopEmail" class="input" placeholder="Email de contato da cooperativa"
-                            required>
-                        <input type="tel" id="coopTelefone" class="input" placeholder="Telefone (com DDD)" required>
-                        <input type="text" id="coopCep" class="input" placeholder="CEP (apenas números)" required>
+                        <input type="text" id="coopCnpj" class="input" placeholder="CNPJ (apenas números)" maxlength="14" required>
+                        <input type="text" id="coopMatricula" class="input" placeholder="Matrícula do administrador" required>
+                        <input type="email" id="coopEmail" class="input" placeholder="Email de contato da cooperativa" required>
+                        <input type="tel" id="coopTelefone" class="input" placeholder="Celular (com DDD)" maxlength="11" required>
+                        <input type="text" id="coopCep" class="input" placeholder="CEP (apenas números)" maxlength="8" required>
                         <input type="text" id="coopLogradouro" class="input" placeholder="Logradouro" required>
                         <input type="text" id="coopCidade" class="input" placeholder="Cidade" required>
-                        <input type="text" id="coopEstado" class="input" placeholder="Estado (UF)" required>
-                        <input type="password" id="coopSenha" class="input" placeholder="Senha" required>
-                        <input type="password" id="coopRepetirSenha" class="input" placeholder="Repita a senha"
-                            required>
+                        <input type="text" id="coopEstado" class="input" placeholder="Estado (UF)" maxlength="2" required>
                     </div>
-                    <button class="btn" id="btnCiarCoop">Cadastre sua cooperativa</button>
+                    <button type="submit" class="btn">Criar cooperativa</button>
+                    <p id="msgEtapa2" style="display: none; text-align: center; color: red;">Você precisa estar logado para criar uma cooperativa.</p>
                 </form>
             </div>
         </div>
 
     </div>
 
+    <script type="module" src="../js/autenticacion.js"></script>
 </body>
-
-
-<script type="module" src="../js/perfil.js"></script>
-
 </html>
