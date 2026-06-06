@@ -6,60 +6,48 @@ body {
 }
 
 #container {
-
     margin-top: clamp(50px, 50px + 1vw, 4rem);
     margin-left: 10%;
     margin-right: 10%;
 }
 
-
-/* BANNER COOP*/
+/* BANNER COOP */
 
 .container-banner {
-
     display: flex;
     flex-direction: column;
     background-color: white;
     border-radius: 8px;
     padding: 3% 3%;
     border: 1px solid rgb(226, 226, 226);
-
 }
 
 .imgCB {
-
     width: 90px;
     height: 90px;
     border-radius: 50px;
-
 }
 
 .btnCB {
-
     width: 170px;
     height: 30px;
-
 }
 
-/* CARDS COOP*/
-
+/* CARDS COOP */
 
 .container-cards {
-
     display: flex;
     margin-top: 1%;
     flex-wrap: wrap;
     gap: 1%;
-
 }
 
 .card {
-
     min-width: 250px;
     display: flex;
     flex-grow: 1;
     flex-basis: 1;
-    padding: clamp(20px , 5%, 30px);
+    padding: clamp(20px, 5%, 30px);
     margin: 0% 0% 1% 0%;
     border: 1px solid rgb(226, 226, 226);
     border-top: 4px solid brown;
@@ -68,20 +56,16 @@ body {
     border-radius: 8px;
     flex-direction: column;
     font-size: 1rem;
-    
     transition: 500ms;
 }
 
 .card:hover {
-
     box-shadow: 0px 0px 4px -3px black;
     transform: translateY(-3px);
     transition: 0.15s;
-
 }
 
 span.title-data {
-
     font-size: calc(1rem + 5%);
     display: flex;
     color: rgb(48, 41, 32);
@@ -90,14 +74,12 @@ span.title-data {
     padding: 20px;
 }
 
-.data-list{
+.data-list {
     display: grid;
-    grid-template-columns:1fr 1fr;
+    grid-template-columns: 1fr 1fr;
     column-gap: 5%;
     max-width: 400px;
-
     margin: 0 auto;
-    
 }
 
 .data {
@@ -108,22 +90,22 @@ span.title-data {
     border-radius: 8px;
 }
 
-.value-data{
-
+.value-data {
     background-color: #ebebeb;
     margin: 0.2%;
-    padding: 1% 5% 1% 5% ;
+    padding: 1% 5% 1% 5%;
     border-radius: 8px;
     margin-top: 5px;
-
     font-weight: 550;
 }
 
-#btnAddAdm {
+/* BOTÕES DO CARD */
 
+#btnAddAdm,
+#btnTrocarAutoridade {
     display: flex;
     max-height: 20px;
-    width: 120px;
+    width: 150px;
     margin: 2% 0% 2% 0%;
     padding: 20px;
     color: aliceblue;
@@ -131,61 +113,55 @@ span.title-data {
     border: 0px;
     border-radius: 8px;
     transition: 0.15s;
-
     justify-content: center;
     align-items: center;
-
-    font-size: 1rem;
+    font-size: 0.9rem;
+    cursor: pointer;
 }
 
-#btnAddAdm:active {
+#btnAddAdm:active,
+#btnTrocarAutoridade:active {
     transform: scale(0.9);
-
-
 }
+
+/* TABELA */
 
 table {
-
     padding: 20px;
     border-radius: 12px;
     background-color: #e7e7e7;
     width: 100%;
     border-collapse: collapse;
     overflow: hidden;
-
 }
 
-th,td {
-
-    text-align: justify;
-
+th,
+td {
     border: 1px solid #ccc;
     padding: 10px;
     text-align: left;
-
-    
 }
 
+/* POP-UP */
 
-/*POP UP*/
-
-#overlay{
-
-    position: fixed;   /* 👈 fundamental */
+#overlay,
+#overlayAutoridade {
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
+
     background-color: rgba(0, 0, 0, 0.6);
+
     display: flex;
     justify-content: center;
     align-items: center;
 
-
+    z-index: 9999;
 }
 
-.overlay{
-
+.overlay {
     display: flex;
     min-width: 300px;
     flex-direction: column;
@@ -193,21 +169,23 @@ th,td {
     background-color: #e7e7e7;
     padding: 20px;
     border-radius: 15px;
-    box-shadow: 3px 3px 4px -5px black;
-
-
+    box-shadow: 3px 3px 8px -5px black;
 }
 
-span{
-
+span {
     display: flex;
     margin: 1% 0 1% 0;
     justify-content: center;
     font-weight: 550;
 }
 
-input, select{
+label {
+    margin-top: 8px;
+    margin-bottom: 3px;
+}
 
+input,
+select {
     height: 20px;
     padding: 7px;
     border: 0px;
@@ -221,15 +199,15 @@ select {
     min-height: 34px;
 }
 
-.dosbtn{
+.dosbtn {
     display: flex;
     flex-direction: row;
     justify-content: center;
     gap: 20px;
+    flex-wrap: wrap;
 }
 
-.btn{
-    
+.btn {
     display: flex;
     min-height: 30px;
     flex-grow: 1;
@@ -241,17 +219,16 @@ select {
     border-radius: 8px;
     transition: 0.15s;
     font-size: 1rem;
-    transform: 100ms;
     justify-content: center;
     align-items: center;
     text-align: center;
+    cursor: pointer;
 }
 
-.btn:active{
-transform: scale(0.9);
-
+.btn:active {
+    transform: scale(0.9);
 }
 
-.oculto{
-    display: none !important; 
+.oculto {
+    display: none !important;
 }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
     <meta charset="UTF-8">
@@ -13,9 +13,7 @@
     <div id="header-placeholder"></div>
     <div id="menuOptions"></div>
 
-
     <div id="container">
-
 
         <h2>Painel de Administração</h2>
         <h4>Cooperativa Pedrocoop LTDA</h4>
@@ -39,8 +37,10 @@
                     <dd class="value-data">12.345.678/0001-90</dd>
 
                     <dt class="label-data">Descrição</dt>
-                    <dd class="value-data">Cooperativa voltada à produção e comercialização de hortaliças, frutas e
-                        produtos agrícolas da agricultura familiar.</dd>
+                    <dd class="value-data">
+                        Cooperativa voltada à produção e comercialização de hortaliças, frutas e
+                        produtos agrícolas da agricultura familiar.
+                    </dd>
 
                     <dt class="label-data">Fundação</dt>
                     <dd class="value-data">15/03/2015</dd>
@@ -64,6 +64,7 @@
                     <dd class="value-data">João da Silva</dd>
                 </dl>
             </div>
+
             <div class="card">
                 <span class="title-data">FINANCEIRO</span>
 
@@ -72,6 +73,7 @@
                 <label><strong>Lucro:</strong> R$ 12.220,00</label>
                 <label><strong>Última venda:</strong> 01/06/2026</label>
             </div>
+
             <div class="card" id="card">
                 <span class="title-data">Administradores</span>
 
@@ -83,17 +85,20 @@
                             <th>Status</th>
                         </tr>
                     </thead>
+
                     <tbody>
                         <tr>
                             <td>Pedro</td>
                             <td>pedro@example.com</td>
                             <td>Ativo</td>
                         </tr>
+
                         <tr>
                             <td>Jaime</td>
                             <td>jaime@example.com</td>
                             <td>Inativo</td>
                         </tr>
+
                         <tr>
                             <td>Carlos</td>
                             <td>carlos@example.com</td>
@@ -103,15 +108,15 @@
                 </table>
 
                 <div class="dosbtn">
-                    <button id="btnAddAdm">Adcionar Administrador</button>
-                    <button id="btnAddAdm">Trocar Autoridade</button>
+                    <button id="btnAddAdm">Adicionar Administrador</button>
+                    <button id="btnTrocarAutoridade">Trocar Autoridade</button>
                 </div>
-
             </div>
 
+            <!-- POP-UP CADASTRAR USUÁRIO -->
             <div class="oculto" id="overlay">
                 <div class="overlay">
-                    <span>Cadastrar Usuario</span>
+                    <span>Cadastrar Usuário</span>
 
                     <label>Nome:</label>
                     <input id="nome" placeholder="Ex: Pedro">
@@ -123,7 +128,7 @@
                     <input id="email" type="email" placeholder="Ex: email@gmail.com">
 
                     <label>Senha:</label>
-                    <input id="senha" placeholder="Ex: 123456">
+                    <input id="senha" type="password" placeholder="Ex: 123456">
 
                     <label>Matrícula:</label>
                     <input id="matricula" placeholder="Ex: 1010">
@@ -143,13 +148,34 @@
                 </div>
             </div>
 
+            <!-- POP-UP TROCAR AUTORIDADE -->
+            <div class="oculto" id="overlayAutoridade">
+                <div class="overlay">
+                    <span>Trocar Autoridad</span>
 
-    
+                    <label>Matrícula da pessoa:</label>
+                    <input id="matriculaAutoridade" placeholder="Ex: 1010">
+
+                    <label>Novo tipo de conta:</label>
+                    <select id="tipoAutoridade">
+                        <option value="">Selecione...</option>
+                        <option value="produtor">Produtor</option>
+                        <option value="administrador">Administrador</option>
+                        <option value="cooperativa">Cooperativa</option>
+                    </select>
+
+                    <div class="dosbtn">
+                        <button type="button" class="btn" id="btnConfirmAutoridade">CONFIRMAR</button>
+                        <button type="button" class="btn" id="btnCancelAutoridade">CANCELAR</button>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 
+    <script type="module" src="../js/cooperativa.js"></script>
+
 </body>
 
-<script type="module" src="../js/cooperativa.js"></script>
-
-</html>>
+</html>
