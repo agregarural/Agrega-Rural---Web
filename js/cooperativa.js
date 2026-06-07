@@ -68,6 +68,7 @@ const inputMatricula = document.getElementById("matricula");
 const inputTipo = document.getElementById("tipo");
 
 // Campos trocar autoridade
+const inputEmailAutoridade = document.getElementById("emailAutoridade");
 const inputMatriculaAutoridade = document.getElementById("matriculaAutoridade");
 const inputTipoAutoridade = document.getElementById("tipoAutoridade");
 
@@ -164,11 +165,12 @@ btnRefuse.addEventListener("click", (e) => {
 btnConfirmAutoridade.addEventListener("click", async (e) => {
     e.preventDefault();
 
+    const emailInformado = inputEmailAutoridade.value.trim();
     const matriculaInformada = inputMatriculaAutoridade.value.trim();
     const novoTipo = inputTipoAutoridade.value;
 
-    if (!matriculaInformada || !novoTipo) {
-        alert("Informe a matrícula e selecione o novo tipo de conta!");
+    if (!emailInformado || !matriculaInformada || !novoTipo) {
+        alert("Informe o email, a matrícula e selecione o novo tipo de conta!");
         return;
     }
 
@@ -187,15 +189,20 @@ btnConfirmAutoridade.addEventListener("click", async (e) => {
         let usuarioEncontrado = null;
 
         for (let uid in usuarios) {
-            if (usuarios[uid].matricula === matriculaInformada) {
+            const usuario = usuarios[uid];
+
+            if (
+                usuario.email === emailInformado &&
+                usuario.matricula === matriculaInformada
+            ) {
                 uidEncontrado = uid;
-                usuarioEncontrado = usuarios[uid];
+                usuarioEncontrado = usuario;
                 break;
             }
         }
 
         if (!uidEncontrado) {
-            alert("Nenhum usuário encontrado com essa matrícula.");
+            alert("Nenhum usuário encontrado com esse email e matrícula.");
             return;
         }
 
@@ -245,6 +252,7 @@ function limparFormularioCadastroUsuario() {
 }
 
 function limparFormularioTrocarAutoridade() {
+    inputEmailAutoridade.value = "";
     inputMatriculaAutoridade.value = "";
     inputTipoAutoridade.value = "";
 }

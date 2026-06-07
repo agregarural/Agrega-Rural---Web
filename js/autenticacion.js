@@ -18,6 +18,9 @@ import {
     push
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 
+// ==========================================
+// CONFIGURAÇÃO FIREBASE
+// ==========================================
 const firebaseConfig = {
     apiKey: "AIzaSyDHtlAftkqyqfAEza_BELney4VdWrYmdhQ",
     authDomain: "agrega-rural.firebaseapp.com",
@@ -33,30 +36,32 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const database = getDatabase(app);
 
-// Seleção das Telas
+// ==========================================
+// SELEÇÃO DAS TELAS
+// ==========================================
 const TelaLogin = document.getElementById("idTelaLogin");
-const Telacadastro = document.getElementById("idTelaCadastro");
+const TelaCadastro = document.getElementById("idTelaCadastro");
 const TelaRegistroAdmin = document.getElementById("idTelaRegistroAdmin");
-const TelacadastroCoop = document.getElementById("idTelaCadastroCoop");
+const TelaCadastroCoop = document.getElementById("idTelaCadastroCoop");
 const TelaEsqueciSenha = document.getElementById("idTelaEsqueciSenha");
 
-// Botões de navegação – Tela de Login
+// Botões - Tela de Login
 const btnToRegistroAdmin = document.getElementById("btnToRegistroAdmin");
 const btnToEsqueciSenha = document.getElementById("btnToEsqueciSenha");
 
-// Botões – Tela de Cadastro de Produtor
+// Botões - Tela de Cadastro de Produtor
 const btnToLogin = document.getElementById("btnToLogin");
 const btnToCadastroCoop = document.getElementById("btnToCadastroCoop");
 
-// Botões – Tela de Registro do Administrador
+// Botões - Tela de Registro Admin
 const btnToLoginFromAdminReg = document.getElementById("btnToLoginFromAdminReg");
 const btnToCadastroCoopFromAdminReg = document.getElementById("btnToCadastroCoopFromAdminReg");
 
-// Botões – Tela de Criação da Cooperativa
+// Botões - Tela de Cadastro Cooperativa
 const btnToLogin2 = document.getElementById("btnToLogin2");
 const btnToRegistroAdminFromCoop = document.getElementById("btnToRegistroAdminFromCoop");
 
-// Botões – Recuperação de senha
+// Botão - Recuperação
 const btnVoltarLoginRecuperar = document.getElementById("btnVoltarLoginRecuperar");
 
 // Header
@@ -68,27 +73,45 @@ const btnLogout = document.getElementById("btnLogout");
 // ==========================================
 function ocultarTodasTelas() {
     if (TelaLogin) TelaLogin.classList.add("oculto");
-    if (Telacadastro) Telacadastro.classList.add("oculto");
+    if (TelaCadastro) TelaCadastro.classList.add("oculto");
     if (TelaRegistroAdmin) TelaRegistroAdmin.classList.add("oculto");
-    if (TelacadastroCoop) TelacadastroCoop.classList.add("oculto");
+    if (TelaCadastroCoop) TelaCadastroCoop.classList.add("oculto");
     if (TelaEsqueciSenha) TelaEsqueciSenha.classList.add("oculto");
 }
 
-const irParaLogin = () => {
+function irParaLogin() {
     ocultarTodasTelas();
-    if (TelaLogin) TelaLogin.classList.remove("oculto");
-};
 
-const irParaRegistroAdmin = () => {
+    if (TelaLogin) {
+        TelaLogin.classList.remove("oculto");
+    }
+}
+
+function irParaRegistroAdmin() {
     ocultarTodasTelas();
-    if (TelaRegistroAdmin) TelaRegistroAdmin.classList.remove("oculto");
-};
 
-const irParaCadastroCoop = () => {
+    if (TelaRegistroAdmin) {
+        TelaRegistroAdmin.classList.remove("oculto");
+    }
+}
+
+function irParaCadastroCoop() {
     ocultarTodasTelas();
-    if (TelacadastroCoop) TelacadastroCoop.classList.remove("oculto");
-};
 
+    if (TelaCadastroCoop) {
+        TelaCadastroCoop.classList.remove("oculto");
+    }
+}
+
+function irParaEsqueciSenha() {
+    ocultarTodasTelas();
+
+    if (TelaEsqueciSenha) {
+        TelaEsqueciSenha.classList.remove("oculto");
+    }
+}
+
+// Eventos de navegação
 if (btnToRegistroAdmin) {
     btnToRegistroAdmin.addEventListener("click", irParaRegistroAdmin);
 }
@@ -96,8 +119,7 @@ if (btnToRegistroAdmin) {
 if (btnToEsqueciSenha) {
     btnToEsqueciSenha.addEventListener("click", (e) => {
         e.preventDefault();
-        ocultarTodasTelas();
-        if (TelaEsqueciSenha) TelaEsqueciSenha.classList.remove("oculto");
+        irParaEsqueciSenha();
     });
 }
 
@@ -130,36 +152,7 @@ if (btnVoltarLoginRecuperar) {
 }
 
 // ==========================================
-// LOGOUT
-// ==========================================
-if (btnLogout) {
-    btnLogout.addEventListener("click", async () => {
-        try {
-            await signOut(auth);
-            mostrarToast("Você saiu da sua conta.", "sucesso");
-            irParaLogin();
-        } catch (error) {
-            console.error(error);
-            mostrarToast("Erro ao sair.", "erro");
-        }
-    });
-}
-
-// ==========================================
-// OBSERVADOR DE AUTENTICAÇÃO
-// ==========================================
-onAuthStateChanged(auth, (user) => {
-    if (user) {
-        if (btnEntrar) btnEntrar.style.display = "none";
-        if (btnLogout) btnLogout.style.display = "inline-block";
-    } else {
-        if (btnEntrar) btnEntrar.style.display = "inline-block";
-        if (btnLogout) btnLogout.style.display = "none";
-    }
-});
-
-// ==========================================
-// NOTIFICAÇÕES
+// TOAST / NOTIFICAÇÕES
 // ==========================================
 function mostrarToast(mensagem, tipo = "erro") {
     const container = document.getElementById("toast-container");
@@ -181,7 +174,10 @@ function mostrarToast(mensagem, tipo = "erro") {
 
     setTimeout(() => {
         toast.classList.remove("mostrar");
-        setTimeout(() => toast.remove(), 300);
+
+        setTimeout(() => {
+            toast.remove();
+        }, 300);
     }, 4000);
 }
 
@@ -207,7 +203,9 @@ function validarCelular(telefone) {
 function validarCPF(cpf) {
     cpf = cpf.replace(/\D/g, "");
 
-    if (cpf.length !== 11 || /^(\d)\1{10}$/.test(cpf)) return false;
+    if (cpf.length !== 11 || /^(\d)\1{10}$/.test(cpf)) {
+        return false;
+    }
 
     let soma = 0;
     let resto;
@@ -218,9 +216,13 @@ function validarCPF(cpf) {
 
     resto = (soma * 10) % 11;
 
-    if (resto === 10 || resto === 11) resto = 0;
+    if (resto === 10 || resto === 11) {
+        resto = 0;
+    }
 
-    if (resto !== parseInt(cpf.substring(9, 10))) return false;
+    if (resto !== parseInt(cpf.substring(9, 10))) {
+        return false;
+    }
 
     soma = 0;
 
@@ -230,7 +232,9 @@ function validarCPF(cpf) {
 
     resto = (soma * 10) % 11;
 
-    if (resto === 10 || resto === 11) resto = 0;
+    if (resto === 10 || resto === 11) {
+        resto = 0;
+    }
 
     return resto === parseInt(cpf.substring(10, 11));
 }
@@ -238,7 +242,9 @@ function validarCPF(cpf) {
 function validarCNPJ(cnpj) {
     cnpj = cnpj.replace(/\D/g, "");
 
-    if (cnpj.length !== 14 || /^(\d)\1{13}$/.test(cnpj)) return false;
+    if (cnpj.length !== 14 || /^(\d)\1{13}$/.test(cnpj)) {
+        return false;
+    }
 
     let tamanho = cnpj.length - 2;
     let numeros = cnpj.substring(0, tamanho);
@@ -249,12 +255,16 @@ function validarCNPJ(cnpj) {
     for (let i = tamanho; i >= 1; i--) {
         soma += numeros.charAt(tamanho - i) * pos--;
 
-        if (pos < 2) pos = 9;
+        if (pos < 2) {
+            pos = 9;
+        }
     }
 
     let resultado = soma % 11 < 2 ? 0 : 11 - (soma % 11);
 
-    if (resultado !== parseInt(digitos.charAt(0))) return false;
+    if (resultado !== parseInt(digitos.charAt(0))) {
+        return false;
+    }
 
     tamanho = tamanho + 1;
     numeros = cnpj.substring(0, tamanho);
@@ -264,44 +274,15 @@ function validarCNPJ(cnpj) {
     for (let i = tamanho; i >= 1; i--) {
         soma += numeros.charAt(tamanho - i) * pos--;
 
-        if (pos < 2) pos = 9;
+        if (pos < 2) {
+            pos = 9;
+        }
     }
 
     resultado = soma % 11 < 2 ? 0 : 11 - (soma % 11);
 
     return resultado === parseInt(digitos.charAt(1));
 }
-
-// ==========================================
-// CARREGAR COOPERATIVAS NO SELECT DO PRODUTOR
-// ==========================================
-async function carregarCooperativasNoSelect() {
-    const selectCoop = document.getElementById("userNomeCoop");
-
-    if (!selectCoop) return;
-
-    selectCoop.innerHTML = '<option value="">Selecione sua cooperativa...</option>';
-
-    try {
-        const dbRef = ref(database);
-        const snapshot = await get(child(dbRef, "Cooperativas"));
-
-        if (snapshot.exists()) {
-            const cooperativas = snapshot.val();
-
-            for (let id in cooperativas) {
-                const option = document.createElement("option");
-                option.value = cooperativas[id].nome;
-                option.textContent = cooperativas[id].nome;
-                selectCoop.appendChild(option);
-            }
-        }
-    } catch (error) {
-        console.error("Erro ao listar cooperativas:", error);
-    }
-}
-
-document.addEventListener("DOMContentLoaded", carregarCooperativasNoSelect);
 
 // ==========================================
 // COMUNICAÇÃO COM PHP
@@ -318,9 +299,41 @@ async function enviarDadosParaPHP(dados) {
 
         const resultadoBack = await response.json();
         console.log("Resposta do PHP:", resultadoBack.mensagem);
+
     } catch (error) {
         console.error("Erro de sincronia PHP:", error);
     }
+}
+
+// ==========================================
+// OBSERVADOR DE AUTENTICAÇÃO
+// ==========================================
+onAuthStateChanged(auth, async (user) => {
+    if (user) {
+        if (btnEntrar) btnEntrar.style.display = "none";
+        if (btnLogout) btnLogout.style.display = "inline-block";
+    } else {
+        if (btnEntrar) btnEntrar.style.display = "inline-block";
+        if (btnLogout) btnLogout.style.display = "none";
+    }
+});
+
+// ==========================================
+// LOGOUT
+// ==========================================
+if (btnLogout) {
+    btnLogout.addEventListener("click", async () => {
+        try {
+            await signOut(auth);
+
+            mostrarToast("Você saiu da sua conta.", "sucesso");
+            irParaLogin();
+
+        } catch (error) {
+            console.error(error);
+            mostrarToast("Erro ao sair.", "erro");
+        }
+    });
 }
 
 // ==========================================
@@ -342,7 +355,7 @@ if (formEsqueciSenha) {
         try {
             await sendPasswordResetEmail(auth, emailRecuperar);
 
-            mostrarToast("E-mail de redefinição enviado com sucesso! Verifique sua caixa de entrada.", "sucesso");
+            mostrarToast("E-mail de redefinição enviado com sucesso!", "sucesso");
 
             await enviarDadosParaPHP({
                 email: emailRecuperar,
@@ -351,6 +364,7 @@ if (formEsqueciSenha) {
             });
 
             formEsqueciSenha.reset();
+            irParaLogin();
 
         } catch (error) {
             console.error(error);
@@ -358,7 +372,7 @@ if (formEsqueciSenha) {
             let mensagemErro = "Não foi possível enviar o e-mail de recuperação.";
 
             if (error.code === "auth/user-not-found") {
-                mensagemErro = "Este e-mail não consta em nossa base de dados ativa.";
+                mensagemErro = "Este e-mail não consta em nossa base de dados.";
             }
 
             mostrarToast(mensagemErro, "erro");
@@ -367,7 +381,7 @@ if (formEsqueciSenha) {
 }
 
 // ==========================================
-// 1. REGISTRO DO ADMINISTRADOR
+// CADASTRO DO ADMINISTRADOR
 // ==========================================
 const formRegistroAdmin = document.getElementById("formRegistroAdmin");
 
@@ -391,7 +405,7 @@ if (formRegistroAdmin) {
         }
 
         if (!validarSenhaForte(senha)) {
-            mostrarToast("A senha precisa ter 8 caracteres, maiúsculas, minúsculas e símbolos.", "erro");
+            mostrarToast("A senha precisa ter pelo menos 8 caracteres, uma letra maiúscula, uma minúscula e um símbolo.", "erro");
             return;
         }
 
@@ -416,24 +430,16 @@ if (formRegistroAdmin) {
 
             await set(ref(database, `Usuarios/${userUid}`), adminData);
 
-            mostrarToast("Conta de administrador criada com sucesso! Agora cadastre a cooperativa.", "sucesso");
-
             await enviarDadosParaPHP({
                 email: adminEmail,
                 matricula: "pendente",
                 acao: "cadastro_admin"
             });
 
+            mostrarToast("Conta de administrador criada! Agora cadastre a cooperativa.", "sucesso");
+
             formRegistroAdmin.reset();
 
-            /*
-                Depois que o Firebase cria a conta,
-                o usuário fica logado automaticamente.
-
-                Então mandamos para a tela de cooperativa.
-                Porém, a cooperativa NÃO exige que ele seja administrador.
-                Se houver alguém logado, apenas aproveitamos o UID para vincular.
-            */
             setTimeout(() => {
                 irParaCadastroCoop();
             }, 1200);
@@ -451,9 +457,7 @@ if (formRegistroAdmin) {
 }
 
 // ==========================================
-// 2. CRIAÇÃO DA COOPERATIVA
-// NÃO EXIGE SER ADMINISTRADOR
-// NÃO EXIGE ESTAR LOGADO
+// CADASTRO DA COOPERATIVA
 // ==========================================
 const formCadastroCoop = document.getElementById("formCadastroCoop");
 
@@ -462,11 +466,47 @@ if (formCadastroCoop) {
         e.preventDefault();
 
         const user = auth.currentUser;
-
         const msgEtapa2 = document.getElementById("msgEtapa2");
 
         if (msgEtapa2) {
             msgEtapa2.style.display = "none";
+        }
+
+        if (!user) {
+            mostrarToast("Você precisa criar uma conta de administrador antes de cadastrar a cooperativa.", "erro");
+
+            if (msgEtapa2) {
+                msgEtapa2.style.display = "block";
+                msgEtapa2.textContent = "Você precisa estar logado como administrador para criar uma cooperativa.";
+            }
+
+            return;
+        }
+
+        try {
+            const dbRef = ref(database);
+            const snapshotUsuario = await get(child(dbRef, `Usuarios/${user.uid}`));
+
+            if (!snapshotUsuario.exists()) {
+                mostrarToast("Usuário não encontrado no banco de dados.", "erro");
+                await signOut(auth);
+                irParaLogin();
+                return;
+            }
+
+            const dadosUsuario = snapshotUsuario.val();
+
+            if (dadosUsuario.tipo !== "administrador") {
+                mostrarToast("Somente administradores podem cadastrar cooperativas.", "erro");
+                await signOut(auth);
+                irParaLogin();
+                return;
+            }
+
+        } catch (error) {
+            console.error(error);
+            mostrarToast("Erro ao validar administrador.", "erro");
+            return;
         }
 
         const nomeCoop = document.getElementById("coopNome").value.trim();
@@ -533,24 +573,8 @@ if (formCadastroCoop) {
                 }
             }
 
-            let coopUid;
-            let coopRef;
-
-            /*
-                Se tiver alguém logado, usamos o UID dele como ID da cooperativa.
-                Isso serve para o fluxo:
-                criou administrador -> foi para cooperativa -> salva matrícula nele.
-
-                Se ninguém estiver logado, a cooperativa também pode ser criada.
-                Nesse caso usamos push(), sem exigir login.
-            */
-            if (user) {
-                coopUid = user.uid;
-                coopRef = ref(database, `Cooperativas/${coopUid}`);
-            } else {
-                coopRef = push(ref(database, "Cooperativas"));
-                coopUid = coopRef.key;
-            }
+            const coopUid = user.uid;
+            const coopRef = ref(database, `Cooperativas/${coopUid}`);
 
             const novaCoop = {
                 coopUid: coopUid,
@@ -571,20 +595,8 @@ if (formCadastroCoop) {
 
             await set(coopRef, novaCoop);
 
-            /*
-                Aqui NÃO verificamos se é administrador.
-
-                Se existir usuário logado, salvamos nele:
-                - coopUid
-                - matrícula
-
-                Isso permite que, no fluxo normal,
-                o administrador recém-criado receba a matrícula da cooperativa.
-            */
-            if (user) {
-                await set(ref(database, `Usuarios/${user.uid}/coopUid`), coopUid);
-                await set(ref(database, `Usuarios/${user.uid}/matricula`), coopMatricula);
-            }
+            await set(ref(database, `Usuarios/${user.uid}/coopUid`), coopUid);
+            await set(ref(database, `Usuarios/${user.uid}/matricula`), coopMatricula);
 
             await enviarDadosParaPHP({
                 email: coopEmail,
@@ -594,21 +606,13 @@ if (formCadastroCoop) {
 
             formCadastroCoop.reset();
 
-            if (user) {
-                mostrarToast("Cooperativa cadastrada com sucesso! Agora faça login com e-mail, senha e matrícula.", "sucesso");
+            mostrarToast("Cooperativa cadastrada com sucesso! Agora faça login com e-mail, senha e matrícula.", "sucesso");
 
-                await signOut(auth);
+            await signOut(auth);
 
-                setTimeout(() => {
-                    irParaLogin();
-                }, 1500);
-            } else {
-                mostrarToast("Cooperativa cadastrada com sucesso!", "sucesso");
-
-                setTimeout(() => {
-                    irParaLogin();
-                }, 1500);
-            }
+            setTimeout(() => {
+                irParaLogin();
+            }, 1500);
 
         } catch (error) {
             console.error(error);
@@ -618,7 +622,7 @@ if (formCadastroCoop) {
 }
 
 // ==========================================
-// 3. CADASTRO DE PRODUTOR
+// CADASTRO DE PRODUTOR
 // ==========================================
 const formCadastroUser = document.getElementById("formCadastroUser");
 
@@ -626,17 +630,14 @@ if (formCadastroUser) {
     formCadastroUser.addEventListener("submit", async (e) => {
         e.preventDefault();
 
-        const nomeUser = document.getElementById("userNome").value.trim();
-        const cpfUser = document.getElementById("userCpf").value.trim().replace(/\D/g, "");
-        const emailUser = document.getElementById("userEmail").value.trim();
-        const nomeCoopVinc = document.getElementById("userNomeCoop").value;
-        const matricula = document.getElementById("userMatricula").value.trim();
-        const chaveAcesso = document.getElementById("userChaveAcesso").value.trim();
-        const senhaUser = document.getElementById("userSenha").value;
-        const repetirSenhaUser = document.getElementById("userRepetirSenha").value;
+        const nomeUser = document.getElementById("userNome")?.value.trim();
+        const cpfUser = document.getElementById("userCpf")?.value.trim().replace(/\D/g, "");
+        const emailUser = document.getElementById("userEmail")?.value.trim();
+        const senhaUser = document.getElementById("userSenha")?.value;
+        const repetirSenhaUser = document.getElementById("userRepetirSenha")?.value;
 
-        if (!nomeUser || !cpfUser || !emailUser || !nomeCoopVinc || !matricula || !chaveAcesso || !senhaUser || !repetirSenhaUser) {
-            mostrarToast("Preencha todos os campos da ficha de inscrição!", "erro");
+        if (!nomeUser || !cpfUser || !emailUser || !senhaUser || !repetirSenhaUser) {
+            mostrarToast("Preencha todos os campos do cadastro!", "erro");
             return;
         }
 
@@ -651,7 +652,7 @@ if (formCadastroUser) {
         }
 
         if (!validarSenhaForte(senhaUser)) {
-            mostrarToast("A senha necessita de 8 caracteres, maiúsculas, minúsculas e caracteres especiais.", "erro");
+            mostrarToast("A senha precisa ter pelo menos 8 caracteres, uma letra maiúscula, uma minúscula e um símbolo.", "erro");
             return;
         }
 
@@ -668,11 +669,6 @@ if (formCadastroUser) {
                 const users = snapshot.val();
 
                 for (let id in users) {
-                    if (users[id].matricula === matricula) {
-                        mostrarToast("Esta matrícula já está em uso!", "erro");
-                        return;
-                    }
-
                     if (users[id].cpf === cpfUser) {
                         mostrarToast("Este CPF já está associado a outra conta!", "erro");
                         return;
@@ -688,16 +684,11 @@ if (formCadastroUser) {
                 nome: nomeUser,
                 cpf: cpfUser,
                 email: emailUser,
-                cooperativaNome: nomeCoopVinc,
-                matricula: matricula,
-                chaveAcesso: chaveAcesso,
                 tipo: "produtor",
                 dataCadastro: new Date().toISOString().split("T")[0]
             };
 
             await set(ref(database, `Usuarios/${userUid}`), novoUsuario);
-
-            mostrarToast("Cadastro efetuado!", "sucesso");
 
             await enviarDadosParaPHP({
                 email: emailUser,
@@ -705,23 +696,30 @@ if (formCadastroUser) {
                 acao: "cadastro_produtor"
             });
 
+            mostrarToast("Cadastro de produtor realizado com sucesso!", "sucesso");
+
             formCadastroUser.reset();
+
+            await signOut(auth);
+
+            setTimeout(() => {
+                irParaLogin();
+            }, 1500);
 
         } catch (error) {
             console.error(error);
 
-            mostrarToast(
-                error.code === "auth/email-already-in-use"
-                    ? "E-mail indisponível para cadastro."
-                    : "Erro na persistência dos dados.",
-                "erro"
-            );
+            if (error.code === "auth/email-already-in-use") {
+                mostrarToast("Este e-mail já está em uso.", "erro");
+            } else {
+                mostrarToast("Erro ao cadastrar produtor.", "erro");
+            }
         }
     });
 }
 
 // ==========================================
-// 4. LOGIN DO ADMINISTRADOR
+// LOGIN - SOMENTE ADMINISTRADOR
 // ==========================================
 const formLoginElement = document.getElementById("formLogin");
 
@@ -734,7 +732,12 @@ if (formLoginElement) {
         const matriculaLogin = document.getElementById("loginMatricula").value.trim();
 
         if (!emailLogin || !senhaLogin || !matriculaLogin) {
-            mostrarToast("Preencha todos os campos do Login!", "erro");
+            mostrarToast("Preencha todos os campos do login!", "erro");
+            return;
+        }
+
+        if (!validarEmail(emailLogin)) {
+            mostrarToast("Digite um e-mail válido.", "erro");
             return;
         }
 
@@ -746,27 +749,30 @@ if (formLoginElement) {
             const snapshot = await get(child(dbRef, `Usuarios/${user.uid}`));
 
             if (!snapshot.exists()) {
-                mostrarToast("Dados não localizados.", "erro");
+                mostrarToast("Usuário autenticado, mas sem cadastro no banco de dados.", "erro");
                 await signOut(auth);
                 return;
             }
 
             const dadosUsuario = snapshot.val();
 
-            if (dadosUsuario.matricula !== matriculaLogin) {
+            // BLOQUEIA QUALQUER USUÁRIO QUE NÃO SEJA ADMINISTRADOR
+            if (dadosUsuario.tipo !== "administrador") {
+                mostrarToast("Acesso restrito. Somente administradores podem fazer login.", "erro");
+                await signOut(auth);
+                return;
+            }
+
+            // CONFERE A MATRÍCULA DO ADMINISTRADOR
+            if (String(dadosUsuario.matricula) !== String(matriculaLogin)) {
                 mostrarToast("Matrícula incorreta para esta conta.", "erro");
                 await signOut(auth);
                 return;
             }
 
-            if (dadosUsuario.tipo !== "administrador") {
-                mostrarToast("Acesso restrito a administradores.", "erro");
-                await signOut(auth);
-                return;
-            }
-
+            // CONFERE SE O ADMIN TEM COOPERATIVA
             if (!dadosUsuario.coopUid) {
-                mostrarToast("Este usuário ainda não possui cooperativa vinculada.", "erro");
+                mostrarToast("Este administrador ainda não possui cooperativa vinculada.", "erro");
                 await signOut(auth);
                 return;
             }
@@ -788,12 +794,14 @@ if (formLoginElement) {
 
             let mensagem = "Falha na autenticação. Verifique os dados inseridos.";
 
-            if (error.code === "auth/user-not-found") {
+            if (error.code === "auth/invalid-credential") {
+                mensagem = "E-mail ou senha incorretos.";
+            } else if (error.code === "auth/user-not-found") {
                 mensagem = "Usuário não encontrado.";
             } else if (error.code === "auth/wrong-password") {
                 mensagem = "Senha incorreta.";
-            } else if (error.code === "auth/invalid-credential") {
-                mensagem = "E-mail ou senha incorretos.";
+            } else if (error.code === "auth/too-many-requests") {
+                mensagem = "Muitas tentativas. Tente novamente mais tarde.";
             }
 
             mostrarToast(mensagem, "erro");
