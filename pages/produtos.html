@@ -6,71 +6,72 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Novo Pedido</title>
     <link rel="stylesheet" href="../css/produtos.css">
-
 </head>
 
 <body>
     <div id="header-placeholder"></div>
     <div id="menu-options"></div>
 
-
-
     <div class="container">
         <h2>Gestão de produtos</h2>
         <h5>Painel de Controle para gerenciamento dos produtos Pedrocoop</h5>
-        <button id="btnNovoProduto">
-            <img src="../assets/icons/plus.svg" class="iconBtn">
-            <p>NOVO PRODUTO</p>
-        </button>
 
-        <div class="containerForm" id="container-form">
-            <form id="formulario">
-                <label>Nome</label>
-                <input id="nomeProduto" type="text" class="inputProduto">
-                <label>Categoria</label>
-                <input id="categoriaProduto" type="text" class="inputProduto">
-                <label>Preço</label>
-                <input id="precoProduto" type="text" class="inputProduto">
-                <label>Quantidade em Estoque</label>
-                <input id="estoqueProduto" type="number" class="inputProduto">
-                <label>Descrição</label>
-                <textarea id="descricaoProduto" class="inputProduto" id="textAreaProduto"></textarea>
+        <div class=container-btns>
+
+            <button id="btnNovoProduto" class="btn">
+                <img src="../assets/icons/plus.svg" class="iconBtn" alt="Adicionar">
+                <p>NOVO PRODUTO</p>
+            </button>
+
+            <button id="btnNovaCategoria" class="btn">
+                <img src="../assets/icons/plus.svg" class="iconBtn" alt="Adicionar">
+                <p>NOVA CATEGORIA</p>
+            </button>
+
+        </div>
+
+        <h3>PRODUTOS CADASTRADOS:</h3>
+
+        <div id="conatiner-cards-produto">
+
+        </div>
+    </div>
+
+
+    <div class="overlay oculto" id="overlayAddProduto">
+        <div class="popup" id="popupAddProduto">
+            <h3>Cadastrar Novo Produto</h3>
+            <form id="formularioAddProduto">
+                <label>Nome:</label>
+                <input id="nomeProduto" type="text" class="inputProduto" placeholder="Nome do produto">
+                <label>Categoria:</label>
+                <input id="categoriaProduto" type="text" class="inputProduto" placeholder="Categoria">
+                <label>Preço:</label>
+                <input id="precoProduto" type="text" class="inputProduto" placeholder="0.00">
+                <label>Quantidade em Estoque:</label>
+                <input id="estoqueProduto" type="number" class="inputProduto" placeholder="0">
+                <label>Descrição:</label>
+                <textarea id="descricaoProduto" class="inputProduto" placeholder="Descrição do produto"></textarea>
                 <label>Imagem do produto:</label>
-                <input  id="imagemProduto" type="file" class="inputImgProduto" name="Imagem" accept="Imagem/*">
-                <button id="btnAddProduto" class="addProduto">Adicionar produto</button>
+                <input id="imagemProduto" type="file" class="inputImgProduto" name="Imagem" accept="image/*">
+                <button id="btnAddProduto" class="addProduto" type="button">Adicionar produto</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="overlay oculto" id="overlayAddCategoria">
+        <div class="popup" id="popupAddCategoria">
+            <h3>Cadastrar Nova Categoria</h3>
+            <form id="formularioAddCategoria">
+                <label>Nome da Categoria:</label>
+                <input id="nomeCategoria" type="text" class="inputProduto" placeholder="Nome da categoria">
+                <button id="btnAddCategoria" class="addProduto" type="submit">Adicionar categoria</button>
             </form>
         </div>
 
 
 
-        <h3>PRODUTOS CADASTRADOS:</h3>
 
-        
-
-        <div id="conatiner-cards-produto">
-
-            <div id="cardViewProduto">
-
-                <div class="dataCardView">
-                    <img src="../assets/img/perfil.jpg" id="imgCardView">
-                    <div>
-                        <h4>Produto</h4>
-                        <p>categoria</p>
-                        <p>preco</p>
-                        <p>estoque</p>
-                    </div>
-                </div>
-                <div class="cardAcoes">
-                    <button class="btn-editar">editar</button>
-                    <button class="btn-editar">remover</button>
-                </div>
-
-            </div>
-
-        </div>
-
-
-    </div>
 
 </body>
 
