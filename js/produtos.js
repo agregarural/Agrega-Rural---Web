@@ -1,6 +1,16 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.12.0/firebase-app.js";
-import { getDatabase, ref, onValue, push, remove, get } from "https://www.gstatic.com/firebasejs/12.12.0/firebase-database.js";
-import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.12.0/firebase-auth.js";
+import {
+    getDatabase,
+    ref,
+    onValue,
+    push,
+    remove,
+    get
+} from "https://www.gstatic.com/firebasejs/12.12.0/firebase-database.js";
+import {
+    getAuth,
+    onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/12.12.0/firebase-auth.js";
 
 const firebaseConfig = {
     apiKey: "AIzaSyDHtlAftkqyqfAEza_BELney4VdWrYmdhQ",
@@ -19,21 +29,20 @@ const auth = getAuth(app);
 
 let idCooperativa = null;
 let produtoRef = null;
+let categoriaRef = null;
 
-// ==========================================
-// IMPORTANDO COMPONENTES
-// ==========================================
-fetch('../components/header.html')
+fetch("../components/header.html")
     .then(res => res.text())
-    .then(html => { document.getElementById('header-placeholder').innerHTML = html; });
+    .then(html => {
+        document.getElementById("header-placeholder").innerHTML = html;
+    });
 
-fetch('../components/menuoptions.html')
+fetch("../components/menuoptions.html")
     .then(res => res.text())
-    .then(html => { document.getElementById("menu-options").innerHTML = html; });
+    .then(html => {
+        document.getElementById("menu-options").innerHTML = html;
+    });
 
-// ==========================================
-// CONFIGURANDO IMGBB
-// ==========================================
 const IMGBB_API_KEY = "ac742aebcb5ef3bbef2489f934240205";
 
 async function enviarImgbb(file) {
@@ -46,13 +55,14 @@ async function enviarImgbb(file) {
     });
 
     const dados = await resposta.json();
-    if (!dados.success) throw new Error("Erro ao enviar imagem para o ImgBB");
+
+    if (!dados.success) {
+        throw new Error("Erro ao enviar imagem para o ImgBB");
+    }
+
     return dados.data.url;
 }
 
-// ==========================================
-// AUTENTICAÇÃO E INICIALIZAÇÃO DE DADOS
-// ==========================================
 onAuthStateChanged(auth, async (user) => {
     if (!user) {
         console.log("Usuário não autenticado");
@@ -60,88 +70,66 @@ onAuthStateChanged(auth, async (user) => {
     }
 
     const snap = await get(ref(db, `Usuarios/${user.uid}`));
-    if (snap.exists()) {
-        idCooperativa = snap.val().coopUid;
-        produtoRef = ref(db, `Cooperativas/${idCooperativa}/Produtos`);
 
-        onValue(produtoRef, (snapshot) => {
-            const dados = snapshot.val();
-            const containerCards = document.getElementById("conatiner-cards-produto");
-            containerCards.innerHTML = "";
-
-            if (dados) {
-                for (let id in dados) {
-                    const produto = dados[id];
-                    criarCardProduto(id, produto.nome, produto.categoria, produto.preco, produto.estoque, produto.imagem);
-                }
-            } else {
-                containerCards.innerHTML = "<p>Nenhum produto cadastrado.</p>";
-            }
-        });
+    if (!snap.exists()) {
+        alert("Usuário não encontrado no banco de dados.");
+        return;
     }
+
+    idCooperativa = snap.val().coopUid;
+
+    produtoRef = ref(db, `Cooperativas/${idCooperativa}/Produtos`);
+    categoriaRef = ref(db, `Cooperativas/${idCooperativa}/Categorias`);
+
+    carregarProdutos();
+    carregarCategorias();
 });
 
-// ==========================================
-// POPUP: ABERTURA / FECHAMENTO
-// ==========================================
 const btnNovoProduto = document.getElementById("btnNovoProduto");
 const btnNovaCategoria = document.getElementById("btnNovaCategoria");
 
-const overlayAdd = document.getElementById("overlayAddProduto");
-const popupAdd = document.getElementById("popupAddProduto");
-const formularioAdd = document.getElementById("formularioAddProduto");
+const overlayAddProduto = document.getElementById("overlayAddProduto");
+const formularioAddProduto = document.getElementById("formularioAddProduto");
 
 const overlayAddCategoria = document.getElementById("overlayAddCategoria");
-const popupAddCategoria = document.getElementById("popupAddCategoria");
 const formularioAddCategoria = document.getElementById("formularioAddCategoria");
 
-
-
-
-function abrirPopupAdd() {
-    formularioAdd.reset();
-    document.getElementById("selectCategorias").selectedIndex = 0;
+function abrirPopupAddProduto() {
+    formularioAddProduto.reset();
     carregarCategoriasSelect();
-    overlayAdd.classList.remove("oculto");
-}
-function fecharPopupAdd() {
-    overlayAdd.classList.add("oculto");
-    formularioAdd.reset();
+    overlayAddProduto.classList.remove("oculto");
 }
 
-btnNovoProduto.addEventListener("click", abrirPopupAdd);
-overlayAdd.addEventListener("click", (e) => {
-    if (e.target === overlayAdd) {
-        fecharPopupAdd();
-    }
-});
-
-
-
-
+function fecharPopupAddProduto() {
+    overlayAddProduto.classList.add("oculto");
+    formularioAddProduto.reset();
+}
 
 function abrirPopupAddCategoria() {
-    document.getElementById("formularioAddCategoria").reset();
-    document.getElementById("overlayAddCategoria").classList.remove("oculto");
+    formularioAddCategoria.reset();
+    overlayAddCategoria.classList.remove("oculto");
 }
 
 function fecharPopupAddCategoria() {
-    document.getElementById("overlayAddCategoria").classList.add("oculto");
-    document.getElementById("formularioAddCategoria").reset();
+    overlayAddCategoria.classList.add("oculto");
+    formularioAddCategoria.reset();
 }
 
+btnNovoProduto.addEventListener("click", abrirPopupAddProduto);
 btnNovaCategoria.addEventListener("click", abrirPopupAddCategoria);
+
+overlayAddProduto.addEventListener("click", (e) => {
+    if (e.target === overlayAddProduto) {
+        fecharPopupAddProduto();
+    }
+});
+
 overlayAddCategoria.addEventListener("click", (e) => {
     if (e.target === overlayAddCategoria) {
         fecharPopupAddCategoria();
     }
 });
 
-
-
-// ==========================================
-// ADICIONAR PRODUTO NO DATABASE
-// ==========================================
 const btnAddProduto = document.getElementById("btnAddProduto");
 
 btnAddProduto.addEventListener("click", async (event) => {
@@ -178,8 +166,9 @@ btnAddProduto.addEventListener("click", async (event) => {
         };
 
         await push(produtoRef, novoProduto);
+
         alert("Produto adicionado com sucesso!");
-        fecharPopupAdd();  // fecha e limpa o formulário
+        fecharPopupAddProduto();
 
     } catch (erro) {
         console.error("Erro ao adicionar produto:", erro);
@@ -187,9 +176,33 @@ btnAddProduto.addEventListener("click", async (event) => {
     }
 });
 
-// ==========================================
-// CRIAR CARD DE PRODUTO NA LISTA
-// ==========================================
+function carregarProdutos() {
+    onValue(produtoRef, (snapshot) => {
+        const containerCards = document.getElementById("conatiner-cards-produto");
+        containerCards.innerHTML = "";
+
+        if (!snapshot.exists()) {
+            containerCards.innerHTML = "<p>Nenhum produto cadastrado.</p>";
+            return;
+        }
+
+        const produtos = snapshot.val();
+
+        for (let id in produtos) {
+            const produto = produtos[id];
+
+            criarCardProduto(
+                id,
+                produto.nome,
+                produto.categoria,
+                produto.preco,
+                produto.estoque,
+                produto.imagem
+            );
+        }
+    });
+}
+
 function criarCardProduto(idProdFirebase, produto, categoria, preco, estoque, imagem) {
     const containerCards = document.getElementById("conatiner-cards-produto");
 
@@ -201,10 +214,12 @@ function criarCardProduto(idProdFirebase, produto, categoria, preco, estoque, im
     containerData.className = "container-data";
 
     const img = document.createElement("img");
-    img.src = imagem;
+    img.src = imagem || "../assets/img/perfil.jpg";
     img.alt = produto;
     img.className = "imgCardView";
-    img.onerror = () => { this.src = "../assets/img/perfil.jpg"; };
+    img.onerror = function () {
+        this.src = "../assets/img/perfil.jpg";
+    };
 
     const infoDiv = document.createElement("div");
     infoDiv.className = "card-info";
@@ -234,23 +249,21 @@ function criarCardProduto(idProdFirebase, produto, categoria, preco, estoque, im
     const btnEditar = document.createElement("button");
     btnEditar.textContent = "Editar";
     btnEditar.classList.add("btn-editar");
-    btnEditar.dataset.id = idProdFirebase;
-    btnEditar.addEventListener("click", () => {
-        alert("Funcionalidade de edição em desenvolvimento.");
-    });
 
     const btnRemover = document.createElement("button");
     btnRemover.textContent = "Remover";
-    btnRemover.dataset.id = idProdFirebase;
     btnRemover.classList.add("btn-editar");
-    btnRemover.addEventListener("click", () => {
-        if (!idCooperativa) return;
+
+    btnRemover.addEventListener("click", async () => {
         if (!confirm("Tem certeza que deseja remover este produto?")) return;
 
-        const refRemover = ref(db, `Cooperativas/${idCooperativa}/Produtos/${idProdFirebase}`);
-        remove(refRemover)
-            .then(() => alert("Produto removido com sucesso."))
-            .catch(() => alert("Erro ao remover produto."));
+        try {
+            await remove(ref(db, `Cooperativas/${idCooperativa}/Produtos/${idProdFirebase}`));
+            alert("Produto removido com sucesso.");
+        } catch (erro) {
+            console.error("Erro ao remover produto:", erro);
+            alert("Erro ao remover produto.");
+        }
     });
 
     actionDiv.append(btnEditar, btnRemover);
@@ -258,64 +271,150 @@ function criarCardProduto(idProdFirebase, produto, categoria, preco, estoque, im
     containerCards.append(card);
 }
 
-
-// ==========================================
-// ADICIONAR CATEGORIA NO DATABASE
-// ==========================================
-
-
 const btnAddCategoria = document.getElementById("btnAddCategoria");
 
 btnAddCategoria.addEventListener("click", async (event) => {
     event.preventDefault();
 
-    if (!idCooperativa) {
+    if (!categoriaRef) {
         alert("Aguarde a autenticação antes de adicionar uma categoria.");
         return;
     }
 
     const nomeCategoria = document.getElementById("nomeCategoria").value.trim();
+    const imagemInput = document.getElementById("imagemCategoria");
+    const fileImagem = imagemInput.files[0];
 
-    if (!nomeCategoria) {
-        alert("Preencha o nome da categoria.");
+    if (!nomeCategoria || !fileImagem) {
+        alert("Preencha o nome da categoria e selecione uma imagem.");
         return;
     }
 
     try {
-        const categoriaRef = ref(db, `Cooperativas/${idCooperativa}/Categorias`);
+        const urlImagem = await enviarImgbb(fileImagem);
 
         const novaCategoria = {
-            categoria: nomeCategoria
+            categoria: nomeCategoria,
+            imagem: urlImagem
         };
 
         await push(categoriaRef, novaCategoria);
+
         alert("Categoria adicionada com sucesso!");
-        fecharPopupAddCategoria();}
-        catch (erro) {
+        fecharPopupAddCategoria();
+
+    } catch (erro) {
         console.error("Erro ao adicionar categoria:", erro);
         alert("Erro ao adicionar categoria. Tente novamente.");
-        }
-
-
+    }
 });
 
+function carregarCategorias() {
+    onValue(categoriaRef, (snapshot) => {
+        const containerCards = document.getElementById("conatiner-cards-categoria");
+        containerCards.innerHTML = "";
+
+        if (!snapshot.exists()) {
+            containerCards.innerHTML = "<p>Nenhuma categoria cadastrada.</p>";
+            return;
+        }
+
+        const categorias = snapshot.val();
+
+        for (let id in categorias) {
+            const categoria = categorias[id];
+
+            criarCardCategoria(
+                id,
+                categoria.categoria,
+                categoria.imagem
+            );
+        }
+    });
+}
+
+function criarCardCategoria(idCategoriaFirebase, nomeCategoria, imagemCategoria) {
+    const containerCards = document.getElementById("conatiner-cards-categoria");
+
+    const card = document.createElement("div");
+    card.className = "card-produto";
+    card.dataset.id = idCategoriaFirebase;
+
+    const containerData = document.createElement("div");
+    containerData.className = "container-data";
+
+    const img = document.createElement("img");
+    img.src = imagemCategoria || "../assets/img/perfil.jpg";
+    img.alt = nomeCategoria;
+    img.className = "imgCardView";
+    img.onerror = function () {
+        this.src = "../assets/img/perfil.jpg";
+    };
+
+    const infoDiv = document.createElement("div");
+    infoDiv.className = "card-info";
+
+    const nomeEl = document.createElement("h4");
+    nomeEl.classList.add("nome-produto");
+    nomeEl.textContent = nomeCategoria;
+
+    infoDiv.append(nomeEl);
+    containerData.append(img, infoDiv);
+
+    const actionDiv = document.createElement("div");
+    actionDiv.className = "card-action";
+
+    const btnRemover = document.createElement("button");
+    btnRemover.textContent = "Remover";
+    btnRemover.classList.add("btn-editar");
+
+    btnRemover.addEventListener("click", async () => {
+        if (!confirm("Tem certeza que deseja remover esta categoria? Todos os produtos dessa categoria também serão excluídos.")) return;
+
+        try {
+            const snapshotProdutos = await get(produtoRef);
+
+            if (snapshotProdutos.exists()) {
+                const produtos = snapshotProdutos.val();
+
+                for (let idProduto in produtos) {
+                    if (produtos[idProduto].categoria === nomeCategoria) {
+                        await remove(ref(db, `Cooperativas/${idCooperativa}/Produtos/${idProduto}`));
+                    }
+                }
+            }
+
+            await remove(ref(db, `Cooperativas/${idCooperativa}/Categorias/${idCategoriaFirebase}`));
+
+            alert("Categoria e produtos relacionados removidos com sucesso.");
+
+        } catch (erro) {
+            console.error("Erro ao remover categoria:", erro);
+            alert("Erro ao remover categoria.");
+        }
+    });
+
+    actionDiv.append(btnRemover);
+    card.append(containerData, actionDiv);
+    containerCards.append(card);
+}
 
 async function carregarCategoriasSelect() {
     const selectCategoria = document.getElementById("selectCategorias");
     selectCategoria.innerHTML = '<option value="">Selecione uma categoria</option>';
 
-    if (!idCooperativa) return;
+    if (!categoriaRef) return;
 
-    const categoriaRef = ref(db, `Cooperativas/${idCooperativa}/Categorias`);
     const snapshot = await get(categoriaRef);
 
-    if (snapshot.exists()) {
-        const categorias = snapshot.val();
-        Object.values(categorias).forEach(cat => {
-            const option = document.createElement("option");
-            option.value = cat.categoria;
-            option.textContent = cat.categoria;
-            selectCategoria.appendChild(option);
-        });
-    }
+    if (!snapshot.exists()) return;
+
+    const categorias = snapshot.val();
+
+    Object.values(categorias).forEach(cat => {
+        const option = document.createElement("option");
+        option.value = cat.categoria;
+        option.textContent = cat.categoria;
+        selectCategoria.appendChild(option);
+    });
 }
