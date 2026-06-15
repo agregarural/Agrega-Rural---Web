@@ -99,7 +99,9 @@ const formularioAddCategoria = document.getElementById("formularioAddCategoria")
 
 
 function abrirPopupAdd() {
-    formularioAdd.reset(); 
+    formularioAdd.reset();
+    document.getElementById("selectCategorias").selectedIndex = 0;
+    carregarCategoriasSelect();
     overlayAdd.classList.remove("oculto");
 }
 function fecharPopupAdd() {
@@ -151,7 +153,7 @@ btnAddProduto.addEventListener("click", async (event) => {
     }
 
     const nome = document.getElementById("nomeProduto").value.trim();
-    const categoria = document.getElementById("categoriaProduto").value.trim();
+    const categoria = document.getElementById("selectCategorias").value.trim();
     const preco = document.getElementById("precoProduto").value;
     const estoque = document.getElementById("estoqueProduto").value;
     const descricao = document.getElementById("descricaoProduto").value.trim();
@@ -254,4 +256,66 @@ function criarCardProduto(idProdFirebase, produto, categoria, preco, estoque, im
     actionDiv.append(btnEditar, btnRemover);
     card.append(containerData, actionDiv);
     containerCards.append(card);
+}
+
+
+// ==========================================
+// ADICIONAR CATEGORIA NO DATABASE
+// ==========================================
+
+
+const btnAddCategoria = document.getElementById("btnAddCategoria");
+
+btnAddCategoria.addEventListener("click", async (event) => {
+    event.preventDefault();
+
+    if (!idCooperativa) {
+        alert("Aguarde a autenticação antes de adicionar uma categoria.");
+        return;
+    }
+
+    const nomeCategoria = document.getElementById("nomeCategoria").value.trim();
+
+    if (!nomeCategoria) {
+        alert("Preencha o nome da categoria.");
+        return;
+    }
+
+    try {
+        const categoriaRef = ref(db, `Cooperativas/${idCooperativa}/Categorias`);
+
+        const novaCategoria = {
+            categoria: nomeCategoria
+        };
+
+        await push(categoriaRef, novaCategoria);
+        alert("Categoria adicionada com sucesso!");
+        fecharPopupAddCategoria();}
+        catch (erro) {
+        console.error("Erro ao adicionar categoria:", erro);
+        alert("Erro ao adicionar categoria. Tente novamente.");
+        }
+
+
+});
+
+
+async function carregarCategoriasSelect() {
+    const selectCategoria = document.getElementById("selectCategorias");
+    selectCategoria.innerHTML = '<option value="">Selecione uma categoria</option>';
+
+    if (!idCooperativa) return;
+
+    const categoriaRef = ref(db, `Cooperativas/${idCooperativa}/Categorias`);
+    const snapshot = await get(categoriaRef);
+
+    if (snapshot.exists()) {
+        const categorias = snapshot.val();
+        Object.values(categorias).forEach(cat => {
+            const option = document.createElement("option");
+            option.value = cat.categoria;
+            option.textContent = cat.categoria;
+            selectCategoria.appendChild(option);
+        });
+    }
 }

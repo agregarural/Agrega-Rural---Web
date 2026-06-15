@@ -124,6 +124,41 @@ body {
     transform: scale(0.9);
 }
 
+#descricaoProduto{
+    min-height: 6rem;
+}
+
+
+
+/* Estilo listas */
+
+
+.listas{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.lista{
+
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    min-width: 500px;
+}
+
+#conatiner-cards-categoria{
+
+    background-color: rgb(240, 240, 240);
+    margin: 20px 0px 5% 0px;
+    border-radius: 12px;
+    padding: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
 
 
 
@@ -134,7 +169,7 @@ body {
 #conatiner-cards-produto{
 
     background-color: rgb(240, 240, 240);
-    margin-top: 10px;
+    margin: 20px 0px 5% 0px;
     border-radius: 12px;
     padding: 2rem;
     display: flex;
@@ -247,12 +282,12 @@ body {
 /* Estilo do popup editar produto */
 
 .overlay {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.568);
+    background-color: rgba(0, 0, 0, 0.747);
     display: flex;
     justify-content: center;
     align-items: center;

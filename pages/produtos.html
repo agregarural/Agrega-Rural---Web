@@ -30,11 +30,28 @@
 
         </div>
 
-        <h3>PRODUTOS CADASTRADOS:</h3>
+        <div class="listas">
 
-        <div id="conatiner-cards-produto">
+            <div class="lista-produtos lista">
+                <h3>PRODUTOS CADASTRADOS:</h3>
+                <div id="conatiner-cards-produto">
+                    // Os cards dos produtos serão inseridos aqui dinamicamente via JavaScript
+                </div>
+            </div>
+
+            <div class="lista-categorias lista">
+                <h3>CATEGORIAS CADASTRADAS:</h3>
+                <div id="conatiner-cards-categoria">
+                    // Os cards das categorias serão inseridos aqui dinamicamente via JavaScript
+                </div>
+
+            </div>
+
 
         </div>
+
+
+
     </div>
 
 
@@ -45,7 +62,9 @@
                 <label>Nome:</label>
                 <input id="nomeProduto" type="text" class="inputProduto" placeholder="Nome do produto">
                 <label>Categoria:</label>
-                <input id="categoriaProduto" type="text" class="inputProduto" placeholder="Categoria">
+                <select id="selectCategorias" class="inputProduto">
+                    <option value="">Selecione uma categoria</option>
+                </select>
                 <label>Preço:</label>
                 <input id="precoProduto" type="text" class="inputProduto" placeholder="0.00">
                 <label>Quantidade em Estoque:</label>
@@ -65,9 +84,12 @@
             <form id="formularioAddCategoria">
                 <label>Nome da Categoria:</label>
                 <input id="nomeCategoria" type="text" class="inputProduto" placeholder="Nome da categoria">
+                <input id="imagemCategoria" type="file" class="inputImgProduto" name="Imagem" accept="image/*">
                 <button id="btnAddCategoria" class="addProduto" type="submit">Adicionar categoria</button>
             </form>
         </div>
+
+
 
 
 
