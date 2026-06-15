@@ -1,16 +1,4 @@
-fetch('/components/header.html')
-    .then(res => res.text())
-    .then(html => {
-        document.getElementById('header-placeholder').innerHTML = html;
-    });
-
-fetch('/components/menuoptions.html')
-    .then(res => res.text())
-    .then(html => {
-        document.getElementById('menuOptions').innerHTML = html;
-    });
-
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { initializeApp, getApps } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 
 import {
     getAuth,
@@ -39,7 +27,10 @@ const firebaseConfig = {
     measurementId: "G-MD0SWV9SG5"
 };
 
-const app = initializeApp(firebaseConfig);
+const app = getApps().length === 0
+    ? initializeApp(firebaseConfig)
+    : getApps()[0];
+
 const auth = getAuth(app);
 const db = getDatabase(app);
 
@@ -47,8 +38,40 @@ const secondApp = initializeApp(firebaseConfig, "secondary");
 const secondAuth = getAuth(secondApp);
 
 // ==========================================
+// IMPORTANDO COMPONENTES
+// ==========================================
+
+async function carregarComponentes() {
+    try {
+        const respostaHeader = await fetch("../components/header.html");
+        const htmlHeader = await respostaHeader.text();
+
+        document.getElementById("header-placeholder").innerHTML = htmlHeader;
+
+        await import("../js/header.js");
+
+        const respostaMenu = await fetch("../components/menuoptions.html");
+        const htmlMenu = await respostaMenu.text();
+
+        const menuOptions =
+            document.getElementById("menuOptions") ||
+            document.getElementById("menu-options");
+
+        if (menuOptions) {
+            menuOptions.innerHTML = htmlMenu;
+        }
+
+    } catch (erro) {
+        console.error("Erro ao carregar componentes:", erro);
+    }
+}
+
+await carregarComponentes();
+
+// ==========================================
 // VARIÁVEIS GLOBAIS DA COOPERATIVA LOGADA
 // ==========================================
+
 let usuarioLogado = null;
 let dadosUsuarioLogado = null;
 let coopUidAtual = null;
@@ -57,6 +80,7 @@ let dadosCooperativaAtual = null;
 // ==========================================
 // ELEMENTOS DA TELA
 // ==========================================
+
 const btnAddAdm = document.getElementById("btnAddAdm");
 const btnTrocarAutoridade = document.getElementById("btnTrocarAutoridade");
 
@@ -82,16 +106,22 @@ const inputTipoAutoridade = document.getElementById("tipoAutoridade");
 // ==========================================
 // OBSERVAR LOGIN DO ADMINISTRADOR
 // ==========================================
+
 onAuthStateChanged(auth, async (user) => {
     if (!user) {
         alert("Você precisa estar logado para acessar o painel da cooperativa.");
-        window.location.href = "autenticacion.html";
+        window.location.href = "../pages/autenticacion.html";
         return;
     }
 
     usuarioLogado = user;
 
     await carregarUsuarioLogado();
+
+    if (!coopUidAtual) {
+        return;
+    }
+
     await carregarDadosDaCooperativa();
     await carregarAdministradoresDaCooperativa();
 });
@@ -99,6 +129,7 @@ onAuthStateChanged(auth, async (user) => {
 // ==========================================
 // CARREGAR USUÁRIO LOGADO
 // ==========================================
+
 async function carregarUsuarioLogado() {
     try {
         const dbRef = ref(db);
@@ -107,7 +138,7 @@ async function carregarUsuarioLogado() {
         if (!snapshotUsuario.exists()) {
             alert("Usuário não encontrado no banco de dados.");
             await signOut(auth);
-            window.location.href = "autenticacion.html";
+            window.location.href = "../pages/autenticacion.html";
             return;
         }
 
@@ -116,14 +147,14 @@ async function carregarUsuarioLogado() {
         if (dadosUsuarioLogado.tipo !== "administrador") {
             alert("Acesso restrito. Somente administradores podem acessar este painel.");
             await signOut(auth);
-            window.location.href = "autenticacion.html";
+            window.location.href = "../pages/autenticacion.html";
             return;
         }
 
         if (!dadosUsuarioLogado.coopUid) {
             alert("Este administrador não está vinculado a nenhuma cooperativa.");
             await signOut(auth);
-            window.location.href = "autenticacion.html";
+            window.location.href = "../pages/autenticacion.html";
             return;
         }
 
@@ -138,6 +169,7 @@ async function carregarUsuarioLogado() {
 // ==========================================
 // CARREGAR DADOS DA COOPERATIVA
 // ==========================================
+
 async function carregarDadosDaCooperativa() {
     try {
         const dbRef = ref(db);
@@ -161,6 +193,7 @@ async function carregarDadosDaCooperativa() {
 // ==========================================
 // PREENCHER DADOS GERAIS NA TELA
 // ==========================================
+
 function preencherDadosGerais() {
     const nome = dadosCooperativaAtual.nome || "Não informado";
     const cnpj = dadosCooperativaAtual.cnpj || "Não informado";
@@ -191,10 +224,13 @@ function preencherDadosGerais() {
 // ==========================================
 // CARREGAR ADMINISTRADORES DA MESMA COOPERATIVA
 // ==========================================
+
 async function carregarAdministradoresDaCooperativa() {
     const tbody = document.getElementById("tbodyAdministradores");
 
-    if (!tbody) return;
+    if (!tbody) {
+        return;
+    }
 
     tbody.innerHTML = `
         <tr>
@@ -258,223 +294,251 @@ async function carregarAdministradoresDaCooperativa() {
 // ==========================================
 // ABRIR POP-UP DE CADASTRAR USUÁRIO
 // ==========================================
-btnAddAdm.addEventListener("click", (e) => {
-    e.preventDefault();
 
-    if (formularioOverlay.classList.contains("oculto")) {
-        formularioOverlay.classList.remove("oculto");
-        overlayAutoridade.classList.add("oculto");
-    } else {
-        formularioOverlay.classList.add("oculto");
-    }
-});
+if (btnAddAdm && formularioOverlay && overlayAutoridade) {
+    btnAddAdm.addEventListener("click", (e) => {
+        e.preventDefault();
+
+        if (formularioOverlay.classList.contains("oculto")) {
+            formularioOverlay.classList.remove("oculto");
+            overlayAutoridade.classList.add("oculto");
+        } else {
+            formularioOverlay.classList.add("oculto");
+        }
+    });
+}
 
 // ==========================================
 // ABRIR POP-UP DE TROCAR AUTORIDADE
 // ==========================================
-btnTrocarAutoridade.addEventListener("click", (e) => {
-    e.preventDefault();
 
-    if (overlayAutoridade.classList.contains("oculto")) {
-        overlayAutoridade.classList.remove("oculto");
-        formularioOverlay.classList.add("oculto");
-    } else {
-        overlayAutoridade.classList.add("oculto");
-    }
-});
+if (btnTrocarAutoridade && overlayAutoridade && formularioOverlay) {
+    btnTrocarAutoridade.addEventListener("click", (e) => {
+        e.preventDefault();
+
+        if (overlayAutoridade.classList.contains("oculto")) {
+            overlayAutoridade.classList.remove("oculto");
+            formularioOverlay.classList.add("oculto");
+        } else {
+            overlayAutoridade.classList.add("oculto");
+        }
+    });
+}
 
 // ==========================================
 // CADASTRAR USUÁRIO NA MESMA COOPERATIVA
 // ==========================================
-btnConfirm.addEventListener("click", async (e) => {
-    e.preventDefault();
 
-    const nome = inputNome.value.trim();
-    const cpf = inputCpf.value.trim();
-    const email = inputEmail.value.trim();
-    const senha = inputSenha.value;
-    const matricula = inputMatricula.value.trim();
-    const tipo = inputTipo.value;
+if (btnConfirm) {
+    btnConfirm.addEventListener("click", async (e) => {
+        e.preventDefault();
 
-    if (!nome || !cpf || !email || !senha || !matricula || !tipo) {
-        alert("Preencha todos os campos!");
-        return;
-    }
+        const nome = inputNome.value.trim();
+        const cpf = inputCpf.value.trim();
+        const email = inputEmail.value.trim();
+        const senha = inputSenha.value;
+        const matricula = inputMatricula.value.trim();
+        const tipo = inputTipo.value;
 
-    if (!coopUidAtual) {
-        alert("Não foi possível identificar a cooperativa do administrador logado.");
-        return;
-    }
-
-    try {
-        const dbRef = ref(db);
-        const snapshotUsuarios = await get(child(dbRef, "Usuarios"));
-
-        if (snapshotUsuarios.exists()) {
-            const usuarios = snapshotUsuarios.val();
-
-            for (let uid in usuarios) {
-                if (usuarios[uid].email === email) {
-                    alert("Este e-mail já está cadastrado.");
-                    return;
-                }
-
-                if (usuarios[uid].cpf === cpf) {
-                    alert("Este CPF já está cadastrado.");
-                    return;
-                }
-
-                if (usuarios[uid].matricula === matricula) {
-                    alert("Esta matrícula já está em uso.");
-                    return;
-                }
-            }
+        if (!nome || !cpf || !email || !senha || !matricula || !tipo) {
+            alert("Preencha todos os campos!");
+            return;
         }
 
-        const cred = await createUserWithEmailAndPassword(secondAuth, email, senha);
-        const novoUid = cred.user.uid;
+        if (!coopUidAtual) {
+            alert("Não foi possível identificar a cooperativa do administrador logado.");
+            return;
+        }
 
-        await set(ref(db, "Usuarios/" + novoUid), {
-            nome: nome,
-            cpf: cpf,
-            email: email,
-            matricula: matricula,
-            tipo: tipo,
-            userUid: novoUid,
-            coopUid: coopUidAtual,
-            dataCadastro: new Date().toISOString().split("T")[0]
-        });
+        try {
+            const dbRef = ref(db);
+            const snapshotUsuarios = await get(child(dbRef, "Usuarios"));
 
-        await signOut(secondAuth);
+            if (snapshotUsuarios.exists()) {
+                const usuarios = snapshotUsuarios.val();
 
-        alert("Usuário criado com sucesso e vinculado à mesma cooperativa!");
+                for (let uid in usuarios) {
+                    if (usuarios[uid].email === email) {
+                        alert("Este e-mail já está cadastrado.");
+                        return;
+                    }
 
-        limparFormularioCadastroUsuario();
-        formularioOverlay.classList.add("oculto");
+                    if (usuarios[uid].cpf === cpf) {
+                        alert("Este CPF já está cadastrado.");
+                        return;
+                    }
 
-        await carregarAdministradoresDaCooperativa();
+                    if (usuarios[uid].matricula === matricula) {
+                        alert("Esta matrícula já está em uso.");
+                        return;
+                    }
+                }
+            }
 
-    } catch (error) {
-        console.error("Erro ao criar usuário:", error);
-        alert("Erro ao criar usuário: " + error.message);
-    }
-});
+            const cred = await createUserWithEmailAndPassword(secondAuth, email, senha);
+            const novoUid = cred.user.uid;
+
+            await set(ref(db, "Usuarios/" + novoUid), {
+                nome: nome,
+                cpf: cpf,
+                email: email,
+                matricula: matricula,
+                tipo: tipo,
+                userUid: novoUid,
+                coopUid: coopUidAtual,
+                dataCadastro: new Date().toISOString().split("T")[0]
+            });
+
+            await signOut(secondAuth);
+
+            alert("Usuário criado com sucesso e vinculado à mesma cooperativa!");
+
+            limparFormularioCadastroUsuario();
+
+            if (formularioOverlay) {
+                formularioOverlay.classList.add("oculto");
+            }
+
+            await carregarAdministradoresDaCooperativa();
+
+        } catch (error) {
+            console.error("Erro ao criar usuário:", error);
+            alert("Erro ao criar usuário: " + error.message);
+        }
+    });
+}
 
 // ==========================================
 // CANCELAR CADASTRO DE USUÁRIO
 // ==========================================
-btnRefuse.addEventListener("click", (e) => {
-    e.preventDefault();
 
-    limparFormularioCadastroUsuario();
+if (btnRefuse) {
+    btnRefuse.addEventListener("click", (e) => {
+        e.preventDefault();
 
-    formularioOverlay.classList.add("oculto");
-});
+        limparFormularioCadastroUsuario();
+
+        if (formularioOverlay) {
+            formularioOverlay.classList.add("oculto");
+        }
+    });
+}
 
 // ==========================================
 // CONFIRMAR TROCA DE AUTORIDADE
 // ==========================================
-btnConfirmAutoridade.addEventListener("click", async (e) => {
-    e.preventDefault();
 
-    const emailInformado = inputEmailAutoridade.value.trim();
-    const matriculaInformada = inputMatriculaAutoridade.value.trim();
-    const novoTipo = inputTipoAutoridade.value;
+if (btnConfirmAutoridade) {
+    btnConfirmAutoridade.addEventListener("click", async (e) => {
+        e.preventDefault();
 
-    if (!emailInformado || !matriculaInformada || !novoTipo) {
-        alert("Informe o email, a matrícula e selecione o novo tipo de conta!");
-        return;
-    }
+        const emailInformado = inputEmailAutoridade.value.trim();
+        const matriculaInformada = inputMatriculaAutoridade.value.trim();
+        const novoTipo = inputTipoAutoridade.value;
 
-    if (!coopUidAtual) {
-        alert("Não foi possível identificar a cooperativa atual.");
-        return;
-    }
-
-    try {
-        const dbRef = ref(db);
-        const snapshot = await get(child(dbRef, "Usuarios"));
-
-        if (!snapshot.exists()) {
-            alert("Nenhum usuário encontrado no banco.");
+        if (!emailInformado || !matriculaInformada || !novoTipo) {
+            alert("Informe o email, a matrícula e selecione o novo tipo de conta!");
             return;
         }
 
-        const usuarios = snapshot.val();
+        if (!coopUidAtual) {
+            alert("Não foi possível identificar a cooperativa atual.");
+            return;
+        }
 
-        let uidEncontrado = null;
-        let usuarioEncontrado = null;
+        try {
+            const dbRef = ref(db);
+            const snapshot = await get(child(dbRef, "Usuarios"));
 
-        for (let uid in usuarios) {
-            const usuario = usuarios[uid];
-
-            if (
-                usuario.email === emailInformado &&
-                usuario.matricula === matriculaInformada
-            ) {
-                uidEncontrado = uid;
-                usuarioEncontrado = usuario;
-                break;
+            if (!snapshot.exists()) {
+                alert("Nenhum usuário encontrado no banco.");
+                return;
             }
+
+            const usuarios = snapshot.val();
+
+            let uidEncontrado = null;
+            let usuarioEncontrado = null;
+
+            for (let uid in usuarios) {
+                const usuario = usuarios[uid];
+
+                if (
+                    usuario.email === emailInformado &&
+                    usuario.matricula === matriculaInformada
+                ) {
+                    uidEncontrado = uid;
+                    usuarioEncontrado = usuario;
+                    break;
+                }
+            }
+
+            if (!uidEncontrado) {
+                alert("Nenhum usuário encontrado com esse email e matrícula.");
+                return;
+            }
+
+            await update(ref(db, "Usuarios/" + uidEncontrado), {
+                tipo: novoTipo,
+                coopUid: coopUidAtual
+            });
+
+            alert(
+                "Autoridade alterada com sucesso!\n\n" +
+                "Nome: " + usuarioEncontrado.nome + "\n" +
+                "Email: " + usuarioEncontrado.email + "\n" +
+                "Matrícula: " + matriculaInformada + "\n" +
+                "Novo tipo: " + novoTipo
+            );
+
+            limparFormularioTrocarAutoridade();
+
+            if (overlayAutoridade) {
+                overlayAutoridade.classList.add("oculto");
+            }
+
+            await carregarAdministradoresDaCooperativa();
+
+        } catch (error) {
+            console.error("Erro ao trocar autoridade:", error);
+            alert("Erro ao trocar autoridade: " + error.message);
         }
-
-        if (!uidEncontrado) {
-            alert("Nenhum usuário encontrado com esse email e matrícula.");
-            return;
-        }
-
-        await update(ref(db, "Usuarios/" + uidEncontrado), {
-            tipo: novoTipo,
-            coopUid: coopUidAtual
-        });
-
-        alert(
-            "Autoridade alterada com sucesso!\n\n" +
-            "Nome: " + usuarioEncontrado.nome + "\n" +
-            "Email: " + usuarioEncontrado.email + "\n" +
-            "Matrícula: " + matriculaInformada + "\n" +
-            "Novo tipo: " + novoTipo
-        );
-
-        limparFormularioTrocarAutoridade();
-
-        overlayAutoridade.classList.add("oculto");
-
-        await carregarAdministradoresDaCooperativa();
-
-    } catch (error) {
-        console.error("Erro ao trocar autoridade:", error);
-        alert("Erro ao trocar autoridade: " + error.message);
-    }
-});
+    });
+}
 
 // ==========================================
 // CANCELAR TROCA DE AUTORIDADE
 // ==========================================
-btnCancelAutoridade.addEventListener("click", (e) => {
-    e.preventDefault();
 
-    limparFormularioTrocarAutoridade();
+if (btnCancelAutoridade) {
+    btnCancelAutoridade.addEventListener("click", (e) => {
+        e.preventDefault();
 
-    overlayAutoridade.classList.add("oculto");
-});
+        limparFormularioTrocarAutoridade();
+
+        if (overlayAutoridade) {
+            overlayAutoridade.classList.add("oculto");
+        }
+    });
+}
 
 // ==========================================
 // FUNÇÕES AUXILIARES
 // ==========================================
+
 function limparFormularioCadastroUsuario() {
-    inputNome.value = "";
-    inputCpf.value = "";
-    inputEmail.value = "";
-    inputSenha.value = "";
-    inputMatricula.value = "";
-    inputTipo.value = "";
+    if (inputNome) inputNome.value = "";
+    if (inputCpf) inputCpf.value = "";
+    if (inputEmail) inputEmail.value = "";
+    if (inputSenha) inputSenha.value = "";
+    if (inputMatricula) inputMatricula.value = "";
+    if (inputTipo) inputTipo.value = "";
 }
 
 function limparFormularioTrocarAutoridade() {
-    inputEmailAutoridade.value = "";
-    inputMatriculaAutoridade.value = "";
-    inputTipoAutoridade.value = "";
+    if (inputEmailAutoridade) inputEmailAutoridade.value = "";
+    if (inputMatriculaAutoridade) inputMatriculaAutoridade.value = "";
+    if (inputTipoAutoridade) inputTipoAutoridade.value = "";
 }
 
 function setTexto(id, valor) {
@@ -525,11 +589,11 @@ function formatarCEP(cep) {
 }
 
 function formatarData(data) {
-    if (!data || !data.includes("-")) {
+    if (!data || !String(data).includes("-")) {
         return data || "Não informado";
     }
 
-    const partes = data.split("-");
+    const partes = String(data).split("-");
 
     if (partes.length !== 3) {
         return data;

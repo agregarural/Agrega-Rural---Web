@@ -1,20 +1,15 @@
-fetch('/components/header.html')
-    .then(res => res.text())
-    .then(html => {
-        document.getElementById('header-placeholder').innerHTML = html;
-    });
+import { initializeApp, getApps } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 
-fetch('/components/menuoptions.html')
-    .then(res => res.text())
-    .then(html => {
-        document.getElementById('menuOptions').innerHTML = html;
-    });
+import {
+    getAuth,
+    onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
-
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.12.0/firebase-app.js";
-import { getAuth, createUserWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.12.0/firebase-auth.js";
-import { getDatabase, ref, set, get } from "https://www.gstatic.com/firebasejs/12.12.0/firebase-database.js";
-
+import {
+    getDatabase,
+    ref,
+    get
+} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 
 const firebaseConfig = {
     apiKey: "AIzaSyDHtlAftkqyqfAEza_BELney4VdWrYmdhQ",
@@ -27,32 +22,55 @@ const firebaseConfig = {
     measurementId: "G-MD0SWV9SG5"
 };
 
-const app = initializeApp(firebaseConfig);
+const app = getApps().length === 0
+    ? initializeApp(firebaseConfig)
+    : getApps()[0];
+
 const auth = getAuth(app);
 const db = getDatabase(app);
 
+async function carregarComponentes() {
+    const respostaHeader = await fetch("../components/header.html");
+    const htmlHeader = await respostaHeader.text();
 
-const welcomeMessage = document.getElementById('welcome-message');
-onAuthStateChanged(auth, (user) => {
-    if (user) {
-        const userRef = ref(db, 'Usuarios/' + user.uid);
+    document.getElementById("header-placeholder").innerHTML = htmlHeader;
 
-        get(userRef).then((snapshot) => {
-            if (snapshot.exists()) {
-                const userData = snapshot.val();
-                const username = userData.nome || userData.name || user.email;
-                welcomeMessage.textContent = `Bem Vindo, ${username}!`;
-            } else {
-                // se não houver nó para esse UID, exibe o email
-                welcomeMessage.textContent = `Bem Vindo, ${user.email}!`;
-            }
-        }).catch((error) => {
-            console.error('Erro ao buscar dados do usuário:', error);
+    await import("../js/header.js");
+
+    const respostaMenu = await fetch("../components/menuoptions.html");
+    const htmlMenu = await respostaMenu.text();
+
+    const menuOptions = document.getElementById("menuOptions");
+
+    if (menuOptions) {
+        menuOptions.innerHTML = htmlMenu;
+    }
+}
+
+await carregarComponentes();
+
+const welcomeMessage = document.getElementById("welcome-message");
+
+onAuthStateChanged(auth, async (user) => {
+    if (!user) {
+        window.location.href = "../pages/autenticacion.html";
+        return;
+    }
+
+    try {
+        const userRef = ref(db, "Usuarios/" + user.uid);
+        const snapshot = await get(userRef);
+
+        if (snapshot.exists()) {
+            const userData = snapshot.val();
+            const username = userData.nome || userData.name || user.email;
+            welcomeMessage.textContent = `Bem Vindo, ${username}!`;
+        } else {
             welcomeMessage.textContent = `Bem Vindo, ${user.email}!`;
-        });
-    } else {
-        window.location.href = '../pages/autenticacion.html';
+        }
+
+    } catch (error) {
+        console.error("Erro ao buscar dados do usuário:", error);
+        welcomeMessage.textContent = `Bem Vindo, ${user.email}!`;
     }
 });
-
-

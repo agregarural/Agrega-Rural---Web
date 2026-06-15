@@ -1,0 +1,137 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #f5f3ef;
+    color: #222;
+}
+
+.container {
+    width: 100%;
+    min-height: calc(100vh - 90px);
+    display: flex;
+    justify-content: center;
+    padding: 40px 16px;
+}
+
+.card-perfil {
+    width: 100%;
+    max-width: 720px;
+    background-color: #ffffff;
+    padding: 32px;
+    border-radius: 20px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+.card-perfil h2 {
+    margin: 0;
+    font-size: 2rem;
+    color: #3b2a1f;
+}
+
+.subtitulo {
+    margin-top: 8px;
+    margin-bottom: 28px;
+    color: #666;
+}
+
+.area-foto {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 32px;
+    flex-wrap: wrap;
+}
+
+#fotoPerfilPreview {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #8b5a2b;
+    background-color: #ddd;
+}
+
+#inputFoto {
+    display: none;
+}
+
+.btnFoto {
+    display: inline-block;
+    background-color: #8b4513;
+    color: white;
+    padding: 10px 18px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+.btnFoto:hover {
+    background-color: #6f360f;
+}
+
+.dica {
+    font-size: 0.85rem;
+    color: #777;
+    margin-top: 8px;
+}
+
+.dados-perfil {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.campo-info {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.campo-info span {
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: #3b2a1f;
+}
+
+.campo-info p {
+    margin: 0;
+    padding: 13px 14px;
+    border: 1px solid #d0c6bc;
+    border-radius: 10px;
+    background-color: #f7f7f7;
+    font-size: 1rem;
+    color: #444;
+    min-height: 46px;
+    display: flex;
+    align-items: center;
+}
+
+#mensagem {
+    margin-top: 18px;
+    font-size: 0.95rem;
+    font-weight: bold;
+}
+
+.sucesso {
+    color: #2e7d32;
+}
+
+.erro {
+    color: #c62828;
+}
+
+@media (max-width: 600px) {
+    .card-perfil {
+        padding: 24px 18px;
+    }
+
+    .area-foto {
+        justify-content: center;
+        text-align: center;
+    }
+}

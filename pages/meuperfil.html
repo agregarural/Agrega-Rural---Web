@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu Perfil</title>
+    <link rel="stylesheet" href="../css/meuperfil.css">
+</head>
+
+<body>
+
+    <div id="header-placeholder"></div>
+
+    <main class="container">
+        <section class="card-perfil">
+
+            <h2>Meu Perfil</h2>
+            <p class="subtitulo">Visualize suas informações pessoais.</p>
+
+            <div class="area-foto">
+                <img src="../assets/img/perfil.jpg" alt="Foto de perfil" id="fotoPerfilPreview">
+
+                <div>
+                    <label for="inputFoto" class="btnFoto">Escolher imagem</label>
+                    <input type="file" id="inputFoto" accept="image/*">
+                    <p class="dica">A imagem será enviada ao ImgBB e a URL será salva no Firebase.</p>
+                </div>
+            </div>
+
+            <div class="dados-perfil">
+
+                <div class="campo-info">
+                    <span>Nome completo</span>
+                    <p id="nomeUsuario">Carregando...</p>
+                </div>
+
+                <div class="campo-info">
+                    <span>E-mail</span>
+                    <p id="emailUsuario">Carregando...</p>
+                </div>
+
+                <div class="campo-info">
+                    <span>Tipo de usuário</span>
+                    <p id="tipoUsuario">Carregando...</p>
+                </div>
+
+                <div class="campo-info">
+                    <span>Matrícula</span>
+                    <p id="matriculaUsuario">Carregando...</p>
+                </div>
+
+                <div class="campo-info">
+                    <span>Cooperativa vinculada</span>
+                    <p id="coopUsuario">Carregando...</p>
+                </div>
+
+                <div class="campo-info">
+                    <span>Data de cadastro</span>
+                    <p id="dataCadastroUsuario">Carregando...</p>
+                </div>
+
+            </div>
+
+            <p id="mensagem"></p>
+
+        </section>
+    </main>
+
+    <script type="module" src="../js/meuperfil.js"></script>
+
+</body>
+
+</html>

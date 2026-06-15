@@ -1,125 +1,89 @@
-<!DOCTYPE html>
-<html lang="en">
+<style>
+    .header {
+        display: flex;
+        flex-direction: row;
+        align-self: center;
+        align-items: center;
+        flex-wrap: wrap;
+        padding: 1rem;
+        background-color: rgb(255, 255, 255);
+        padding-right: 9%;
+        padding-left: 9%;
+    }
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Header</title>
-</head>
+    #logoHeader {
+        width: clamp(2rem, 20%, 4rem);
+        height: auto;
+        order: 1;
+        margin-right: 1rem;
+        cursor: pointer;
+    }
 
-<body>
+    .textHeader {
+        font-family: sans-serif;
+        font-size: clamp(1rem, 170%, 2rem);
+        flex-grow: 1;
+        font-weight: 550;
+        flex-shrink: 0;
+        order: 1;
+        color: black;
+        cursor: pointer;
+    }
 
-    <style>
+    .btnProfile {
+        width: clamp(1rem, 0.5rem + 2vw, 5rem);
+        height: auto;
+        border: 0;
+        border-radius: 5rem;
+        background-color: transparent;
+        flex-shrink: 0;
+        transition: 0.1s;
+        order: 4;
+        cursor: pointer;
+    }
+
+    .btnProfile:active {
+        transform: scale(0.9);
+    }
+
+    #profileImage {
+        width: clamp(1rem, 0.5rem + 4vw, 3rem);
+        height: clamp(1rem, 0.5rem + 4vw, 3rem);
+        object-fit: cover;
+        border-radius: 50%;
+    }
+
+    @media (max-width: 1092px) {
         .header {
-            display: flex;
-            flex-direction: row;
-            align-self: center;
-            align-items: center;
-            flex-wrap: wrap;
-            padding: 1rem;
-            background-color: rgb(255, 255, 255);
-            padding-right: 9%;
-            padding-left: 9%;
-
-        }
-
-        #logoHeader {
-            width: clamp(2rem, 20%, 4rem);
-            height: auto;
-            order: 1;
-            margin-right: 1rem;
-        }
-
-        .textHeader {
-
-            font-family: sans-serif;
-            font-size: clamp(1rem, 170%, 2rem);
-            flex-grow: 1;
-            font-weight: 550;
-            flex-shrink: 0;
-            order: 1;
-            color: black;
-
-        }
-
-        .btnHeader {
-            width: clamp(1.5rem, 10vw + 1.5rem, 7rem);
-            margin-right: clamp(1rem, 10vw + 1rem, 1.5rem);
-            height: auto;
-            font-size: clamp(1rem, 0.4vw + 0.1rem, 2rem);
-            flex-shrink: 0;
-            border: 0px;
-            background-color: transparent;
-        }
-
-        .divBtnHeader {
-
-            display: flex;
-            order: 3;
-            flex-wrap: wrap;
-
+            justify-content: center;
         }
 
         .btnProfile {
-            width: clamp(1rem, 0.5rem + 2vw, 5rem);
-            height: auto;
-            border: 0px;
-            border-radius: 5rem;
-            background-color: transparent;
-            flex-shrink: 0;
-            transition: 0.1s;
-            order: 4;
-
+            order: 3;
         }
+    }
+</style>
 
-        .btnProfile:active {
+<header class="header">
+    <img 
+        src="../assets/img/logoCenter.jpg" 
+        id="logoHeader" 
+        alt="Logo Agrega Rural"
+        onclick="window.location.href='../pages/home.html'"
+    >
 
-            transform: scale(0.9)
-        }
+    <h1 
+        class="textHeader"
+        onclick="window.location.href='../pages/home.html'"
+    >
+        AGREGA RURAL
+    </h1>
 
-        #profileImage {
-            width: clamp(1rem, 0.5rem + 4vw, 3rem);
-            height: auto;
-        }
-
-
-
-        @media (max-width: 1092px) {
-
-            .header {
-
-                justify-content: center;
-            }
-
-            .divBtnHeader {
-
-                order: 4;
-                text-align: center;
-            }
-
-            .btnProfile {
-
-                order: 3;
-            }
-
-
-        }
-    </style>
-
-    <header class="header">
-        <img src="../assets/img/logoCenter.jpg" id="logoHeader">
-        <h1 class="textHeader">AGREGA RURAL</h1>
-        <!-- 
-        <div class="divBtnHeader">
-            <button class="btnHeader">HOME</button>
-            <button class="btnHeader"><p class="naoquebra">SOBRE NÓS</p></button>
-            <button class="btnHeader">PRODUTOS</button>
-            <button class="btnHeader">CONTATO</button>
-        </div>
-        -->
-        <button class="btnProfile" onclick="window.location.href='../pages/config.html'"><img src="../assets/img/perfil.jpg" id="profileImage"></button>
-    </header>
-</body>
-
-
-</html>
+    <button 
+        class="btnProfile" 
+        type="button"
+        onclick="window.location.href='../pages/meuperfil.html'"
+    >
+        <img src="../assets/img/perfil.jpg" id="profileImage" alt="Perfil">
+    </button>
+</header>
