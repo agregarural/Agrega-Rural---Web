@@ -156,6 +156,7 @@ function criarCardBanner(id, url) {
   link.style.cssText = "font-size:0.9em;";
 
   const btnRemover = document.createElement("button");
+  btnRemover.classList.add("btn")
   btnRemover.textContent = "Remover";
   btnRemover.addEventListener("click", async () => {
     if (!confirm("Deseja realmente remover este banner?")) return;

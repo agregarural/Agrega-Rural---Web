@@ -35,6 +35,20 @@ body {
     padding: 2%;
 }
 
+.btn{
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    min-height: 40px;
+    max-width: 180px;
+    border: 0;
+    color: rgb(235, 235, 235);
+    font-size: 1rem;
+    background-color: brown;
+}
+
 /* ========== PREVIEW DO CELULAR ========== */
 .phonePreview {
     width: 350px;
