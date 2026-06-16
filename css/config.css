@@ -1,3 +1,4 @@
+/* ========== ESTILOS GERAIS ========== */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -6,20 +7,17 @@ body {
 }
 
 .container {
-
     margin: 2% 10% 0px 10%;
     padding: 20px;
 }
 
-.ConfigBanners{
-
+.ConfigBanners {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
 }
 
-.containerItem{
-
+.containerItem {
     display: flex;
     flex-grow: 1;
     flex-direction: column;
@@ -29,222 +27,151 @@ body {
     min-width: 400px;
 }
 
-.ConfigBannersItem{
-
+.ConfigBannersItem {
     display: flex;
     flex-direction: column;
     gap: 20px;
     padding: 2%;
 }
 
-
-.simulationXD{
-
-    background-color: rgb(22, 77, 29);
-    padding: 2%;
-    border-top-left-radius: 0px;
-    border-top-right-radius: 0px;
-    border-bottom-left-radius: 25px;
-    border-bottom-right-radius: 25px;
-}
-
-.simulation{
-
-    display: flex;
-    gap: 20px;
-    padding: 2%;
-}
-
+/* ========== PREVIEW DO CELULAR ========== */
 .phonePreview {
-
     width: 350px;
     height: 720px;
-
     margin: auto;
-
     background: #f8f8f8;
-
     border-radius: 35px;
-
     overflow: hidden;
-
     border: 8px solid #222;
-
     position: relative;
 }
 
 .phoneHeader {
-
     background: #0b6e34;
-
     padding: 15px;
     border-bottom-left-radius: 35px;
     border-bottom-right-radius: 35px;
 }
 
 .topBar {
-
     display: flex;
     justify-content: space-between;
-
     color: white;
     font-size: 12px;
 }
 
 .userArea {
-
     display: flex;
     justify-content: space-between;
     align-items: center;
-
     margin-top: 15px;
 }
 
 .userArea h3 {
-
     color: white;
     margin: 0;
 }
 
 .avatar {
-
     width: 45px;
     height: 45px;
-
     border-radius: 50%;
     overflow: hidden;
-
     background: #000;
 }
 
 .avatar img {
-
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
 
 .searchBox {
-
     margin-top: 20px;
-
     height: 45px;
-
     background: white;
-
     border-radius: 25px;
-
     display: flex;
     align-items: center;
-
     padding-left: 15px;
-
     color: #999;
 }
 
 .bannerArea {
-
     padding: 20px;
 }
 
+/* ⚠️ IMPORTANTE: altura fixa para manter o formato do celular */
 .bannerCarousel img {
-
     width: 100%;
-    height: 180px;
-
-    object-fit: cover;
-
+    height: 180px;                /* altura fixa */
+    object-fit: cover;            /* corta a imagem sem distorcer */
     border-radius: 20px;
+    transition: opacity 0.5s ease-in-out;  /* transição suave */
 }
 
+/* ========== DOTS (CARROSSEL) ========== */
 .dots {
-
     display: flex;
     justify-content: center;
-
     gap: 8px;
-
     margin-top: 15px;
 }
 
 .dots span {
-
     width: 10px;
     height: 10px;
-
     border-radius: 50%;
-
-    background: #666;
+    background: #666;             /* cor padrão do dot */
+    cursor: pointer;              /* indica que é clicável */
+    transition: background-color 0.3s;
 }
 
-.dots .active {
-
+/* Dot ativo – branco combina com o fundo escuro do banner */
+.dots span.active {
     background: white;
 }
 
+/* ========== CATEGORIAS E MENU ========== */
 .categories {
-
     display: flex;
-
     gap: 15px;
-
     padding: 0 20px;
-
     overflow-x: auto;
 }
 
 .catCard {
-
     min-width: 95px;
-
     background: #555;
-
     border-radius: 15px;
-
     padding: 10px;
-
     text-align: center;
 }
 
 .catImg {
-
     width: 70px;
     height: 70px;
-
     margin: auto;
-
     background: #dce9df;
-
     border-radius: 10px;
 }
 
 .catCard p {
-
     color: white;
     margin-top: 10px;
 }
 
 .bottomMenu {
-
     position: absolute;
-
     bottom: 20px;
-
     left: 20px;
     right: 20px;
-
     height: 60px;
-
     background: #0b6e34;
-
     border-radius: 25px;
-
     display: flex;
-
     justify-content: space-around;
     align-items: center;
-
     color: white;
-
     font-size: 24px;
 }
