@@ -17,9 +17,12 @@ body {
     display: flex;
     flex-direction: column;
     background-color: white;
+    border-top: 4px solid brown;
     border-radius: 8px;
     padding: 3% 3%;
-    border: 1px solid rgb(226, 226, 226);
+    border-left: 1px solid rgb(226, 226, 226);
+    border-right: 1px solid rgb(226, 226, 226);
+    border-bottom: 1px solid rgb(226, 226, 226);
 }
 
 .imgCB {
@@ -29,6 +32,7 @@ body {
 }
 
 .btnCB {
+    display: none;
     width: 170px;
     height: 30px;
 }
@@ -97,6 +101,26 @@ span.title-data {
     border-radius: 8px;
     margin-top: 5px;
     font-weight: 550;
+}
+
+.btnEnviar{
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 12px;
+    background-color: brown;
+    max-width: 180px;
+    min-height: 30px;
+    padding: 0.6%;
+    color: #f0f0f0;
+    font-weight: 550;
+    transition: 150ms;
+}
+
+.btnEnviar:active{
+
+    transform: scale(0.96);
 }
 
 /* BOTÕES DO CARD */

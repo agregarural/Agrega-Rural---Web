@@ -601,3 +601,99 @@ function formatarData(data) {
 
     return `${partes[2]}/${partes[1]}/${partes[0]}`;
 }
+
+
+
+
+
+// Chave da API do ImgBB (mesma que você já usa)
+const IMGBB_API_KEY = "ac742aebcb5ef3bbef2489f934240205";
+
+// Função para enviar imagem ao ImgBB e retornar a URL
+async function enviarImgbb(file) {
+    const formData = new FormData();
+    formData.append("image", file);
+
+    const resposta = await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, {
+        method: "POST",
+        body: formData
+    });
+
+    const dados = await resposta.json();
+
+    if (!dados.success) {
+        throw new Error("Erro ao enviar imagem para o ImgBB");
+    }
+
+    return dados.data.url;
+}
+
+
+function carregarLogoCooperativa() {
+    const imgElement = document.getElementById("logoCooperativa");
+    if (!imgElement) return;
+
+    const logoURL = dadosCooperativaAtual?.logoURL;
+
+    if (logoURL) {
+        imgElement.src = logoURL;
+    } else {
+        // Caso não tenha logo salva, usa a imagem padrão
+        imgElement.src = "../assets/img/background.png";
+    }
+}
+
+
+const inputUploadLogo = document.getElementById("upload-logo");
+
+if (inputUploadLogo) {
+    inputUploadLogo.addEventListener("change", async (event) => {
+        const file = event.target.files[0];
+        if (!file) return;
+
+        // Validação: só imagens
+        if (!file.type.startsWith("image/")) {
+            alert("Por favor, selecione uma imagem.");
+            inputUploadLogo.value = ""; // limpa o input
+            return;
+        }
+
+        // Limite de tamanho (ex: 2MB)
+        if (file.size > 2 * 1024 * 1024) {
+            alert("A imagem deve ter no máximo 2MB.");
+            inputUploadLogo.value = "";
+            return;
+        }
+
+        try {
+            // Mostra um feedback visual (opcional)
+            const imgElement = document.getElementById("logoCooperativa");
+            imgElement.style.opacity = "0.5";
+
+            // 1. Envia para o ImgBB
+            const urlImagem = await enviarImgbb(file);
+
+            // 2. Salva a URL no Firebase Realtime Database
+            const cooperativaRef = ref(db, `Cooperativas/${coopUidAtual}`);
+            await update(cooperativaRef, { logoURL: urlImagem });
+
+            // 3. Atualiza a imagem exibida
+            imgElement.src = urlImagem;
+            imgElement.style.opacity = "1";
+
+            // 4. Atualiza a variável global
+            dadosCooperativaAtual.logoURL = urlImagem;
+
+            alert("Logo atualizada com sucesso!");
+
+        } catch (error) {
+            console.error("Erro no upload:", error);
+            alert("Erro ao enviar imagem. Tente novamente.");
+            const imgElement = document.getElementById("logoCooperativa");
+            if (imgElement) imgElement.style.opacity = "1";
+        } finally {
+            // Limpa o input para permitir selecionar o mesmo arquivo novamente
+            inputUploadLogo.value = "";
+        }
+    });
+}
