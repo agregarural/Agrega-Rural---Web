@@ -12,9 +12,6 @@ body::-webkit-scrollbar {
 }
 
 
-
-
-
 #header-placeholder {
     position: sticky;
     margin: 0px;
@@ -22,11 +19,9 @@ body::-webkit-scrollbar {
     z-index: 10;
     background-color: white;
     box-shadow: 0px 5px 10px -4px;
-
 }
 
 #container {
-
     margin-top: clamp(50px, 50px + 1vw, 4rem);
     margin-left: 10%;
     margin-right: 10%;
@@ -37,12 +32,10 @@ body::-webkit-scrollbar {
 /*////////////////////////*/
 
 .containerMainInfo {
-
     display: flex;
     justify-content: space-evenly;
     flex-wrap: wrap;
     gap: clamp(8px, 15px + 1vw, 18px);
-
 }
 
 .cardMainInfo {
@@ -71,7 +64,6 @@ body::-webkit-scrollbar {
     width: 100%;
     height: 5px;
     background: brown;
-    /* cor padrão, mude inline se quiser */
 }
 
 .cardMainInfo:hover {
@@ -85,7 +77,6 @@ body::-webkit-scrollbar {
     align-items: center;
     font-size: 1rem;
     gap: 10px;
-
 }
 
 .numero-info {
@@ -121,7 +112,6 @@ body::-webkit-scrollbar {
 /*///////////////////*/
 /* INFORMAÇÔES GERAIS*/
 /*///////////////////*/
-
 
 .containerGeneralInfo {
     display: flex;

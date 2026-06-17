@@ -1,10 +1,8 @@
 import { initializeApp, getApps } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-
 import {
     getAuth,
     onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-
 import {
     getDatabase,
     ref,
@@ -32,16 +30,12 @@ const db = getDatabase(app);
 async function carregarComponentes() {
     const respostaHeader = await fetch("../components/header.html");
     const htmlHeader = await respostaHeader.text();
-
     document.getElementById("header-placeholder").innerHTML = htmlHeader;
-
     await import("../js/header.js");
 
     const respostaMenu = await fetch("../components/menuoptions.html");
     const htmlMenu = await respostaMenu.text();
-
     const menuOptions = document.getElementById("menuOptions");
-
     if (menuOptions) {
         menuOptions.innerHTML = htmlMenu;
     }
@@ -50,6 +44,68 @@ async function carregarComponentes() {
 await carregarComponentes();
 
 const welcomeMessage = document.getElementById("welcome-message");
+const coopNameElement = document.getElementById("coop-name");
+const numCompletos = document.getElementById("num-completos");
+const numPendentes = document.getElementById("num-pendentes");
+const numTransporte = document.getElementById("num-transporte");
+const numEstoque = document.getElementById("num-estoque");
+
+async function carregarDadosDashboard(coopUid) {
+    try {
+
+        const usuariosSnapshot = await get(ref(db, "Usuarios"));
+        const usuarios = usuariosSnapshot.val() || {};
+        const userCoopMap = {};
+        for (const uid in usuarios) {
+            userCoopMap[uid] = usuarios[uid].coopUid;
+        }
+
+
+        const pedidosSnapshot = await get(ref(db, "Pedidos"));
+        let completos = 0, pendentes = 0, transporte = 0;
+
+        if (pedidosSnapshot.exists()) {
+            const pedidos = pedidosSnapshot.val();
+            for (const id in pedidos) {
+                const pedido = pedidos[id];
+                const usuarioId = pedido.usuarioId;
+
+                if (!usuarioId || userCoopMap[usuarioId] !== coopUid) continue;
+
+                const status = (pedido.status || "").toLowerCase();
+                if (status === "completo" || status === "concluido") {
+                    completos++;
+                } else if (status === "pendente") {
+                    pendentes++;
+                } else if (status === "em andamento" || status === "em transporte" || status === "enviado") {
+                    transporte++;
+                }
+            }
+        }
+
+        const produtosSnapshot = await get(ref(db, `Cooperativas/${coopUid}/Produtos`));
+        let estoqueTotal = 0;
+        if (produtosSnapshot.exists()) {
+            const produtos = produtosSnapshot.val();
+            for (const id in produtos) {
+                estoqueTotal += Number(produtos[id].estoque) || 0;
+            }
+        }
+
+        numCompletos.textContent = completos;
+        numPendentes.textContent = pendentes;
+        numTransporte.textContent = transporte;
+        numEstoque.textContent = estoqueTotal;
+
+    } catch (error) {
+        console.error("Erro ao carregar dados do dashboard:", error);
+        numCompletos.textContent = 0;
+        numPendentes.textContent = 0;
+        numTransporte.textContent = 0;
+        numEstoque.textContent = 0;
+    }
+}
+
 
 onAuthStateChanged(auth, async (user) => {
     if (!user) {
@@ -58,19 +114,39 @@ onAuthStateChanged(auth, async (user) => {
     }
 
     try {
-        const userRef = ref(db, "Usuarios/" + user.uid);
-        const snapshot = await get(userRef);
+        const userSnapshot = await get(ref(db, "Usuarios/" + user.uid));
 
-        if (snapshot.exists()) {
-            const userData = snapshot.val();
+        if (userSnapshot.exists()) {
+            const userData = userSnapshot.val();
             const username = userData.nome || userData.name || user.email;
             welcomeMessage.textContent = `Bem Vindo, ${username}!`;
+
+            const coopUid = userData.coopUid;
+
+            if (coopUid) {
+
+                const coopSnapshot = await get(ref(db, `Cooperativas/${coopUid}/nome`));
+                if (coopSnapshot.exists()) {
+                    coopNameElement.textContent = coopSnapshot.val();
+                } else {
+                    coopNameElement.textContent = "Cooperativa";
+                }
+
+                await carregarDadosDashboard(coopUid);
+            } else {
+
+                coopNameElement.textContent = "Sem cooperativa vinculada";
+
+                numCompletos.textContent = 0;
+                numPendentes.textContent = 0;
+                numTransporte.textContent = 0;
+                numEstoque.textContent = 0;
+            }
         } else {
             welcomeMessage.textContent = `Bem Vindo, ${user.email}!`;
         }
-
     } catch (error) {
-        console.error("Erro ao buscar dados do usuário:", error);
+        console.error("Erro ao carregar dados do usuário:", error);
         welcomeMessage.textContent = `Bem Vindo, ${user.email}!`;
     }
 });
