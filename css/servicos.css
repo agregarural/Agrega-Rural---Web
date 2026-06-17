@@ -84,9 +84,7 @@ nav a {
 /* HERO */
 .hero {
     height: 450px;
-    background:
-        linear-gradient(rgba(0,0,0,.45), rgba(0,0,0,.45)),
-        url("../assets/img/imagem4.png");
+    background: linear-gradient(rgba(0,0,0,.45), rgba(0,0,0,.45)), url("../assets/img/imagem4.png");
     background-size: cover;
     background-position: center;
     display: flex;
@@ -202,45 +200,74 @@ nav a {
     font-weight: bold;
 }
 
-/* FOOTER */
+/* ========== FOOTER (IDÊNTICO AO home1.css) ========== */
 footer {
-    background: #1f1f1f;
+    background-color: #064d2b;
     color: white;
+    padding: 45px 0 20px;
 }
 
 .footer-content {
+    width: 90%;
     max-width: 1200px;
-    margin: auto;
-    padding: 60px 20px;
+    margin: 0 auto;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 30px;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    gap: 40px;
+}
+
+.footer-column h3 {
+    font-size: 18px;
+    margin-bottom: 18px;
+    font-weight: 800;
+}
+
+.footer-column p {
+    font-size: 13px;
+    line-height: 1.6;
+    margin-bottom: 8px;
+}
+
+.footer-column a {
+    display: block;
+    color: white;
+    text-decoration: none;
+    font-size: 13px;
+    margin-bottom: 8px;
+}
+
+.footer-column a:hover {
+    text-decoration: underline;
 }
 
 .footer-logo {
     display: flex;
     align-items: center;
     gap: 10px;
-    margin-bottom: 15px;
+    margin-bottom: 18px;
+    font-weight: 800;
+    font-size: 18px;
 }
 
 .footer-logo img {
-    width: 40px;
-    height: 40px;
-    object-fit: contain;
-}
-
-.footer-logo span {
-    font-size: 0.95rem;
+    width: 45px;
+    height: auto;
 }
 
 .footer-bottom {
+    width: 90%;
+    max-width: 1200px;
+    margin: 35px auto 0;
+    padding-top: 18px;
+    border-top: 1px solid rgba(255, 255, 255, 0.25);
     text-align: center;
-    padding: 20px;
-    border-top: 1px solid rgba(255,255,255,.1);
 }
 
-/* RESPONSIVO – SERVIÇOS */
+.footer-bottom p {
+    font-size: 12px;
+}
+
+/* RESPONSIVO */
 @media (max-width: 900px) {
     .header-content {
         flex-wrap: wrap;
