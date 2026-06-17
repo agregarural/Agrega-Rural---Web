@@ -566,7 +566,7 @@ if (formCadastroCoop) {
                 const usuarios = snapshotUsuarios.val();
 
                 for (let id in usuarios) {
-                    if (usuarios[id].matricula === coopMatricula) {
+                    if (usuarios[id].coopUid === user.uid && usuarios[id].matricula === coopMatricula) {
                         mostrarToast("Esta matrícula já está em uso!", "erro");
                         return;
                     }
