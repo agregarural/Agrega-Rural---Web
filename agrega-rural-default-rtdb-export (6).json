@@ -1,0 +1,69 @@
+{
+  "Administradores_Sistema": {
+    "01": {
+      "email": "marcos.admin@jardimtech.com",
+      "nome": "Marcos Almeida",
+      "tipo": "adm_sistema"
+    },
+    "04": {
+      "email": "carla.mendes@jardimtech.com",
+      "nome": "Carla Mendes",
+      "tipo": "adm_sistema"
+    }
+  },
+  "Cooperativas": {
+    "GjI7QD1dlVTv309M2YQPld2IfKB3": {
+      "cnpj": "45159975000103",
+      "contato": {
+        "email": "lnpedroifes@gmail.com",
+        "telefone": "31991344462"
+      },
+      "coopUid": "GjI7QD1dlVTv309M2YQPld2IfKB3",
+      "endereco": {
+        "cep": "29175117",
+        "cidade": "pedro",
+        "estado": "PE",
+        "logradouro": "pedro"
+      },
+      "fundacao": "2026-06-04",
+      "nome": "PedroCoop"
+    },
+    "ZPtwoK1miVcRcXak1cunkmW4wVK2": {
+      "cnpj": "77666177000156",
+      "contato": {
+        "email": "pedroabraao1611@gmail.com",
+        "telefone": "31991344462"
+      },
+      "coopUid": "ZPtwoK1miVcRcXak1cunkmW4wVK2",
+      "endereco": {
+        "cep": "29175117",
+        "cidade": "pedro",
+        "estado": "PE",
+        "logradouro": "pedro"
+      },
+      "fundacao": "2026-06-05",
+      "nome": "Pedrocoop"
+    }
+  },
+  "Usuarios": {
+    "ZPtwoK1miVcRcXak1cunkmW4wVK2": {
+      "coopUid": "ZPtwoK1miVcRcXak1cunkmW4wVK2",
+      "dataCadastro": "2026-06-05",
+      "email": "pedroabraao1611@gmail.com",
+      "matricula": "1010",
+      "nome": "Pedro Lino",
+      "tipo": "administrador",
+      "userUid": "ZPtwoK1miVcRcXak1cunkmW4wVK2"
+    },
+    "bVcTomNpHxX7wNWN0RwvwCIaCkY2": {
+      "cpf": "40132575647",
+      "dataCadastro": "2026-06-05",
+      "email": "pedroabraao1211@gmail.com",
+      "matricula": "2020",
+      "nome": "Piter Pedro",
+      "tipo": "administrador",
+      "userUid": "bVcTomNpHxX7wNWN0RwvwCIaCkY2"
+    }
+  },
+  "message": "Hello, World!"
+}

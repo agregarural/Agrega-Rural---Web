@@ -1,121 +1,83 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
     <link rel="stylesheet" href="../css/home.css">
-
 </head>
-
 <body>
-
-
     <div id="header-placeholder"></div>
     <div id="menuOptions"></div>
 
-
-
     <div id="container">
+        <h2 id="welcome-message">Bem Vindo Admin!</h2>
 
-        <h2>Bem Vindo Admin!</h2>
-        <h4>Cooperativo Pedrocoop LTDA</h4>
+        <h4 id="coop-name">Carregando...</h4>
 
-        <!-- INFORMAÇÊOS PRINCIPAIS -->
 
         <div class="containerMainInfo">
-
             <div class="cardMainInfo card--green">
                 <div class="info1">
                     <div class="iconMainInfo">
-                        <img src="../assets/icons/ic_done.svg" class="iconMainInfo">
+                        <img src="../assets/icons/ic_done.svg" class="iconMainInfo" alt="Ícone concluído">
                     </div>
                     <p class="label-info">Pedidos Completos</p>
-                    <p class="numero-info">1.284</p>
+                    <p class="numero-info" id="num-completos">0</p>
                 </div>
                 <div class="info2">
                     <p class="label-faturamento">Faturamento:</p>
-                    <span class="numero-info2 badge--up arrow-up">12,5%</span>
+                    <span class="numero-info2 badge--up arrow-up" id="variacao-completos">12,5%</span>
                 </div>
             </div>
 
             <div class="cardMainInfo card--orange">
                 <div class="info1">
                     <div class="iconMainInfo">
-                        <img src="../assets/icons/ic_alert.svg" class="iconMainInfo">
+                        <img src="../assets/icons/ic_alert.svg" class="iconMainInfo" alt="Ícone alerta">
                     </div>
                     <p class="label-info">Pedidos Pendentes</p>
-                    <p class="numero-info">47</p>
+                    <p class="numero-info" id="num-pendentes">0</p>
                 </div>
                 <div class="info2">
                     <p class="label-faturamento">Faturamento:</p>
-                    <span class="numero-info2 badge--down arrow-down">3,2%</span>
+                    <span class="numero-info2 badge--down arrow-down" id="variacao-pendentes">3,2%</span>
                 </div>
             </div>
 
             <div class="cardMainInfo card--blue">
                 <div class="info1">
                     <div class="iconMainInfo">
-                        <img src="../assets/icons/ic_truck.svg" class="iconMainInfo">
+                        <img src="../assets/icons/ic_truck.svg" class="iconMainInfo" alt="Ícone transporte">
                     </div>
                     <p class="label-info">Em Transporte</p>
-                    <p class="numero-info">89</p>
+                    <p class="numero-info" id="num-transporte">0</p>
                 </div>
                 <div class="info2">
                     <p class="label-faturamento">Faturamento:</p>
-                    <span class="numero-info2 badge--up arrow-up">8,7%</span>
+                    <span class="numero-info2 badge--up arrow-up" id="variacao-transporte">8,7%</span>
                 </div>
             </div>
 
             <div class="cardMainInfo card--purple">
                 <div class="info1">
                     <div class="iconMainInfo">
-                        <img src="../assets/icons/ic_box.svg" class="iconMainInfo">
+                        <img src="../assets/icons/ic_box.svg" class="iconMainInfo" alt="Ícone estoque">
                     </div>
                     <p class="label-info">Produtos em Estoque</p>
-                    <p class="numero-info">3.560</p>
+                    <p class="numero-info" id="num-estoque">0</p>
                 </div>
                 <div class="info2">
                     <p class="label-faturamento">Faturamento:</p>
-                    <span class="numero-info2 badge--neutral">Estável</span>
+                    <span class="numero-info2 badge--neutral" id="variacao-estoque">Estável</span>
                 </div>
             </div>
-
         </div>
-
-        <!-- INFORMAÇÊOS GERAIS -->
 
         <div class="containerGeneralInfo">
-            <div class="containerGraphic">
-                <p>pedro</p>
-
-            </div>
-            <div class="containerRecord">
-                <p>Ultimas transações:</p>
-                <table>
-                    <thead>
-                        <tr>
-                            Produto
-                        </tr>
-                        <tr>
-                            Preço
-                        </tr>
-                        <tr>
-                            Data
-                        </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                </table>
-
-            </div>
         </div>
-
     </div>
 
+    <script type="module" src="../js/home.js"></script>
 </body>
-
-<script src="../js/home.js"></script>
-
 </html>

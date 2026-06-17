@@ -1,11 +1,125 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Configurações · Perfil</title>
+    <link rel="stylesheet" href="../css/config.css">
+    <style>
+
+    </style>
 </head>
+
 <body>
-    
+    <div id="header-placeholder"></div>
+    <div id="menuOptions"></div>
+
+    <div class="container">
+
+        <div>
+            <h2>Configurações da Cooperativa</h2>
+            <p>Aqui você pode configurar as informações da sua cooperativa, preferências e outras opções relacionadas à
+                sua conta.</p>
+        </div>
+
+        <div class="ConfigBanners">
+
+            <div class="ConfigBannersItem containerItem">
+                <p>Aloque a Imagem dos Banners:</p>
+                <input type="file" id="banner1" name="banner1" accept="image/*">
+                <button id="uploadBanner" class="btn">Enviar Banner</button>
+            </div>
+
+            <div class="banners containerItem">
+                <p> Banners Cadastrados:</p>
+
+            </div>
+
+            <div class="containerPreview containerItem">
+                <p>Preview Mobile:</p>
+
+                <div class="phonePreview">
+
+                    <div class="phoneHeader">
+
+                        <div class="topBar">
+                            <span>22:52</span>
+                            <span>56%</span>
+                        </div>
+
+                        <div class="userArea">
+                            <h3>Olá, Murilo Gomes</h3>
+
+                            <div class="avatar">
+                                <img src="../img/perfil.jpg">
+                            </div>
+                        </div>
+
+                        <div class="searchBox">
+                            <span>🔍</span>
+                        </div>
+
+                    </div>
+
+                    <div class="bannerArea">
+
+                        <div class="bannerCarousel">
+
+                            <img id="previewBanner" src="https://placehold.co/800x350" alt="Banner">
+
+                        </div>
+
+                        <div class="dots">
+                            <span class="active"></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+
+                    </div>
+
+                    <div class="categories">
+
+                        <div class="catCard">
+                            <div class="catImg"></div>
+                            <p>Sementes</p>
+                        </div>
+
+                        <div class="catCard">
+                            <div class="catImg"></div>
+                            <p>Fertilizante</p>
+                        </div>
+
+                        <div class="catCard">
+                            <div class="catImg"></div>
+                            <p>Defensivo</p>
+                        </div>
+
+                    </div>
+
+                    <div class="bottomMenu">
+
+                        <span>🏠</span>
+                        <span>🛒</span>
+                        <span>🚚</span>
+                        <span>☰</span>
+
+                    </div>
+
+                </div>
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+
+
+    <script type="module" src="../js/config.js"></script>
+    </script>
 </body>
+
 </html>

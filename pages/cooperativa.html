@@ -1,48 +1,179 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cooperativa</title>
     <link rel="stylesheet" href="../css/cooperativa.css">
 </head>
+
 <body>
 
     <div id="header-placeholder"></div>
     <div id="menuOptions"></div>
 
-
     <div id="container">
 
-
         <h2>Painel de Administração</h2>
-        <h4>Cooperativa Pedrocoop LTDA</h4>
+        <h4 id="tituloCooperativa">Carregando cooperativa...</h4>
 
         <div class="container-banner">
-            <img class="imgCB" src="../assets/img/background.png">
-            <p class="textCB">Cooperativa PedroCoop</p>
-            <button class="btnCB">Alterar Banner</button>
+            <img class="imgCB" id="logoCooperativa" src="../assets/img/background.png">
+            <p class="textCB" id="textoBannerCooperativa">Carregando cooperativa...</p>
+            <label for="upload-logo" class="btnEnviar">Enviar Imagem</label>
+            <input type="file" id="upload-logo" class="btnCB" accept="image/*">
         </div>
 
         <div class="container-cards">
 
             <div class="card" id="card-data">
+                <span class="title-data">DADOS GERAIS</span>
 
+                <dl class="data-list">
+                    <dt class="label-data">Nome da cooperativa</dt>
+                    <dd class="value-data" id="dadosCoopNome">Carregando...</dd>
 
+                    <dt class="label-data">CNPJ</dt>
+                    <dd class="value-data" id="dadosCoopCnpj">Carregando...</dd>
 
+                    <dt class="label-data">Matrícula do administrador</dt>
+                    <dd class="value-data" id="dadosCoopMatricula">Carregando...</dd>
+
+                    <dt class="label-data">E-mail de contato</dt>
+                    <dd class="value-data" id="dadosCoopEmail">Carregando...</dd>
+
+                    <dt class="label-data">Celular</dt>
+                    <dd class="value-data" id="dadosCoopTelefone">Carregando...</dd>
+
+                    <dt class="label-data">CEP</dt>
+                    <dd class="value-data" id="dadosCoopCep">Carregando...</dd>
+
+                    <dt class="label-data">Logradouro</dt>
+                    <dd class="value-data" id="dadosCoopLogradouro">Carregando...</dd>
+
+                    <dt class="label-data">Cidade</dt>
+                    <dd class="value-data" id="dadosCoopCidade">Carregando...</dd>
+
+                    <dt class="label-data">Estado</dt>
+                    <dd class="value-data" id="dadosCoopEstado">Carregando...</dd>
+
+                    <dt class="label-data">Data de fundação</dt>
+                    <dd class="value-data" id="dadosCoopFundacao">Carregando...</dd>
+                </dl>
+            </div>
+
+            <div class="card" id="card-financeiro">
+                <span class="title-data">FINANCEIRO</span>
+
+                <label>
+                    <strong>Receita total:</strong>
+                    <span id="financeiroReceita">Carregando...</span>
+                </label>
+
+                <label>
+                    <strong>Custo total:</strong>
+                    <span id="financeiroCusto">Carregando...</span>
+                </label>
+
+                <label>
+                    <strong>Lucro total:</strong>
+                    <span id="financeiroLucro">Carregando...</span>
+                </label>
+
+                <label>
+                    <strong>Última venda:</strong>
+                    <span id="financeiroUltimaVenda">Carregando...</span>
+                </label>
+            </div>
+
+            <div class="card" id="card">
+                <span class="title-data">Administradores</span>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Email</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="tbodyAdministradores">
+                        <tr>
+                            <td colspan="3">Carregando administradores...</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="dosbtn">
+                    <button id="btnAddAdm">Adicionar Administrador</button>
+                    <button id="btnTrocarAutoridade">Trocar Autoridade</button>
+                </div>
+            </div>
+
+            <div class="oculto" id="overlay">
+                <div class="overlay">
+                    <span>Cadastrar Usuário</span>
+
+                    <label>Nome:</label>
+                    <input id="nome" placeholder="Ex: Pedro">
+
+                    <label>CPF:</label>
+                    <input id="cpf" placeholder="Ex: 22334811785">
+
+                    <label>Email:</label>
+                    <input id="email" type="email" placeholder="Ex: email@gmail.com">
+
+                    <label>Senha:</label>
+                    <input id="senha" type="password" placeholder="Ex: 123456">
+
+                    <label>Matrícula:</label>
+                    <input id="matricula" placeholder="Ex: 1010">
+
+                    <label>Tipo:</label>
+                    <select id="tipo">
+                        <option value="">Selecione...</option>
+                        <option value="cliente">Cliente</option>
+                        <option value="administrador">Administrador</option>
+                    </select>
+
+                    <div class="dosbtn">
+                        <button type="button" class="btn" id="btnConfirm">CADASTRAR</button>
+                        <button type="button" class="btn" id="btnRefuse">CANCELAR</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="oculto" id="overlayAutoridade">
+                <div class="overlay">
+                    <span>Trocar Autoridade</span>
+
+                    <label>Email da pessoa:</label>
+                    <input id="emailAutoridade" type="email" placeholder="Ex: email@gmail.com">
+
+                    <label>Matrícula da pessoa:</label>
+                    <input id="matriculaAutoridade" placeholder="Ex: 1010">
+
+                    <label>Novo tipo de conta:</label>
+                    <select id="tipoAutoridade">
+                        <option value="">Selecione...</option>
+                        <option value="cliente">Cliente</option>
+                        <option value="administrador">Administrador</option>
+                    </select>
+
+                    <div class="dosbtn">
+                        <button type="button" class="btn" id="btnConfirmAutoridade">CONFIRMAR</button>
+                        <button type="button" class="btn" id="btnCancelAutoridade">CANCELAR</button>
+                    </div>
+                </div>
             </div>
 
         </div>
-
-
-
-
-
     </div>
 
-    
-    
+    <script type="module" src="../js/cooperativa.js"></script>
+
 </body>
 
-<script src="../js/cooperativa.js"></script>
 </html>

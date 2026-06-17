@@ -1,3 +1,281 @@
-body{
-    background-color: aqua;
+body {
+    background-image: url(../assets/img/background2.jpg);
+    background-repeat: no-repeat;
+    background-color: #ffffff;
+    background-size: cover;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 800;
+  font-size: 15px;
+}
+
+.logo img {
+  width: 42px;
+  height: auto;
+}
+
+nav {
+  display: flex;
+  gap: 60px;
+  align-items: center;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+nav a {
+  text-decoration: none;
+  color: #000;
+  font-size: 12px;
+}
+
+.button-area1 {
+  text-align: center;
+}
+
+.btn1 {
+  display: inline-block;
+  background-color: #08713b;
+  color: white;
+  padding: 10px 16px;
+  border-radius: 9px;
+  text-decoration: none;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+
+
+/*  Container   */
+
+.container {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+
+/*///////////////////////////////*/
+/* Tela Authetincation -- LOGIN  */
+/*///////////////////////////////*/
+
+.TelaLogin {
+    background-color: rgb(255, 255, 255);
+    border-radius: clamp(8px, 1.2vw, 12px);
+    display: grid;
+    padding: 1.5%;
+    gap: 1%;
+    box-shadow: 2px 3px 15px -4px black;
+    grid-template-columns: 4fr 5fr;
+
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.4s ease;
+}
+
+#login {
+    background-color: rgb(224, 224, 224);
+    border-radius: clamp(5px, 0.8vw, 8px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 1rem;
+    gap: 5%;
+}
+
+
+#fazerCadastro {
+    background-color: rgb(255, 255, 255);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.input {
+    width: 10rem;
+    height: 2rem;
+    border: 0px;
+    margin: 0.5%;
+    flex-grow: 1;
+    height: 1rem;
+    border-radius: clamp(4px, 0.6vw, 8px);
+    padding: 5px;
+}
+
+.btn {
+    width: clamp(10rem, 12rem + 1vw, 20rem);
+    height: clamp(1.3rem, 1.5rem + 1vw, 3rem);
+    border: 0px;
+    border-radius: clamp(5px, 0.8vw, 8px);
+    font-size: 1rem;
+    padding: 2px;
+    margin: 5px;
+    background-color: #76a072;
+}
+
+.btn:active {
+    transform: scale(0.95);
+}
+
+#imgLogo2 {
+    height: calc(5vw + 5vh);
+    width: calc(5vw + 5vh);
+}
+
+
+
+
+
+/*////////////////////////////////////*/
+/*  Tela Authetincation -- CADASTRO   */
+/*////////////////////////////////////*/
+
+.TelaCadastro {
+    background-color: rgb(255, 255, 255);
+
+    border-radius: clamp(8px, 1.2vw, 12px);
+    display: grid;
+    padding: 1.5%;
+    gap: 1%;
+    box-shadow: 2px 3px 15px -4px black;
+    grid-template-columns: 4fr 5fr;
+
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.4s ease;
+
+}
+
+#fazerLogin {
+
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    text-align: center;
+
+}
+
+#cadastro {
+
+    display: flex;
+    background-color: #d8d8d8;
+    justify-content: center;
+    align-items: center;
+    border-radius: clamp(5px, 0.8vw, 8px);
+    flex-direction: column;
+    padding: 1%;
+    gap: 5px;
+}
+
+
+/*////////////////////////////////////////////////*/
+/*  Tela Authetincation -- CADASTRO COOPERATIVA   */
+/*////////////////////////////////////////////////*/
+
+
+.TelaCadastroCoop {
+    width: clamp(30rem, 30rem + 10vw, 90rem);
+    display: flex;
+    background-color: rgb(255, 255, 255);
+    border-radius: clamp(8px, 1.2vw, 12px);
+    padding: 1.5%;
+    justify-content: center;
+    text-align: center;
+    gap: 3%;
+    margin: 5%;
+    box-shadow: 2px 3px 15px -4px black;
+
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.4s ease;
+
+}
+
+#cadastroCoop {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #d8d8d8;
+    padding: 1%;
+    border-radius: clamp(5px, 0.8vw, 8px);
+    gap: 1%;
+
+}
+
+.contentInputCadastroCoop {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+/*///////////*/
+/*  RODAPE   */
+/*///////////*/
+
+
+.rodape {
+    background-color: black;
+
+}
+
+/*///////////////*/
+/*  UTILITARIOS  */
+/*///////////////*/
+
+.oculto {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    position: absolute;
+
+}
+
+@media (max-width: 600px) {
+  header {
+    width: 100%;
+    background-color: #ffffff;
+    padding: 20px 0;
+    height: auto;
+  }
+
+  .header-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 22px;
+    width: 90%;
+    margin: 0 auto;
+  }
+
+  .logo {
+    justify-content: center;
+  }
+
+  nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 28px;
+  }
+
+  .button-area1 {
+    text-align: center;
+  }
 }
