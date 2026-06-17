@@ -17,65 +17,79 @@ body{
   margin:auto;
 }
 
-header{
-  height:68px;
-  display:flex;
-  align-items:center;
-  background:white;
+header {
+  width: 100%;
+  background-color: #ffffff;
+  height: 68px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  z-index: 10;
 }
 
-.header-content{
-  width:90%;
-  max-width:1200px;
-  margin:auto;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
+.header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.button-area1 {
+  text-align: center;
+  
 }
 
-.logo{
-  display:flex;
-  align-items:center;
-  gap:8px;
-  font-weight:800;
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 800;
+  font-size: 15px;
 }
 
-.logo img{
-  width:42px;
+.logo img {
+  width: 42px;
+  height: auto;
+}
+nav {
+  display: flex;
+  gap: 60px;
+  align-items: center;
+  font-weight: 700;
+  text-transform: uppercase;
 }
 
-nav{
-  display:flex;
-  gap:50px;
-  text-transform:uppercase;
-}
-
-nav a{
-  text-decoration:none;
-  color:black;
-  font-size:12px;
-  font-weight:700;
+nav a {
+  text-decoration: none;
+  color: #000;
+  font-size: 12px;
 }
 
 .btn1{
-  background:#08713b;
-  color:white;
-  padding:10px 16px;
-  text-decoration:none;
-  border-radius:8px;
+  display: inline-block;
+  background-color: #08713b;
+  color: white;
+  padding: 10px 16px;
+  border-radius: 9px;
+  text-decoration: none;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 12px;
+  font-weight: 500;
 }
 
-.hero{
-  height:450px;
-  background:
-  linear-gradient(rgba(0,0,0,.45), rgba(0,0,0,.45)),
-  url("background.jpg");
+.hero {
+  height: 600px;
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.70), rgba(0, 0, 0, 0.70)),
+    url("../assets/img/background3.png");
 
-  background-size:cover;
-  background-position:center;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 
-  display:flex;
-  align-items:center;
+  display: flex;
+  align-items: center;
 }
 
 .hero h1{
