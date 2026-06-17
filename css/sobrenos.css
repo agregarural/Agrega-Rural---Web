@@ -1,0 +1,233 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&display=swap');
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  font-family:Arial, Helvetica, sans-serif;
+  background:#fff;
+}
+
+.container{
+  width:90%;
+  max-width:1200px;
+  margin:auto;
+}
+
+
+/* HEADER */
+
+header{
+  height:68px;
+  display:flex;
+  align-items:center;
+  background:white;
+}
+
+.header-content{
+  width:90%;
+  max-width:1200px;
+  margin:auto;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.logo{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font-weight:800;
+}
+
+.logo img{
+  width:42px;
+}
+
+nav{
+  display:flex;
+  gap:50px;
+  text-transform:uppercase;
+}
+
+nav a{
+  text-decoration:none;
+  color:black;
+  font-size:12px;
+  font-weight:700;
+}
+
+.btn1{
+  background:#08713b;
+  color:white;
+  padding:10px 16px;
+  text-decoration:none;
+  border-radius:8px;
+}
+
+
+/* HERO */
+
+.hero{
+  height:450px;
+  background:
+  linear-gradient(rgba(0,0,0,.45), rgba(0,0,0,.45)),
+  url("background.jpg");
+
+  background-size:cover;
+  background-position:center;
+
+  display:flex;
+  align-items:center;
+}
+
+.hero h1{
+  color:white;
+  margin-left:70px;
+  max-width:550px;
+
+  font-family:"Cormorant Garamond", serif;
+  font-size:42px;
+  font-weight:400;
+  letter-spacing:1px;
+}
+
+
+/* SOBRE */
+
+.about{
+  padding:120px 0;
+}
+
+.about-text{
+  max-width:800px;
+  margin:auto;
+  text-align:center;
+}
+
+.about h2{
+  font-size:32px;
+  margin-bottom:40px;
+  font-weight:800;
+}
+
+.about p{
+  font-size:15px;
+  line-height:1.7;
+  text-align:justify;
+}
+
+
+/* DEVELOPERS */
+
+.developers{
+  padding:80px 0 140px;
+  text-align:center;
+}
+
+.developers h2{
+  font-size:30px;
+  margin-bottom:20px;
+  font-weight:800;
+}
+
+.dev-subtitle{
+  max-width:700px;
+  margin:auto;
+  margin-bottom:70px;
+  line-height:1.6;
+}
+
+.dev-grid{
+  display:grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap:25px;
+}
+
+.dev-card{
+  background:#102035;
+  padding:30px 20px;
+  border-radius:12px;
+}
+
+.dev-card img{
+  width:130px;
+  height:130px;
+  object-fit:cover;
+  border-radius:50%;
+  margin-bottom:20px;
+}
+
+.dev-card h3{
+  color:white;
+  font-size:16px;
+}
+
+
+/* ESCOLA */
+
+.school{
+  padding:80px 0 140px;
+  background:#f7f7f7;
+  text-align:center;
+}
+
+.school h2{
+  font-size:30px;
+  margin-bottom:50px;
+}
+
+.school-box{
+  max-width:600px;
+  margin:auto;
+}
+
+.school-box img{
+  width:180px;
+  margin-bottom:30px;
+}
+
+.school-box p{
+  line-height:1.6;
+}
+
+
+/* FOOTER */
+
+footer{
+  background:#064d2b;
+  color:white;
+  padding:30px;
+  text-align:center;
+}
+
+
+/* RESPONSIVO */
+
+@media(max-width:1000px){
+
+  .dev-grid{
+    grid-template-columns: repeat(2,1fr);
+  }
+
+}
+
+@media(max-width:700px){
+
+  nav{
+    gap:20px;
+  }
+
+  .hero h1{
+    margin-left:20px;
+    font-size:28px;
+  }
+
+  .dev-grid{
+    grid-template-columns:1fr;
+  }
+
+}
