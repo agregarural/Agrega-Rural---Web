@@ -31,10 +31,23 @@ const auth = getAuth(app);
 let idCooperativa = null;
 let produtoRef = null;
 let categoriaRef = null;
-let produtoEditandoId = null;      // guarda o ID do produto em edição
-let produtoEditandoImagem = null;  // guarda a URL atual da imagem
+let produtoEditandoId = null;
+let produtoEditandoImagem = null;
 
 const IMGBB_API_KEY = "ac742aebcb5ef3bbef2489f934240205";
+
+// ---------- CARREGAR COMPONENTES ESTÁTICOS ----------
+fetch("../components/header.html")
+    .then(res => res.text())
+    .then(html => {
+        document.getElementById("header-placeholder").innerHTML = html;
+    });
+
+fetch("../components/menuoptions.html")
+    .then(res => res.text())
+    .then(html => {
+        document.getElementById("menu-options").innerHTML = html;
+    });
 
 // ---------- Funções de upload de imagem ----------
 async function enviarImgbb(file) {
@@ -116,7 +129,6 @@ function fecharPopupAddCategoria() {
 function abrirPopupEditarProduto(idProduto) {
     if (!produtoRef || !idCooperativa) return;
 
-    // Buscar os dados completos do produto
     get(ref(db, `Cooperativas/${idCooperativa}/Produtos/${idProduto}`)).then(snapshot => {
         if (!snapshot.exists()) {
             alert("Produto não encontrado.");
@@ -127,17 +139,14 @@ function abrirPopupEditarProduto(idProduto) {
         produtoEditandoId = idProduto;
         produtoEditandoImagem = produto.imagem || "";
 
-        // Preencher campos
         document.getElementById("editNomeProduto").value = produto.nome || "";
         document.getElementById("editPrecoProduto").value = produto.preco || "";
         document.getElementById("editCustoProducao").value = produto.custo || "";
         document.getElementById("editEstoqueProduto").value = produto.estoque || "";
         document.getElementById("editDescricaoProduto").value = produto.descricao || "";
 
-        // Carregar categorias no select de edição e selecionar a atual
         carregarCategoriasSelect("editSelectCategorias", produto.categoria);
 
-        // Exibir preview da imagem atual
         const preview = document.getElementById("editPreviewImagem");
         if (produto.imagem) {
             preview.src = produto.imagem;
@@ -146,7 +155,6 @@ function abrirPopupEditarProduto(idProduto) {
             preview.style.display = "none";
         }
 
-        // Limpar input file (caso tenha sido usado antes)
         document.getElementById("editImagemProduto").value = "";
 
         overlayEditProduto.classList.remove("oculto");
@@ -167,7 +175,6 @@ function fecharPopupEditarProduto() {
 btnNovoProduto.addEventListener("click", abrirPopupAddProduto);
 btnNovaCategoria.addEventListener("click", abrirPopupAddCategoria);
 
-// Fechar overlays ao clicar fora
 overlayAddProduto.addEventListener("click", (e) => {
     if (e.target === overlayAddProduto) fecharPopupAddProduto();
 });
@@ -249,9 +256,8 @@ btnSalvarEdicao.addEventListener("click", async (event) => {
     }
 
     try {
-        let urlImagem = produtoEditandoImagem; // mantém imagem atual por padrão
+        let urlImagem = produtoEditandoImagem;
 
-        // Se uma nova imagem foi selecionada, faz upload
         if (fileImagem) {
             urlImagem = await enviarImgbb(fileImagem);
         }
@@ -266,7 +272,6 @@ btnSalvarEdicao.addEventListener("click", async (event) => {
             imagem: urlImagem
         };
 
-        // Atualiza o nó específico do produto
         await update(ref(db, `Cooperativas/${idCooperativa}/Produtos/${produtoEditandoId}`), produtoAtualizado);
 
         alert("Produto atualizado com sucesso!");
