@@ -5,7 +5,8 @@ import {
     onValue,
     push,
     remove,
-    get
+    get,
+    update
 } from "https://www.gstatic.com/firebasejs/12.12.0/firebase-database.js";
 import {
     getAuth,
@@ -30,21 +31,12 @@ const auth = getAuth(app);
 let idCooperativa = null;
 let produtoRef = null;
 let categoriaRef = null;
-
-fetch("../components/header.html")
-    .then(res => res.text())
-    .then(html => {
-        document.getElementById("header-placeholder").innerHTML = html;
-    });
-
-fetch("../components/menuoptions.html")
-    .then(res => res.text())
-    .then(html => {
-        document.getElementById("menu-options").innerHTML = html;
-    });
+let produtoEditandoId = null;      // guarda o ID do produto em edição
+let produtoEditandoImagem = null;  // guarda a URL atual da imagem
 
 const IMGBB_API_KEY = "ac742aebcb5ef3bbef2489f934240205";
 
+// ---------- Funções de upload de imagem ----------
 async function enviarImgbb(file) {
     const formData = new FormData();
     formData.append("image", file);
@@ -63,6 +55,7 @@ async function enviarImgbb(file) {
     return dados.data.url;
 }
 
+// ---------- Autenticação e carregamento inicial ----------
 onAuthStateChanged(auth, async (user) => {
     if (!user) {
         console.log("Usuário não autenticado");
@@ -85,6 +78,7 @@ onAuthStateChanged(auth, async (user) => {
     carregarCategorias();
 });
 
+// ---------- Botões principais e overlays ----------
 const btnNovoProduto = document.getElementById("btnNovoProduto");
 const btnNovaCategoria = document.getElementById("btnNovaCategoria");
 
@@ -94,9 +88,13 @@ const formularioAddProduto = document.getElementById("formularioAddProduto");
 const overlayAddCategoria = document.getElementById("overlayAddCategoria");
 const formularioAddCategoria = document.getElementById("formularioAddCategoria");
 
+const overlayEditProduto = document.getElementById("overlayEditProduto");
+const formularioEditProduto = document.getElementById("formularioEditProduto");
+
+// ---------- Abrir / fechar popups ----------
 function abrirPopupAddProduto() {
     formularioAddProduto.reset();
-    carregarCategoriasSelect();
+    carregarCategoriasSelect("selectCategorias");
     overlayAddProduto.classList.remove("oculto");
 }
 
@@ -115,40 +113,91 @@ function fecharPopupAddCategoria() {
     formularioAddCategoria.reset();
 }
 
+function abrirPopupEditarProduto(idProduto) {
+    if (!produtoRef || !idCooperativa) return;
+
+    // Buscar os dados completos do produto
+    get(ref(db, `Cooperativas/${idCooperativa}/Produtos/${idProduto}`)).then(snapshot => {
+        if (!snapshot.exists()) {
+            alert("Produto não encontrado.");
+            return;
+        }
+
+        const produto = snapshot.val();
+        produtoEditandoId = idProduto;
+        produtoEditandoImagem = produto.imagem || "";
+
+        // Preencher campos
+        document.getElementById("editNomeProduto").value = produto.nome || "";
+        document.getElementById("editPrecoProduto").value = produto.preco || "";
+        document.getElementById("editCustoProducao").value = produto.custo || "";
+        document.getElementById("editEstoqueProduto").value = produto.estoque || "";
+        document.getElementById("editDescricaoProduto").value = produto.descricao || "";
+
+        // Carregar categorias no select de edição e selecionar a atual
+        carregarCategoriasSelect("editSelectCategorias", produto.categoria);
+
+        // Exibir preview da imagem atual
+        const preview = document.getElementById("editPreviewImagem");
+        if (produto.imagem) {
+            preview.src = produto.imagem;
+            preview.style.display = "block";
+        } else {
+            preview.style.display = "none";
+        }
+
+        // Limpar input file (caso tenha sido usado antes)
+        document.getElementById("editImagemProduto").value = "";
+
+        overlayEditProduto.classList.remove("oculto");
+    }).catch(erro => {
+        console.error("Erro ao buscar produto:", erro);
+        alert("Erro ao carregar dados do produto.");
+    });
+}
+
+function fecharPopupEditarProduto() {
+    overlayEditProduto.classList.add("oculto");
+    formularioEditProduto.reset();
+    document.getElementById("editPreviewImagem").style.display = "none";
+    produtoEditandoId = null;
+    produtoEditandoImagem = null;
+}
+
 btnNovoProduto.addEventListener("click", abrirPopupAddProduto);
 btnNovaCategoria.addEventListener("click", abrirPopupAddCategoria);
 
+// Fechar overlays ao clicar fora
 overlayAddProduto.addEventListener("click", (e) => {
-    if (e.target === overlayAddProduto) {
-        fecharPopupAddProduto();
-    }
+    if (e.target === overlayAddProduto) fecharPopupAddProduto();
 });
-
 overlayAddCategoria.addEventListener("click", (e) => {
-    if (e.target === overlayAddCategoria) {
-        fecharPopupAddCategoria();
-    }
+    if (e.target === overlayAddCategoria) fecharPopupAddCategoria();
+});
+overlayEditProduto.addEventListener("click", (e) => {
+    if (e.target === overlayEditProduto) fecharPopupEditarProduto();
 });
 
+// ---------- Cadastrar novo produto ----------
 const btnAddProduto = document.getElementById("btnAddProduto");
-
 btnAddProduto.addEventListener("click", async (event) => {
     event.preventDefault();
 
     if (!produtoRef) {
-        alert("Aguarde a autenticação antes de adicionar um produto.");
+        alert("Aguarde a autenticação.");
         return;
     }
 
     const nome = document.getElementById("nomeProduto").value.trim();
     const categoria = document.getElementById("selectCategorias").value.trim();
     const preco = document.getElementById("precoProduto").value;
+    const custo = document.getElementById("custoProducao").value;
     const estoque = document.getElementById("estoqueProduto").value;
     const descricao = document.getElementById("descricaoProduto").value.trim();
     const imagemInput = document.getElementById("imagemProduto");
     const fileImagem = imagemInput.files[0];
 
-    if (!nome || !categoria || !preco || !estoque || !descricao || !fileImagem) {
+    if (!nome || !categoria || !preco || !estoque || !descricao || !fileImagem || !custo) {
         alert("Preencha todos os campos obrigatórios, incluindo a imagem.");
         return;
     }
@@ -160,22 +209,75 @@ btnAddProduto.addEventListener("click", async (event) => {
             nome,
             categoria,
             preco: parseFloat(preco),
+            custo: parseFloat(custo),
             estoque: parseInt(estoque),
             descricao,
             imagem: urlImagem
         };
 
         await push(produtoRef, novoProduto);
-
         alert("Produto adicionado com sucesso!");
         fecharPopupAddProduto();
-
     } catch (erro) {
         console.error("Erro ao adicionar produto:", erro);
         alert("Erro ao adicionar produto. Tente novamente.");
     }
 });
 
+// ---------- Salvar edição do produto ----------
+const btnSalvarEdicao = document.getElementById("btnSalvarEdicao");
+btnSalvarEdicao.addEventListener("click", async (event) => {
+    event.preventDefault();
+
+    if (!produtoEditandoId) {
+        alert("Nenhum produto em edição.");
+        return;
+    }
+
+    const nome = document.getElementById("editNomeProduto").value.trim();
+    const categoria = document.getElementById("editSelectCategorias").value.trim();
+    const preco = document.getElementById("editPrecoProduto").value;
+    const custo = document.getElementById("editCustoProducao").value;
+    const estoque = document.getElementById("editEstoqueProduto").value;
+    const descricao = document.getElementById("editDescricaoProduto").value.trim();
+    const imagemInput = document.getElementById("editImagemProduto");
+    const fileImagem = imagemInput.files[0];
+
+    if (!nome || !categoria || !preco || !estoque || !descricao || !custo) {
+        alert("Preencha todos os campos obrigatórios.");
+        return;
+    }
+
+    try {
+        let urlImagem = produtoEditandoImagem; // mantém imagem atual por padrão
+
+        // Se uma nova imagem foi selecionada, faz upload
+        if (fileImagem) {
+            urlImagem = await enviarImgbb(fileImagem);
+        }
+
+        const produtoAtualizado = {
+            nome,
+            categoria,
+            preco: parseFloat(preco),
+            custo: parseFloat(custo),
+            estoque: parseInt(estoque),
+            descricao,
+            imagem: urlImagem
+        };
+
+        // Atualiza o nó específico do produto
+        await update(ref(db, `Cooperativas/${idCooperativa}/Produtos/${produtoEditandoId}`), produtoAtualizado);
+
+        alert("Produto atualizado com sucesso!");
+        fecharPopupEditarProduto();
+    } catch (erro) {
+        console.error("Erro ao atualizar produto:", erro);
+        alert("Erro ao atualizar produto.");
+    }
+});
+
+// ---------- Carregar produtos ----------
 function carregarProdutos() {
     onValue(produtoRef, (snapshot) => {
         const containerCards = document.getElementById("conatiner-cards-produto");
@@ -190,7 +292,6 @@ function carregarProdutos() {
 
         for (let id in produtos) {
             const produto = produtos[id];
-
             criarCardProduto(
                 id,
                 produto.nome,
@@ -249,11 +350,13 @@ function criarCardProduto(idProdFirebase, produto, categoria, preco, estoque, im
     const btnEditar = document.createElement("button");
     btnEditar.textContent = "Editar";
     btnEditar.classList.add("btn-editar");
+    btnEditar.addEventListener("click", () => {
+        abrirPopupEditarProduto(idProdFirebase);
+    });
 
     const btnRemover = document.createElement("button");
     btnRemover.textContent = "Remover";
     btnRemover.classList.add("btn-editar");
-
     btnRemover.addEventListener("click", async () => {
         if (!confirm("Tem certeza que deseja remover este produto?")) return;
 
@@ -271,13 +374,13 @@ function criarCardProduto(idProdFirebase, produto, categoria, preco, estoque, im
     containerCards.append(card);
 }
 
+// ---------- Categorias ----------
 const btnAddCategoria = document.getElementById("btnAddCategoria");
-
 btnAddCategoria.addEventListener("click", async (event) => {
     event.preventDefault();
 
     if (!categoriaRef) {
-        alert("Aguarde a autenticação antes de adicionar uma categoria.");
+        alert("Aguarde a autenticação.");
         return;
     }
 
@@ -299,13 +402,11 @@ btnAddCategoria.addEventListener("click", async (event) => {
         };
 
         await push(categoriaRef, novaCategoria);
-
         alert("Categoria adicionada com sucesso!");
         fecharPopupAddCategoria();
-
     } catch (erro) {
         console.error("Erro ao adicionar categoria:", erro);
-        alert("Erro ao adicionar categoria. Tente novamente.");
+        alert("Erro ao adicionar categoria.");
     }
 });
 
@@ -323,12 +424,7 @@ function carregarCategorias() {
 
         for (let id in categorias) {
             const categoria = categorias[id];
-
-            criarCardCategoria(
-                id,
-                categoria.categoria,
-                categoria.imagem
-            );
+            criarCardCategoria(id, categoria.categoria, categoria.imagem);
         }
     });
 }
@@ -367,7 +463,6 @@ function criarCardCategoria(idCategoriaFirebase, nomeCategoria, imagemCategoria)
     const btnRemover = document.createElement("button");
     btnRemover.textContent = "Remover";
     btnRemover.classList.add("btn-editar");
-
     btnRemover.addEventListener("click", async () => {
         if (!confirm("Tem certeza que deseja remover esta categoria? Todos os produtos dessa categoria também serão excluídos.")) return;
 
@@ -376,7 +471,6 @@ function criarCardCategoria(idCategoriaFirebase, nomeCategoria, imagemCategoria)
 
             if (snapshotProdutos.exists()) {
                 const produtos = snapshotProdutos.val();
-
                 for (let idProduto in produtos) {
                     if (produtos[idProduto].categoria === nomeCategoria) {
                         await remove(ref(db, `Cooperativas/${idCooperativa}/Produtos/${idProduto}`));
@@ -385,9 +479,7 @@ function criarCardCategoria(idCategoriaFirebase, nomeCategoria, imagemCategoria)
             }
 
             await remove(ref(db, `Cooperativas/${idCooperativa}/Categorias/${idCategoriaFirebase}`));
-
             alert("Categoria e produtos relacionados removidos com sucesso.");
-
         } catch (erro) {
             console.error("Erro ao remover categoria:", erro);
             alert("Erro ao remover categoria.");
@@ -399,8 +491,11 @@ function criarCardCategoria(idCategoriaFirebase, nomeCategoria, imagemCategoria)
     containerCards.append(card);
 }
 
-async function carregarCategoriasSelect() {
-    const selectCategoria = document.getElementById("selectCategorias");
+// ---------- Função auxiliar para carregar categorias no select ----------
+async function carregarCategoriasSelect(selectId, categoriaSelecionada = "") {
+    const selectCategoria = document.getElementById(selectId);
+    if (!selectCategoria) return;
+
     selectCategoria.innerHTML = '<option value="">Selecione uma categoria</option>';
 
     if (!categoriaRef) return;
@@ -415,6 +510,9 @@ async function carregarCategoriasSelect() {
         const option = document.createElement("option");
         option.value = cat.categoria;
         option.textContent = cat.categoria;
+        if (cat.categoria === categoriaSelecionada) {
+            option.selected = true;
+        }
         selectCategoria.appendChild(option);
     });
 }

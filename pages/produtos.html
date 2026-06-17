@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Novo Pedido</title>
+    <title>Gestão de Produtos</title>
     <link rel="stylesheet" href="../css/produtos.css">
 </head>
 
@@ -16,8 +16,7 @@
         <h2>Gestão de produtos</h2>
         <h5>Painel de Controle para gerenciamento dos produtos Pedrocoop</h5>
 
-        <div class=container-btns>
-
+        <div class="container-btns">
             <button id="btnNovoProduto" class="btn">
                 <img src="../assets/icons/plus.svg" class="iconBtn" alt="Adicionar">
                 <p>NOVO PRODUTO</p>
@@ -27,34 +26,26 @@
                 <img src="../assets/icons/plus.svg" class="iconBtn" alt="Adicionar">
                 <p>NOVA CATEGORIA</p>
             </button>
-
         </div>
 
         <div class="listas">
-
             <div class="lista-produtos lista">
                 <h3>PRODUTOS CADASTRADOS:</h3>
                 <div id="conatiner-cards-produto">
-                    // Os cards dos produtos serão inseridos aqui dinamicamente via JavaScript
+                    <!-- Cards de produtos inseridos via JS -->
                 </div>
             </div>
 
             <div class="lista-categorias lista">
                 <h3>CATEGORIAS CADASTRADAS:</h3>
                 <div id="conatiner-cards-categoria">
-                    // Os cards das categorias serão inseridos aqui dinamicamente via JavaScript
+                    <!-- Cards de categorias inseridos via JS -->
                 </div>
-
             </div>
-
-
         </div>
-
-
-
     </div>
 
-
+    <!-- Overlay de Cadastro de Produto -->
     <div class="overlay oculto" id="overlayAddProduto">
         <div class="popup" id="popupAddProduto">
             <h3>Cadastrar Novo Produto</h3>
@@ -65,8 +56,10 @@
                 <select id="selectCategorias" class="inputProduto">
                     <option value="">Selecione uma categoria</option>
                 </select>
-                <label>Preço:N</label>
+                <label>Preço de Venda:</label>
                 <input id="precoProduto" type="text" class="inputProduto" placeholder="0.00">
+                <label>Custo de produção:</label>
+                <input id="custoProducao" type="text" class="inputProduto" placeholder="0.00">
                 <label>Quantidade em Estoque:</label>
                 <input id="estoqueProduto" type="number" class="inputProduto" placeholder="0">
                 <label>Descrição:</label>
@@ -78,6 +71,35 @@
         </div>
     </div>
 
+    <!-- Overlay de Edição de Produto -->
+    <div class="overlay oculto" id="overlayEditProduto">
+        <div class="popup" id="popupEditProduto">
+            <h3>Editar Produto</h3>
+            <form id="formularioEditProduto">
+                <label>Nome:</label>
+                <input id="editNomeProduto" type="text" class="inputProduto" placeholder="Nome do produto">
+                <label>Categoria:</label>
+                <select id="editSelectCategorias" class="inputProduto">
+                    <option value="">Selecione uma categoria</option>
+                </select>
+                <label>Preço de Venda:</label>
+                <input id="editPrecoProduto" type="text" class="inputProduto" placeholder="0.00">
+                <label>Custo de produção:</label>
+                <input id="editCustoProducao" type="text" class="inputProduto" placeholder="0.00">
+                <label>Quantidade em Estoque:</label>
+                <input id="editEstoqueProduto" type="number" class="inputProduto" placeholder="0">
+                <label>Descrição:</label>
+                <textarea id="editDescricaoProduto" class="inputProduto" placeholder="Descrição do produto"></textarea>
+                <label>Imagem atual:</label>
+                <img id="editPreviewImagem" src="" alt="Pré-visualização" style="max-width: 150px; margin: 5px; display: block;">
+                <label>Nova imagem (opcional):</label>
+                <input id="editImagemProduto" type="file" class="inputImgProduto" name="Imagem" accept="image/*">
+                <button id="btnSalvarEdicao" class="addProduto" type="button">Salvar alterações</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Overlay de Nova Categoria -->
     <div class="overlay oculto" id="overlayAddCategoria">
         <div class="popup" id="popupAddCategoria">
             <h3>Cadastrar Nova Categoria</h3>
@@ -88,15 +110,9 @@
                 <button id="btnAddCategoria" class="addProduto" type="submit">Adicionar categoria</button>
             </form>
         </div>
+    </div>
 
-
-
-
-
-
-
+    <script type="module" src="../js/produtos.js"></script>
 </body>
-
-<script type="module" src="../js/produtos.js"></script>
 
 </html>
