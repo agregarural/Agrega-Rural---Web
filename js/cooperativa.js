@@ -69,7 +69,7 @@ async function carregarComponentes() {
 await carregarComponentes();
 
 // ==========================================
-// VARIÁVEIS GLOBAIS DA COOPERATIVA LOGADA
+// VARIÁVEIS GLOBAIS
 // ==========================================
 
 let usuarioLogado = null;
@@ -78,7 +78,7 @@ let coopUidAtual = null;
 let dadosCooperativaAtual = null;
 
 // ==========================================
-// ELEMENTOS DA TELA
+// ELEMENTOS
 // ==========================================
 
 const btnAddAdm = document.getElementById("btnAddAdm");
@@ -104,7 +104,7 @@ const inputMatriculaAutoridade = document.getElementById("matriculaAutoridade");
 const inputTipoAutoridade = document.getElementById("tipoAutoridade");
 
 // ==========================================
-// OBSERVAR LOGIN DO ADMINISTRADOR
+// LOGIN
 // ==========================================
 
 onAuthStateChanged(auth, async (user) => {
@@ -124,6 +124,7 @@ onAuthStateChanged(auth, async (user) => {
 
     await carregarDadosDaCooperativa();
     await carregarAdministradoresDaCooperativa();
+    await carregarFinanceiroDaCooperativa();
 });
 
 // ==========================================
@@ -183,6 +184,7 @@ async function carregarDadosDaCooperativa() {
         dadosCooperativaAtual = snapshotCoop.val();
 
         preencherDadosGerais();
+        carregarLogoCooperativa();
 
     } catch (error) {
         console.error("Erro ao carregar cooperativa:", error);
@@ -191,7 +193,7 @@ async function carregarDadosDaCooperativa() {
 }
 
 // ==========================================
-// PREENCHER DADOS GERAIS NA TELA
+// PREENCHER DADOS GERAIS
 // ==========================================
 
 function preencherDadosGerais() {
@@ -222,7 +224,7 @@ function preencherDadosGerais() {
 }
 
 // ==========================================
-// CARREGAR ADMINISTRADORES DA MESMA COOPERATIVA
+// ADMINISTRADORES
 // ==========================================
 
 async function carregarAdministradoresDaCooperativa() {
@@ -292,7 +294,103 @@ async function carregarAdministradoresDaCooperativa() {
 }
 
 // ==========================================
-// ABRIR POP-UP DE CADASTRAR USUÁRIO
+// FINANCEIRO DA COOPERATIVA
+// ==========================================
+// Agora o financeiro lê de:
+// Cooperativas > coopUid > Vendas
+// Assim, mesmo se o pedido for excluído pelo usuário,
+// a venda continua salva e o financeiro permanece correto.
+
+async function carregarFinanceiroDaCooperativa() {
+    try {
+        setTexto("financeiroReceita", "Carregando...");
+        setTexto("financeiroCusto", "Carregando...");
+        setTexto("financeiroLucro", "Carregando...");
+        setTexto("financeiroUltimaVenda", "Carregando...");
+
+        if (!coopUidAtual) {
+            preencherFinanceiroZerado();
+            return;
+        }
+
+        const dbRef = ref(db);
+
+        const snapshotVendas = await get(
+            child(dbRef, `Cooperativas/${coopUidAtual}/Vendas`)
+        );
+
+        if (!snapshotVendas.exists()) {
+            preencherFinanceiroZerado();
+            return;
+        }
+
+        const vendas = snapshotVendas.val();
+
+        let receitaTotal = 0;
+        let custoTotal = 0;
+        let lucroTotal = 0;
+        let ultimaVendaMillis = 0;
+        let totalVendas = 0;
+
+        Object.keys(vendas).forEach((vendaId) => {
+            const venda = vendas[vendaId];
+
+            if (!venda) return;
+
+            const receitaVenda = Number(venda.valorReceita || 0);
+            const custoVenda = Number(venda.valorCusto || 0);
+            const lucroVenda = Number(
+                venda.valorLucro !== undefined
+                    ? venda.valorLucro
+                    : receitaVenda - custoVenda
+            );
+
+            const dataVendaMillis = Number(venda.dataVendaMillis || 0);
+
+            receitaTotal += receitaVenda;
+            custoTotal += custoVenda;
+            lucroTotal += lucroVenda;
+            totalVendas++;
+
+            if (dataVendaMillis > ultimaVendaMillis) {
+                ultimaVendaMillis = dataVendaMillis;
+            }
+        });
+
+        if (totalVendas === 0) {
+            preencherFinanceiroZerado();
+            return;
+        }
+
+        setTexto("financeiroReceita", formatarMoeda(receitaTotal));
+        setTexto("financeiroCusto", formatarMoeda(custoTotal));
+        setTexto("financeiroLucro", formatarMoeda(lucroTotal));
+
+        if (ultimaVendaMillis > 0) {
+            setTexto("financeiroUltimaVenda", formatarDataHoraMillis(ultimaVendaMillis));
+        } else {
+            setTexto("financeiroUltimaVenda", "Nenhuma venda");
+        }
+
+    } catch (error) {
+        console.error("Erro ao carregar financeiro:", error);
+
+        setTexto("financeiroReceita", "Erro");
+        setTexto("financeiroCusto", "Erro");
+        setTexto("financeiroLucro", "Erro");
+        setTexto("financeiroUltimaVenda", "Erro");
+    }
+}
+
+function preencherFinanceiroZerado() {
+    setTexto("financeiroReceita", formatarMoeda(0));
+    setTexto("financeiroCusto", formatarMoeda(0));
+    setTexto("financeiroLucro", formatarMoeda(0));
+    setTexto("financeiroUltimaVenda", "Nenhuma venda");
+}
+
+// ==========================================
+// POP-UP CADASTRAR USUÁRIO
 // ==========================================
 
 if (btnAddAdm && formularioOverlay && overlayAutoridade) {
@@ -309,7 +407,7 @@ if (btnAddAdm && formularioOverlay && overlayAutoridade) {
 }
 
 // ==========================================
-// ABRIR POP-UP DE TROCAR AUTORIDADE
+// POP-UP TROCAR AUTORIDADE
 // ==========================================
 
 if (btnTrocarAutoridade && overlayAutoridade && formularioOverlay) {
@@ -326,7 +424,7 @@ if (btnTrocarAutoridade && overlayAutoridade && formularioOverlay) {
 }
 
 // ==========================================
-// CADASTRAR USUÁRIO NA MESMA COOPERATIVA
+// CADASTRAR USUÁRIO
 // ==========================================
 
 if (btnConfirm) {
@@ -384,7 +482,9 @@ if (btnConfirm) {
                 email: email,
                 matricula: matricula,
                 tipo: tipo,
+                tipoUsuario: tipo,
                 userUid: novoUid,
+                uid: novoUid,
                 coopUid: coopUidAtual,
                 dataCadastro: new Date().toISOString().split("T")[0]
             });
@@ -409,7 +509,7 @@ if (btnConfirm) {
 }
 
 // ==========================================
-// CANCELAR CADASTRO DE USUÁRIO
+// CANCELAR CADASTRO
 // ==========================================
 
 if (btnRefuse) {
@@ -425,7 +525,7 @@ if (btnRefuse) {
 }
 
 // ==========================================
-// CONFIRMAR TROCA DE AUTORIDADE
+// TROCAR AUTORIDADE
 // ==========================================
 
 if (btnConfirmAutoridade) {
@@ -480,6 +580,7 @@ if (btnConfirmAutoridade) {
 
             await update(ref(db, "Usuarios/" + uidEncontrado), {
                 tipo: novoTipo,
+                tipoUsuario: novoTipo,
                 coopUid: coopUidAtual
             });
 
@@ -507,7 +608,7 @@ if (btnConfirmAutoridade) {
 }
 
 // ==========================================
-// CANCELAR TROCA DE AUTORIDADE
+// CANCELAR TROCA
 // ==========================================
 
 if (btnCancelAutoridade) {
@@ -518,6 +619,93 @@ if (btnCancelAutoridade) {
 
         if (overlayAutoridade) {
             overlayAutoridade.classList.add("oculto");
+        }
+    });
+}
+
+// ==========================================
+// LOGO DA COOPERATIVA
+// ==========================================
+
+const IMGBB_API_KEY = "ac742aebcb5ef3bbef2489f934240205";
+
+async function enviarImgbb(file) {
+    const formData = new FormData();
+    formData.append("image", file);
+
+    const resposta = await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, {
+        method: "POST",
+        body: formData
+    });
+
+    const dados = await resposta.json();
+
+    if (!dados.success) {
+        throw new Error("Erro ao enviar imagem para o ImgBB");
+    }
+
+    return dados.data.url;
+}
+
+function carregarLogoCooperativa() {
+    const imgElement = document.getElementById("logoCooperativa");
+    if (!imgElement) return;
+
+    const logoURL = dadosCooperativaAtual?.logoURL;
+
+    if (logoURL) {
+        imgElement.src = logoURL;
+    } else {
+        imgElement.src = "../assets/img/background.png";
+    }
+}
+
+const inputUploadLogo = document.getElementById("upload-logo");
+
+if (inputUploadLogo) {
+    inputUploadLogo.addEventListener("change", async (event) => {
+        const file = event.target.files[0];
+        if (!file) return;
+
+        if (!file.type.startsWith("image/")) {
+            alert("Por favor, selecione uma imagem.");
+            inputUploadLogo.value = "";
+            return;
+        }
+
+        if (file.size > 2 * 1024 * 1024) {
+            alert("A imagem deve ter no máximo 2MB.");
+            inputUploadLogo.value = "";
+            return;
+        }
+
+        try {
+            const imgElement = document.getElementById("logoCooperativa");
+            if (imgElement) imgElement.style.opacity = "0.5";
+
+            const urlImagem = await enviarImgbb(file);
+
+            const cooperativaRef = ref(db, `Cooperativas/${coopUidAtual}`);
+            await update(cooperativaRef, { logoURL: urlImagem });
+
+            if (imgElement) {
+                imgElement.src = urlImagem;
+                imgElement.style.opacity = "1";
+            }
+
+            dadosCooperativaAtual.logoURL = urlImagem;
+
+            alert("Logo atualizada com sucesso!");
+
+        } catch (error) {
+            console.error("Erro no upload:", error);
+            alert("Erro ao enviar imagem. Tente novamente.");
+
+            const imgElement = document.getElementById("logoCooperativa");
+            if (imgElement) imgElement.style.opacity = "1";
+
+        } finally {
+            inputUploadLogo.value = "";
         }
     });
 }
@@ -547,6 +735,23 @@ function setTexto(id, valor) {
     if (elemento) {
         elemento.textContent = valor;
     }
+}
+
+function formatarMoeda(valor) {
+    return Number(valor || 0).toLocaleString("pt-BR", {
+        style: "currency",
+        currency: "BRL"
+    });
+}
+
+function formatarDataHoraMillis(millis) {
+    const data = new Date(Number(millis));
+
+    return data.toLocaleDateString("pt-BR") + " " +
+        data.toLocaleTimeString("pt-BR", {
+            hour: "2-digit",
+            minute: "2-digit"
+        });
 }
 
 function formatarCNPJ(cnpj) {
@@ -600,100 +805,4 @@ function formatarData(data) {
     }
 
     return `${partes[2]}/${partes[1]}/${partes[0]}`;
-}
-
-
-
-
-
-// Chave da API do ImgBB (mesma que você já usa)
-const IMGBB_API_KEY = "ac742aebcb5ef3bbef2489f934240205";
-
-// Função para enviar imagem ao ImgBB e retornar a URL
-async function enviarImgbb(file) {
-    const formData = new FormData();
-    formData.append("image", file);
-
-    const resposta = await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, {
-        method: "POST",
-        body: formData
-    });
-
-    const dados = await resposta.json();
-
-    if (!dados.success) {
-        throw new Error("Erro ao enviar imagem para o ImgBB");
-    }
-
-    return dados.data.url;
-}
-
-
-function carregarLogoCooperativa() {
-    const imgElement = document.getElementById("logoCooperativa");
-    if (!imgElement) return;
-
-    const logoURL = dadosCooperativaAtual?.logoURL;
-
-    if (logoURL) {
-        imgElement.src = logoURL;
-    } else {
-        // Caso não tenha logo salva, usa a imagem padrão
-        imgElement.src = "../assets/img/background.png";
-    }
-}
-
-
-const inputUploadLogo = document.getElementById("upload-logo");
-
-if (inputUploadLogo) {
-    inputUploadLogo.addEventListener("change", async (event) => {
-        const file = event.target.files[0];
-        if (!file) return;
-
-        // Validação: só imagens
-        if (!file.type.startsWith("image/")) {
-            alert("Por favor, selecione uma imagem.");
-            inputUploadLogo.value = ""; // limpa o input
-            return;
-        }
-
-        // Limite de tamanho (ex: 2MB)
-        if (file.size > 2 * 1024 * 1024) {
-            alert("A imagem deve ter no máximo 2MB.");
-            inputUploadLogo.value = "";
-            return;
-        }
-
-        try {
-            // Mostra um feedback visual (opcional)
-            const imgElement = document.getElementById("logoCooperativa");
-            imgElement.style.opacity = "0.5";
-
-            // 1. Envia para o ImgBB
-            const urlImagem = await enviarImgbb(file);
-
-            // 2. Salva a URL no Firebase Realtime Database
-            const cooperativaRef = ref(db, `Cooperativas/${coopUidAtual}`);
-            await update(cooperativaRef, { logoURL: urlImagem });
-
-            // 3. Atualiza a imagem exibida
-            imgElement.src = urlImagem;
-            imgElement.style.opacity = "1";
-
-            // 4. Atualiza a variável global
-            dadosCooperativaAtual.logoURL = urlImagem;
-
-            alert("Logo atualizada com sucesso!");
-
-        } catch (error) {
-            console.error("Erro no upload:", error);
-            alert("Erro ao enviar imagem. Tente novamente.");
-            const imgElement = document.getElementById("logoCooperativa");
-            if (imgElement) imgElement.style.opacity = "1";
-        } finally {
-            // Limpa o input para permitir selecionar o mesmo arquivo novamente
-            inputUploadLogo.value = "";
-        }
-    });
 }

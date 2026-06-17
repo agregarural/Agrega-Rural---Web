@@ -256,3 +256,13 @@ select {
 .oculto {
     display: none !important;
 }
+#card-financeiro label {
+    margin-bottom: 12px;
+    font-size: 1rem;
+}
+
+#card-financeiro label span {
+    display: inline;
+    font-weight: 600;
+    color: #2E7D32;
+}
