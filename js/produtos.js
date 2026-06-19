@@ -1,4 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.12.0/firebase-app.js";
+
 import {
     getDatabase,
     ref,
@@ -8,6 +9,7 @@ import {
     get,
     update
 } from "https://www.gstatic.com/firebasejs/12.12.0/firebase-database.js";
+
 import {
     getAuth,
     onAuthStateChanged
@@ -36,7 +38,7 @@ let produtoEditandoImagem = null;
 
 const IMGBB_API_KEY = "ac742aebcb5ef3bbef2489f934240205";
 
-// ---------- CARREGAR COMPONENTES ESTÁTICOS ----------
+// ---------- CARREGAR COMPONENTES ----------
 fetch("../components/header.html")
     .then(res => res.text())
     .then(html => {
@@ -49,7 +51,7 @@ fetch("../components/menuoptions.html")
         document.getElementById("menu-options").innerHTML = html;
     });
 
-// ---------- Funções de upload de imagem ----------
+// ---------- UPLOAD IMAGEM ----------
 async function enviarImgbb(file) {
     const formData = new FormData();
     formData.append("image", file);
@@ -68,7 +70,7 @@ async function enviarImgbb(file) {
     return dados.data.url;
 }
 
-// ---------- Autenticação e carregamento inicial ----------
+// ---------- AUTENTICAÇÃO ----------
 onAuthStateChanged(auth, async (user) => {
     if (!user) {
         console.log("Usuário não autenticado");
@@ -91,7 +93,7 @@ onAuthStateChanged(auth, async (user) => {
     carregarCategorias();
 });
 
-// ---------- Botões principais e overlays ----------
+// ---------- ELEMENTOS ----------
 const btnNovoProduto = document.getElementById("btnNovoProduto");
 const btnNovaCategoria = document.getElementById("btnNovaCategoria");
 
@@ -104,7 +106,7 @@ const formularioAddCategoria = document.getElementById("formularioAddCategoria")
 const overlayEditProduto = document.getElementById("overlayEditProduto");
 const formularioEditProduto = document.getElementById("formularioEditProduto");
 
-// ---------- Abrir / fechar popups ----------
+// ---------- POPUPS ----------
 function abrirPopupAddProduto() {
     formularioAddProduto.reset();
     carregarCategoriasSelect("selectCategorias");
@@ -129,45 +131,52 @@ function fecharPopupAddCategoria() {
 function abrirPopupEditarProduto(idProduto) {
     if (!produtoRef || !idCooperativa) return;
 
-    get(ref(db, `Cooperativas/${idCooperativa}/Produtos/${idProduto}`)).then(snapshot => {
-        if (!snapshot.exists()) {
-            alert("Produto não encontrado.");
-            return;
-        }
+    get(ref(db, `Cooperativas/${idCooperativa}/Produtos/${idProduto}`))
+        .then(snapshot => {
+            if (!snapshot.exists()) {
+                alert("Produto não encontrado.");
+                return;
+            }
 
-        const produto = snapshot.val();
-        produtoEditandoId = idProduto;
-        produtoEditandoImagem = produto.imagem || "";
+            const produto = snapshot.val();
 
-        document.getElementById("editNomeProduto").value = produto.nome || "";
-        document.getElementById("editPrecoProduto").value = produto.preco || "";
-        document.getElementById("editCustoProducao").value = produto.custo || "";
-        document.getElementById("editEstoqueProduto").value = produto.estoque || "";
-        document.getElementById("editDescricaoProduto").value = produto.descricao || "";
+            produtoEditandoId = idProduto;
+            produtoEditandoImagem = produto.imagem || "";
 
-        carregarCategoriasSelect("editSelectCategorias", produto.categoria);
+            document.getElementById("editNomeProduto").value = produto.nome || "";
+            document.getElementById("editPrecoProduto").value = produto.preco || "";
+            document.getElementById("editDescontoCooperadoProduto").value = produto.descontoCooperado || 0;
+            document.getElementById("editCustoProducao").value = produto.custo || "";
+            document.getElementById("editEstoqueProduto").value = produto.estoque || "";
+            document.getElementById("editDescricaoProduto").value = produto.descricao || "";
 
-        const preview = document.getElementById("editPreviewImagem");
-        if (produto.imagem) {
-            preview.src = produto.imagem;
-            preview.style.display = "block";
-        } else {
-            preview.style.display = "none";
-        }
+            carregarCategoriasSelect("editSelectCategorias", produto.categoria);
 
-        document.getElementById("editImagemProduto").value = "";
+            const preview = document.getElementById("editPreviewImagem");
 
-        overlayEditProduto.classList.remove("oculto");
-    }).catch(erro => {
-        console.error("Erro ao buscar produto:", erro);
-        alert("Erro ao carregar dados do produto.");
-    });
+            if (produto.imagem) {
+                preview.src = produto.imagem;
+                preview.style.display = "block";
+            } else {
+                preview.style.display = "none";
+            }
+
+            document.getElementById("editImagemProduto").value = "";
+
+            overlayEditProduto.classList.remove("oculto");
+        })
+        .catch(erro => {
+            console.error("Erro ao buscar produto:", erro);
+            alert("Erro ao carregar dados do produto.");
+        });
 }
 
 function fecharPopupEditarProduto() {
     overlayEditProduto.classList.add("oculto");
     formularioEditProduto.reset();
+
     document.getElementById("editPreviewImagem").style.display = "none";
+
     produtoEditandoId = null;
     produtoEditandoImagem = null;
 }
@@ -178,15 +187,36 @@ btnNovaCategoria.addEventListener("click", abrirPopupAddCategoria);
 overlayAddProduto.addEventListener("click", (e) => {
     if (e.target === overlayAddProduto) fecharPopupAddProduto();
 });
+
 overlayAddCategoria.addEventListener("click", (e) => {
     if (e.target === overlayAddCategoria) fecharPopupAddCategoria();
 });
+
 overlayEditProduto.addEventListener("click", (e) => {
     if (e.target === overlayEditProduto) fecharPopupEditarProduto();
 });
 
-// ---------- Cadastrar novo produto ----------
+// ---------- FUNÇÕES DE PREÇO ----------
+function converterNumero(valor) {
+    return Number(String(valor).replace(",", ".")) || 0;
+}
+
+function calcularPrecoCooperado(preco, desconto) {
+    const precoNumero = converterNumero(preco);
+    const descontoNumero = converterNumero(desconto);
+
+    return precoNumero - (precoNumero * descontoNumero / 100);
+}
+
+function validarDesconto(desconto) {
+    const numero = converterNumero(desconto);
+
+    return numero >= 0 && numero <= 100;
+}
+
+// ---------- CADASTRAR PRODUTO ----------
 const btnAddProduto = document.getElementById("btnAddProduto");
+
 btnAddProduto.addEventListener("click", async (event) => {
     event.preventDefault();
 
@@ -198,6 +228,7 @@ btnAddProduto.addEventListener("click", async (event) => {
     const nome = document.getElementById("nomeProduto").value.trim();
     const categoria = document.getElementById("selectCategorias").value.trim();
     const preco = document.getElementById("precoProduto").value;
+    const descontoCooperado = document.getElementById("descontoCooperadoProduto").value || "0";
     const custo = document.getElementById("custoProducao").value;
     const estoque = document.getElementById("estoqueProduto").value;
     const descricao = document.getElementById("descricaoProduto").value.trim();
@@ -209,30 +240,44 @@ btnAddProduto.addEventListener("click", async (event) => {
         return;
     }
 
+    if (!validarDesconto(descontoCooperado)) {
+        alert("O desconto do cooperado deve estar entre 0% e 100%.");
+        return;
+    }
+
     try {
+        const precoNumero = converterNumero(preco);
+        const descontoNumero = converterNumero(descontoCooperado);
+        const precoCooperado = calcularPrecoCooperado(precoNumero, descontoNumero);
+
         const urlImagem = await enviarImgbb(fileImagem);
 
         const novoProduto = {
             nome,
             categoria,
-            preco: parseFloat(preco),
-            custo: parseFloat(custo),
+            preco: precoNumero,
+            descontoCooperado: descontoNumero,
+            precoCooperado: precoCooperado,
+            custo: converterNumero(custo),
             estoque: parseInt(estoque),
             descricao,
             imagem: urlImagem
         };
 
         await push(produtoRef, novoProduto);
+
         alert("Produto adicionado com sucesso!");
         fecharPopupAddProduto();
+
     } catch (erro) {
         console.error("Erro ao adicionar produto:", erro);
         alert("Erro ao adicionar produto. Tente novamente.");
     }
 });
 
-// ---------- Salvar edição do produto ----------
+// ---------- EDITAR PRODUTO ----------
 const btnSalvarEdicao = document.getElementById("btnSalvarEdicao");
+
 btnSalvarEdicao.addEventListener("click", async (event) => {
     event.preventDefault();
 
@@ -244,6 +289,7 @@ btnSalvarEdicao.addEventListener("click", async (event) => {
     const nome = document.getElementById("editNomeProduto").value.trim();
     const categoria = document.getElementById("editSelectCategorias").value.trim();
     const preco = document.getElementById("editPrecoProduto").value;
+    const descontoCooperado = document.getElementById("editDescontoCooperadoProduto").value || "0";
     const custo = document.getElementById("editCustoProducao").value;
     const estoque = document.getElementById("editEstoqueProduto").value;
     const descricao = document.getElementById("editDescricaoProduto").value.trim();
@@ -255,6 +301,11 @@ btnSalvarEdicao.addEventListener("click", async (event) => {
         return;
     }
 
+    if (!validarDesconto(descontoCooperado)) {
+        alert("O desconto do cooperado deve estar entre 0% e 100%.");
+        return;
+    }
+
     try {
         let urlImagem = produtoEditandoImagem;
 
@@ -262,27 +313,37 @@ btnSalvarEdicao.addEventListener("click", async (event) => {
             urlImagem = await enviarImgbb(fileImagem);
         }
 
+        const precoNumero = converterNumero(preco);
+        const descontoNumero = converterNumero(descontoCooperado);
+        const precoCooperado = calcularPrecoCooperado(precoNumero, descontoNumero);
+
         const produtoAtualizado = {
             nome,
             categoria,
-            preco: parseFloat(preco),
-            custo: parseFloat(custo),
+            preco: precoNumero,
+            descontoCooperado: descontoNumero,
+            precoCooperado: precoCooperado,
+            custo: converterNumero(custo),
             estoque: parseInt(estoque),
             descricao,
             imagem: urlImagem
         };
 
-        await update(ref(db, `Cooperativas/${idCooperativa}/Produtos/${produtoEditandoId}`), produtoAtualizado);
+        await update(
+            ref(db, `Cooperativas/${idCooperativa}/Produtos/${produtoEditandoId}`),
+            produtoAtualizado
+        );
 
         alert("Produto atualizado com sucesso!");
         fecharPopupEditarProduto();
+
     } catch (erro) {
         console.error("Erro ao atualizar produto:", erro);
         alert("Erro ao atualizar produto.");
     }
 });
 
-// ---------- Carregar produtos ----------
+// ---------- CARREGAR PRODUTOS ----------
 function carregarProdutos() {
     onValue(produtoRef, (snapshot) => {
         const containerCards = document.getElementById("conatiner-cards-produto");
@@ -297,11 +358,14 @@ function carregarProdutos() {
 
         for (let id in produtos) {
             const produto = produtos[id];
+
             criarCardProduto(
                 id,
                 produto.nome,
                 produto.categoria,
                 produto.preco,
+                produto.descontoCooperado || 0,
+                produto.precoCooperado || calcularPrecoCooperado(produto.preco, produto.descontoCooperado || 0),
                 produto.estoque,
                 produto.imagem
             );
@@ -309,7 +373,16 @@ function carregarProdutos() {
     });
 }
 
-function criarCardProduto(idProdFirebase, produto, categoria, preco, estoque, imagem) {
+function criarCardProduto(
+    idProdFirebase,
+    produto,
+    categoria,
+    preco,
+    descontoCooperado,
+    precoCooperado,
+    estoque,
+    imagem
+) {
     const containerCards = document.getElementById("conatiner-cards-produto");
 
     const card = document.createElement("div");
@@ -340,13 +413,29 @@ function criarCardProduto(idProdFirebase, produto, categoria, preco, estoque, im
 
     const precoEl = document.createElement("p");
     precoEl.classList.add("info-produto");
-    precoEl.textContent = `Preço: R$ ${parseFloat(preco).toFixed(2)}`;
+    precoEl.textContent = `Cliente normal: R$ ${converterNumero(preco).toFixed(2)}`;
+
+    const descontoEl = document.createElement("p");
+    descontoEl.classList.add("info-produto");
+    descontoEl.textContent = `Desconto cooperado: ${converterNumero(descontoCooperado).toFixed(2)}%`;
+
+    const precoCooperadoEl = document.createElement("p");
+    precoCooperadoEl.classList.add("info-produto");
+    precoCooperadoEl.textContent = `Cooperado: R$ ${converterNumero(precoCooperado).toFixed(2)}`;
 
     const estoqueEl = document.createElement("p");
     estoqueEl.classList.add("info-produto");
     estoqueEl.textContent = `Estoque: ${estoque} unid.`;
 
-    infoDiv.append(nomeEl, categoriaEl, precoEl, estoqueEl);
+    infoDiv.append(
+        nomeEl,
+        categoriaEl,
+        precoEl,
+        descontoEl,
+        precoCooperadoEl,
+        estoqueEl
+    );
+
     containerData.append(img, infoDiv);
 
     const actionDiv = document.createElement("div");
@@ -375,12 +464,14 @@ function criarCardProduto(idProdFirebase, produto, categoria, preco, estoque, im
     });
 
     actionDiv.append(btnEditar, btnRemover);
+
     card.append(containerData, actionDiv);
     containerCards.append(card);
 }
 
-// ---------- Categorias ----------
+// ---------- CADASTRAR CATEGORIA ----------
 const btnAddCategoria = document.getElementById("btnAddCategoria");
+
 btnAddCategoria.addEventListener("click", async (event) => {
     event.preventDefault();
 
@@ -407,14 +498,17 @@ btnAddCategoria.addEventListener("click", async (event) => {
         };
 
         await push(categoriaRef, novaCategoria);
+
         alert("Categoria adicionada com sucesso!");
         fecharPopupAddCategoria();
+
     } catch (erro) {
         console.error("Erro ao adicionar categoria:", erro);
         alert("Erro ao adicionar categoria.");
     }
 });
 
+// ---------- CARREGAR CATEGORIAS ----------
 function carregarCategorias() {
     onValue(categoriaRef, (snapshot) => {
         const containerCards = document.getElementById("conatiner-cards-categoria");
@@ -468,6 +562,7 @@ function criarCardCategoria(idCategoriaFirebase, nomeCategoria, imagemCategoria)
     const btnRemover = document.createElement("button");
     btnRemover.textContent = "Remover";
     btnRemover.classList.add("btn-editar");
+
     btnRemover.addEventListener("click", async () => {
         if (!confirm("Tem certeza que deseja remover esta categoria? Todos os produtos dessa categoria também serão excluídos.")) return;
 
@@ -476,6 +571,7 @@ function criarCardCategoria(idCategoriaFirebase, nomeCategoria, imagemCategoria)
 
             if (snapshotProdutos.exists()) {
                 const produtos = snapshotProdutos.val();
+
                 for (let idProduto in produtos) {
                     if (produtos[idProduto].categoria === nomeCategoria) {
                         await remove(ref(db, `Cooperativas/${idCooperativa}/Produtos/${idProduto}`));
@@ -484,7 +580,9 @@ function criarCardCategoria(idCategoriaFirebase, nomeCategoria, imagemCategoria)
             }
 
             await remove(ref(db, `Cooperativas/${idCooperativa}/Categorias/${idCategoriaFirebase}`));
+
             alert("Categoria e produtos relacionados removidos com sucesso.");
+
         } catch (erro) {
             console.error("Erro ao remover categoria:", erro);
             alert("Erro ao remover categoria.");
@@ -492,13 +590,15 @@ function criarCardCategoria(idCategoriaFirebase, nomeCategoria, imagemCategoria)
     });
 
     actionDiv.append(btnRemover);
+
     card.append(containerData, actionDiv);
     containerCards.append(card);
 }
 
-// ---------- Função auxiliar para carregar categorias no select ----------
+// ---------- SELECT DE CATEGORIAS ----------
 async function carregarCategoriasSelect(selectId, categoriaSelecionada = "") {
     const selectCategoria = document.getElementById(selectId);
+
     if (!selectCategoria) return;
 
     selectCategoria.innerHTML = '<option value="">Selecione uma categoria</option>';
@@ -515,9 +615,11 @@ async function carregarCategoriasSelect(selectId, categoriaSelecionada = "") {
         const option = document.createElement("option");
         option.value = cat.categoria;
         option.textContent = cat.categoria;
+
         if (cat.categoria === categoriaSelecionada) {
             option.selected = true;
         }
+
         selectCategoria.appendChild(option);
     });
 }
