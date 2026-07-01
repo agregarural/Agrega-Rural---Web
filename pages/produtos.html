@@ -31,16 +31,12 @@
         <div class="listas">
             <div class="lista-produtos lista">
                 <h3>PRODUTOS CADASTRADOS:</h3>
-                <div id="conatiner-cards-produto">
-                    <!-- Cards de produtos inseridos via JS -->
-                </div>
+                <div id="conatiner-cards-produto"></div>
             </div>
 
             <div class="lista-categorias lista">
                 <h3>CATEGORIAS CADASTRADAS:</h3>
-                <div id="conatiner-cards-categoria">
-                    <!-- Cards de categorias inseridos via JS -->
-                </div>
+                <div id="conatiner-cards-categoria"></div>
             </div>
         </div>
     </div>
@@ -49,23 +45,34 @@
     <div class="overlay oculto" id="overlayAddProduto">
         <div class="popup" id="popupAddProduto">
             <h3>Cadastrar Novo Produto</h3>
+
             <form id="formularioAddProduto">
                 <label>Nome:</label>
                 <input id="nomeProduto" type="text" class="inputProduto" placeholder="Nome do produto">
+
                 <label>Categoria:</label>
                 <select id="selectCategorias" class="inputProduto">
                     <option value="">Selecione uma categoria</option>
                 </select>
-                <label>Preço de Venda:</label>
-                <input id="precoProduto" type="text" class="inputProduto" placeholder="0.00">
+
+                <label>Preço de Venda para cliente normal:</label>
+                <input id="precoProduto" type="text" class="inputProduto" placeholder="Ex: 100.00">
+
+                <label>Desconto para cooperado (%):</label>
+                <input id="descontoCooperadoProduto" type="number" min="0" max="100" step="0.01" class="inputProduto" placeholder="Ex: 10">
+
                 <label>Custo de produção:</label>
                 <input id="custoProducao" type="text" class="inputProduto" placeholder="0.00">
+
                 <label>Quantidade em Estoque:</label>
                 <input id="estoqueProduto" type="number" class="inputProduto" placeholder="0">
+
                 <label>Descrição:</label>
                 <textarea id="descricaoProduto" class="inputProduto" placeholder="Descrição do produto"></textarea>
+
                 <label>Imagem do produto:</label>
                 <input id="imagemProduto" type="file" class="inputImgProduto" name="Imagem" accept="image/*">
+
                 <button id="btnAddProduto" class="addProduto" type="button">Adicionar produto</button>
             </form>
         </div>
@@ -75,25 +82,37 @@
     <div class="overlay oculto" id="overlayEditProduto">
         <div class="popup" id="popupEditProduto">
             <h3>Editar Produto</h3>
+
             <form id="formularioEditProduto">
                 <label>Nome:</label>
                 <input id="editNomeProduto" type="text" class="inputProduto" placeholder="Nome do produto">
+
                 <label>Categoria:</label>
                 <select id="editSelectCategorias" class="inputProduto">
                     <option value="">Selecione uma categoria</option>
                 </select>
-                <label>Preço de Venda:</label>
+
+                <label>Preço de Venda para cliente normal:</label>
                 <input id="editPrecoProduto" type="text" class="inputProduto" placeholder="0.00">
+
+                <label>Desconto para cooperado (%):</label>
+                <input id="editDescontoCooperadoProduto" type="number" min="0" max="100" step="0.01" class="inputProduto" placeholder="Ex: 10">
+
                 <label>Custo de produção:</label>
                 <input id="editCustoProducao" type="text" class="inputProduto" placeholder="0.00">
+
                 <label>Quantidade em Estoque:</label>
                 <input id="editEstoqueProduto" type="number" class="inputProduto" placeholder="0">
+
                 <label>Descrição:</label>
                 <textarea id="editDescricaoProduto" class="inputProduto" placeholder="Descrição do produto"></textarea>
+
                 <label>Imagem atual:</label>
                 <img id="editPreviewImagem" src="" alt="Pré-visualização" style="max-width: 150px; margin: 5px; display: block;">
+
                 <label>Nova imagem (opcional):</label>
                 <input id="editImagemProduto" type="file" class="inputImgProduto" name="Imagem" accept="image/*">
+
                 <button id="btnSalvarEdicao" class="addProduto" type="button">Salvar alterações</button>
             </form>
         </div>
@@ -103,11 +122,14 @@
     <div class="overlay oculto" id="overlayAddCategoria">
         <div class="popup" id="popupAddCategoria">
             <h3>Cadastrar Nova Categoria</h3>
+
             <form id="formularioAddCategoria">
                 <label>Nome da Categoria:</label>
                 <input id="nomeCategoria" type="text" class="inputProduto" placeholder="Nome da categoria">
+
                 <input id="imagemCategoria" type="file" class="inputImgProduto" name="Imagem" accept="image/*">
-                <button id="btnAddCategoria" class="addProduto" type="submit">Adicionar categoria</button>
+
+                <button id="btnAddCategoria" class="addProduto" type="submit">Adicionae categoria</button>
             </form>
         </div>
     </div>
